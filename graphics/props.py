@@ -20,6 +20,13 @@
 from .options import *
 
 
+def interpolate(key1, key2):
+    interp = key1[2]
+
+    if interp == "CONSTANT":
+        return key1[1]
+
+
 class BoolProp:
     allowed_interps = ("CONSTANT",)
     default_interp = "CONSTANT"
@@ -45,3 +52,25 @@ class BoolProp:
             raise ValueError(f"Interpolation {interp} not allowed.")
         self._keyframes.append((frame, value, interp))
         self._keyframes.sort(key=lambda x: x[0])
+
+    def get_value(self, frame):
+        """
+        Gets property value at frame. Returns default_val if no keyframes exist.
+        :param frame: Frame to get value. The value will change based on the keyframes.
+        """
+        if len(self._keyframes) == 0:
+            return self._default_val
+        else:
+            if frame < self._keyframes[0][0]:
+                return self._keyframes[0][1]
+            else:
+                low_idx = len(self._keyframes) - 1
+                for i, key in enumerate(self._keyframes):
+                    if key[0] > frame:
+                        low_idx = i - 1
+                        break
+
+                if low_idx == len(self._keyframes) - 1:
+                    return self._keyframes[-1][1]
+                else:
+                    return interpolate(self._keyframes[low_idx], self._keyframes[low_idx+1])
