@@ -23,6 +23,11 @@ pygame.init()
 
 
 class Scene:
+    """Scene object."""
+
+    cam_loc: VectorProp
+    cam_xsize: FloatProp
+
     def __init__(self, cam_loc, cam_xsize, before_pause=10, after_pause=10):
         """
         Initializes scene.
