@@ -56,10 +56,10 @@ class Property:
         :param frame: Frame to get value. The value will change based on the keyframes.
         """
         if len(self._keyframes) == 0:
-            return self._default_val
+            rval = self._default_val
         else:
             if frame < self._keyframes[0][0]:
-                return self._keyframes[0][1]
+                rval = self._keyframes[0][1]
             else:
                 low_idx = len(self._keyframes) - 1
                 for i, key in enumerate(self._keyframes):
@@ -68,9 +68,11 @@ class Property:
                         break
 
                 if low_idx == len(self._keyframes) - 1:
-                    return self._keyframes[-1][1]
+                    rval = self._keyframes[-1][1]
                 else:
-                    return interpolate(self._keyframes[low_idx], self._keyframes[low_idx+1])
+                    rval = interpolate(self._keyframes[low_idx], self._keyframes[low_idx+1])
+
+        return self.type(rval)
 
 
 class BoolProp(Property):
