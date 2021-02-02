@@ -17,14 +17,32 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+from math import e
 from .options import *
 
 
-def interpolate(key1, key2):
-    interp = key1[2]
+class Keyframe:
+    def __init__(self, frame, value, interp):
+        self.frame = frame
+        self.value = value
+        self.interp = interp
 
-    if interp == "CONSTANT":
-        return key1[1]
+
+def interpolate(key1, key2, frame):
+    if key1.interp == "CONSTANT":
+        return key1.value
+
+    elif key1.interp == "LINEAR":
+        fac = (frame-key1.frame) / (key2.frame-key1.frame)
+        value = fac * (key2.value-key1.value) + key1.value
+        return value
+
+    elif key1.interp == "SIGMOID":
+        fac = 2 * (frame-key1.frame) / (key2.frame-key1.frame) * SIGMOID_XRANGE - SIGMOID_XRANGE
+        fac = 1 / (1 + e**(-1*fac))
+        fac = (fac-0.5) * SIGMOID_COMPENSATION + 0.5
+        value = fac * (key2.value-key1.value) + key1.value
+        return value
 
 
 class Property:
@@ -33,7 +51,7 @@ class Property:
         Initializes boolean property.
         :param default_val: Value to use when there are no keyframes.
         """
-        self._default_val = self.type(default_val)
+        self._default_val = self.dtype(default_val)
         self._keyframes = []
 
     def add_keyframe(self, frame, value, interp=None):
@@ -47,8 +65,8 @@ class Property:
             interp = self.default_interp
         if interp not in self.allowed_interps:
             raise ValueError(f"Interpolation {interp} not allowed.")
-        self._keyframes.append((frame, self.type(value), interp))
-        self._keyframes.sort(key=lambda x: x[0])
+        self._keyframes.append(Keyframe(frame, self.dtype(value), interp))
+        self._keyframes.sort(key=lambda x: x.frame)
 
     def get_value(self, frame):
         """
@@ -56,24 +74,44 @@ class Property:
         :param frame: Frame to get value. The value will change based on the keyframes.
         """
         if len(self._keyframes) == 0:
-            return self._default_val
+            rval = self._default_val
         else:
-            if frame < self._keyframes[0][0]:
-                return self._keyframes[0][1]
+            if frame < self._keyframes[0].frame:
+                rval = self._keyframes[0].value
             else:
                 low_idx = len(self._keyframes) - 1
                 for i, key in enumerate(self._keyframes):
-                    if key[0] > frame:
+                    if key.frame > frame:
                         low_idx = i - 1
                         break
 
                 if low_idx == len(self._keyframes) - 1:
-                    return self._keyframes[-1][1]
+                    rval = self._keyframes[-1].value
                 else:
-                    return interpolate(self._keyframes[low_idx], self._keyframes[low_idx+1])
+                    rval = interpolate(self._keyframes[low_idx], self._keyframes[low_idx+1], frame)
+
+        return self.dtype(rval)
 
 
 class BoolProp(Property):
-    type = bool
+    dtype = bool
+    default_interp = "CONSTANT"
+    allowed_interps = ("CONSTANT",)
+
+
+class IntProp(Property):
+    dtype = int
+    default_interp = "SIGMOID"
+    allowed_interps = ("LINEAR", "SIGMOID")
+
+
+class FloatProp(Property):
+    dtype = float
+    default_interp = "SIGMOID"
+    allowed_interps = ("LINEAR", "SIGMOID")
+
+
+class StringProp(Property):
+    dtype = str
     default_interp = "CONSTANT"
     allowed_interps = ("CONSTANT",)
