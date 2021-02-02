@@ -93,10 +93,49 @@ class Property:
         return self.dtype(rval)
 
 
+class VectorProp:
+    def __init__(self, length, type, init_val):
+        """
+        :param length: Length of vector property.
+        :param type: Type of property, e.g. BoolProp, IntProp, FloatProp...
+        :param init_val: Initial value of each index.
+        """
+        if not length >= 1:
+            raise ValueError("Length is too short.")
+        self.elements = [type(init_val) for _ in range(length)]
+        self.length = length
+
+    def __getitem__(self, index):
+        return self.elements[index]
+
+    def __repr__(self):
+        string = "["
+        for i in range(self.length):
+            string += self.elements[i].__repr__()
+            if i != self.length - 1:
+                string += ", "
+        string += "]"
+        return string
+
+    def keyframe(self, values, frame, interp=None):
+        """
+        :param values: List or Tuple of values to map to elements.
+        :param frame: Frame to keyframe.
+        :param interp: Interpolation. Uses default if set to None.
+        """
+        if not len(values) == self.length:
+            raise ValueError("Values length does not match.")
+        for i in range(self.length):
+            self.elements[i].add_keyframe(frame, values[i], interp)
+
+
 class BoolProp(Property):
     dtype = bool
     default_interp = "CONSTANT"
     allowed_interps = ("CONSTANT",)
+
+    def __repr__(self):
+        return f"<BoolProp object, default_val={self._default_val}>"
 
 
 class IntProp(Property):
@@ -104,14 +143,23 @@ class IntProp(Property):
     default_interp = "SIGMOID"
     allowed_interps = ("LINEAR", "SIGMOID")
 
+    def __repr__(self):
+        return f"<IntProp object, default_val={self._default_val}>"
+
 
 class FloatProp(Property):
     dtype = float
     default_interp = "SIGMOID"
     allowed_interps = ("LINEAR", "SIGMOID")
 
+    def __repr__(self):
+        return f"<FloatProp object, default_val={self._default_val}>"
+
 
 class StringProp(Property):
     dtype = str
     default_interp = "CONSTANT"
     allowed_interps = ("CONSTANT",)
+
+    def __repr__(self):
+        return f"<StringProp object, default_val={self._default_val}>"
