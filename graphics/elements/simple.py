@@ -74,7 +74,7 @@ class Rect:
         border_color = self.border_color.get_value(frame)
         antialias = self.antialias.get_value(frame)
 
-        if antialias:  # todo improve
+        if antialias and False:  # todo improve
             pygame.draw.rect(surface, (*color[:3], int(color[3]/2)), (loc[0]-1, loc[1]-1, size[0]+2, size[1]+2))
         pygame.draw.rect(surface, color, (*loc, *size))
         if border > 0:
