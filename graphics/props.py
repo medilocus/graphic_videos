@@ -17,6 +17,7 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+from math import e
 from .options import *
 
 
@@ -33,6 +34,14 @@ def interpolate(key1, key2, frame):
 
     elif key1.interp == "LINEAR":
         fac = (frame-key1.frame) / (key2.frame-key1.frame)
+        value = fac * (key2.value-key1.value) + key1.value
+        return value
+
+    elif key1.interp == "SIGMOID":
+        x_range = 3  # Sigmoid function starts moving from 0 to 1 noticably in the range (-3, 3)
+        fac = (frame-key1.frame) / (key2.frame-key1.frame) * x_range * 2
+        fac -= x_range
+        fac = 1 / (1 + e**(-1*fac))
         value = fac * (key2.value-key1.value) + key1.value
         return value
 
