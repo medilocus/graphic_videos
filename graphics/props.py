@@ -17,6 +17,21 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+from .options import *
+
+
+class Keyframe:
+    def __init__(self, frame, value, interpolation=DEFAULT_INTERPOLATION):
+        """
+        Initializes keyframe.
+        :param frame: Frame of the keyframe.
+        :param value: Value of the keyframe.
+        :param interpolation: Interpolation of this keyframe to the next (if it exists).
+        """
+        self.frame = frame
+        self.value = value
+        self.interpolation = interpolation
+
 
 class BoolProp:
     def __init__(self, default_val):
