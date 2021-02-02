@@ -88,22 +88,31 @@ class Circle:
 
     loc: VectorProp
     radius: IntProp
+    border: IntProp
     color: VectorProp
+    border_color: VectorProp
     antialias: BoolProp
 
-    def __init__(self, loc: Tuple[int], radius: int, color: Tuple[int], antialias: bool = True) -> None:
+    def __init__(self, loc: Tuple[int], radius: int, border: int, color: Tuple[int], border_color: Tuple[int], antialias: bool = True) -> None:
         """
         Initializes rectangle.
         :param loc: Center location (pixels) of circle.
         :param radius: Radius of circle (pixels).
+        :param border: Border of circle (pixels).
         :param color: Color (rgba, 0 to 255) of rectangle. The ALPHA will be set to 255 if no alpha is given.
+        :param border_color: Color of circle border.
         :param antialias: Whether to perform simple antialiasing when rendering.
         """
         if len(color) == 3:
             color = (*color, 255)
+        if len(border_color) == 3:
+            border_color = (*border_color, 255)
+
         self.loc = VectorProp(2, IntProp, loc)
         self.radius = IntProp(radius)
+        self.border = IntProp(border)
         self.color = VectorProp(4, IntProp, color)
+        self.border_color = VectorProp(4, IntProp, border_color)
         self.antialias = BoolProp(antialias)
 
     def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
@@ -120,11 +129,15 @@ class Circle:
 
         loc = self.loc.get_value(frame)
         radius = self.radius.get_value(frame)
+        border = self.border.get_value(frame)
         color = self.color.get_value(frame)
+        border_color = self.border_color.get_value(frame)
         antialias = self.antialias.get_value(frame)
 
-        if antialias:
+        if antialias and False:  # todo improve
             pygame.draw.circle(surface, (*color[:3], int(color[3]/2)), loc, radius+1)
         pygame.draw.circle(surface, color, loc, radius)
+        if border > 0:
+            pygame.draw.circle(surface, border_color, loc, radius, border)
 
         return surface
