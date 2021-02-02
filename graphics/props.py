@@ -98,11 +98,11 @@ class VectorProp:
         """
         :param length: Length of vector property.
         :param dtype: Type of property, e.g. BoolProp, IntProp, FloatProp...
-        :param init_val: Initial value of each index.
+        :param init_val: Initial value of each index, in the form (val0, val1, val2, ...)
         """
         if not length >= 1:
             raise ValueError("Length is too short.")
-        self.elements = [dtype(init_val) for _ in range(length)]
+        self.elements = [dtype(init_val[i]) for i in range(length)]
         self.length = length
         self.dtype = dtype
 
