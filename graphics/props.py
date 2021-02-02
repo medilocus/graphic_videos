@@ -94,16 +94,17 @@ class Property:
 
 
 class VectorProp:
-    def __init__(self, length, type, init_val):
+    def __init__(self, length, dtype, init_val):
         """
         :param length: Length of vector property.
-        :param type: Type of property, e.g. BoolProp, IntProp, FloatProp...
+        :param dtype: Type of property, e.g. BoolProp, IntProp, FloatProp...
         :param init_val: Initial value of each index.
         """
         if not length >= 1:
             raise ValueError("Length is too short.")
-        self.elements = [type(init_val) for _ in range(length)]
+        self.elements = [dtype(init_val) for _ in range(length)]
         self.length = length
+        self.dtype = dtype
 
     def __getitem__(self, index):
         return self.elements[index]
