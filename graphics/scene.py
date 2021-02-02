@@ -18,16 +18,29 @@
 #
 
 import pygame
+from .props import *
 pygame.init()
 
 
 class Scene:
-    def __init__(self, before_pause=10, after_pause=10):
+    def __init__(self, cam_loc, cam_xsize, before_pause=10, after_pause=10):
+        """
+        Initializes scene.
+        :param cam_loc: Location of the center of the camera.
+        :param cam_xsize: Size, NOT resolution (pixels) of the camera X. Decreasing this value is like zooming in.
+        :param before_pause: Pause (frames) before the scene starts.
+        :param after_pause: Pause (frames) after the scene starts.
+        """
         self._pause = (before_pause, after_pause)
         self._elements = []
+        self.cam_loc = VectorProp(2, IntProp, cam_loc)
+        self.cam_xsize = FloatProp(cam_xsize)
+
+    def add_element(self, element):
+        self._elements.append(element)
 
     def get_length(self):
         pass
 
-    def render(self, frame):
-        pass
+    def render(self, res, frame):
+        surface = pygame.Surface(res)
