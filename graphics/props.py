@@ -34,10 +34,27 @@ class Keyframe:
 
 
 class BoolProp:
+    allowed_interps = ("CONSTANT",)
+    default_interp = "CONSTANT"
+
     def __init__(self, default_val):
         """
         Initializes boolean property.
         :param default_val: Value to use when there are no keyframes.
         """
-        self.default_val = default_val
-        self.keyframes = []
+        self._default_val = bool(default_val)
+        self._keyframes = []
+
+    def add_keyframe(self, frame, value, interp=None):
+        """
+        Adds a keyframe and performs value checks.
+        :param frame: Frame to insert a keyframe.
+        :param value: Value of keyframe.
+        :param interp: Keyframe interpolation. Uses self.default_interp if set to None.
+        """
+        if interp is None:
+            interp = self.default_interp
+        if interp not in self.allowed_interps:
+            raise ValueError(f"Interpolation {interp} not allowed.")
+        self._keyframes.append((frame, value, interp))
+        self._keyframes.sort(key=lambda x: x[0])
