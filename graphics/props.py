@@ -43,7 +43,7 @@ class Property:
         Initializes boolean property.
         :param default_val: Value to use when there are no keyframes.
         """
-        self._default_val = self.type(default_val)
+        self._default_val = self.dtype(default_val)
         self._keyframes = []
 
     def add_keyframe(self, frame, value, interp=None):
@@ -57,7 +57,7 @@ class Property:
             interp = self.default_interp
         if interp not in self.allowed_interps:
             raise ValueError(f"Interpolation {interp} not allowed.")
-        self._keyframes.append(Keyframe(frame, self.type(value), interp))
+        self._keyframes.append(Keyframe(frame, self.dtype(value), interp))
         self._keyframes.sort(key=lambda x: x.frame)
 
     def get_value(self, frame):
@@ -82,16 +82,16 @@ class Property:
                 else:
                     rval = interpolate(self._keyframes[low_idx], self._keyframes[low_idx+1], frame)
 
-        return self.type(rval)
+        return self.dtype(rval)
 
 
 class BoolProp(Property):
-    type = bool
+    dtype = bool
     default_interp = "CONSTANT"
     allowed_interps = ("CONSTANT",)
 
 
 class IntProp(Property):
-    type = int
+    dtype = int
     default_interp = "SIGMOID"
     allowed_interps = ("LINEAR", "SIGMOID")
