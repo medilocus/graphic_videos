@@ -66,7 +66,7 @@ class Property:
     _default_val: Any
     _keyframes: Tuple[Keyframe]
 
-    def __init__(self, default_val: Any):
+    def __init__(self, default_val: Any) -> None:
         """
         Initializes boolean property.
         :param default_val: Value to use when there are no keyframes.
@@ -74,7 +74,7 @@ class Property:
         self._default_val = self.dtype(default_val)
         self._keyframes = []
 
-    def add_keyframe(self, frame: int, value: Any, interp: str = None):
+    def add_keyframe(self, frame: int, value: Any, interp: str = None) -> None:
         """
         Adds a keyframe and performs value checks.
         :param frame: Frame to insert a keyframe.
@@ -88,7 +88,7 @@ class Property:
         self._keyframes.append(Keyframe(frame, self.dtype(value), interp))
         self._keyframes.sort(key=lambda x: x.frame)
 
-    def get_value(self, frame: int):
+    def get_value(self, frame: int) -> Any:
         """
         Gets property value at frame. Returns default_val if no keyframes exist.
         :param frame: Frame to get value. The value will change based on the keyframes.
@@ -117,10 +117,10 @@ class VectorProp:
     """Vector property, a list of properties."""
 
     length: int
-    dtype: Any
-    elements: Tuple[Any]
+    dtype: Property
+    elements: Tuple[Property]
 
-    def __init__(self, length: int, dtype: Any, init_val: Any):
+    def __init__(self, length: int, dtype: Any, init_val: Any) -> None:
         """
         :param length: Length of vector property.
         :param dtype: Type of property, e.g. BoolProp, IntProp, FloatProp...
@@ -132,7 +132,7 @@ class VectorProp:
         self.length = length
         self.dtype = dtype
 
-    def __getitem__(self, index: int):
+    def __getitem__(self, index: int) -> Property:
         return self.elements[index]
 
     def __repr__(self):
@@ -144,7 +144,7 @@ class VectorProp:
         string += "]"
         return string
 
-    def keyframe(self, values: Tuple[Any], frame: int, interp: str = None):
+    def keyframe(self, values: Tuple[Any], frame: int, interp: str = None) -> None:
         """
         :param values: List or Tuple of values to map to elements.
         :param frame: Frame to keyframe.
@@ -155,7 +155,7 @@ class VectorProp:
         for i in range(self.length):
             self.elements[i].add_keyframe(frame, values[i], interp)
 
-    def get_value(self, frame: int):
+    def get_value(self, frame: int) -> Tuple[Any]:
         """
         Returs a list of the value of each prop.
         :param frame: Frame to get value. The value will change based on inserted keyframes.
