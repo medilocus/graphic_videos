@@ -18,12 +18,20 @@
 #
 
 import pygame
+from typing import Tuple
 from ..props import *
 pygame.init()
 
 
 class Rect:
-    def __init__(self, loc, size, color, antialias=True):
+    """Rectangle element."""
+
+    loc: VectorProp
+    size: VectorProp
+    color: VectorProp
+    antialias: BoolProp
+
+    def __init__(self, loc: Tuple[int], size: Tuple[int], color: Tuple[int], antialias: bool = True) -> None:
         """
         Initializes rectangle.
         :param loc: Top left corner location (pixels) of rectangle.
@@ -38,7 +46,7 @@ class Rect:
         self.color = VectorProp(4, IntProp, color)
         self.antialias = BoolProp(antialias)
 
-    def render(self, res, frame, transp=True):
+    def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
         """
         Renders the rectangle as a pygame.Surface.
         :param res: Output resolution.
