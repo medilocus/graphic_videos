@@ -17,18 +17,29 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+from typing import Any, Tuple
 from math import e
 from .options import *
 
 
 class Keyframe:
-    def __init__(self, frame, value, interp):
+    """Keyframe class, used for storing (frame, value, interp)"""
+
+    frame: int
+    value: Any
+    interp: str
+
+    def __init__(self, frame: int, value: Any, interp: str):
         self.frame = frame
         self.value = value
         self.interp = interp
 
 
 def interpolate(key1, key2, frame):
+    """
+    Calculates interpolation between two keyframes.
+    Meant for internal use.
+    """
     if key1.interp == "CONSTANT":
         return key1.value
 
@@ -46,7 +57,16 @@ def interpolate(key1, key2, frame):
 
 
 class Property:
-    def __init__(self, default_val):
+    """Base property class. BoolProp, IntProp... extends off of this."""
+
+    dtype: Any
+    default_interp: str
+    allowed_interps: Tuple[str]
+
+    _default_val: Any
+    _keyframes: Tuple[Keyframe]
+
+    def __init__(self, default_val: Any) -> None:
         """
         Initializes boolean property.
         :param default_val: Value to use when there are no keyframes.
@@ -54,7 +74,7 @@ class Property:
         self._default_val = self.dtype(default_val)
         self._keyframes = []
 
-    def add_keyframe(self, frame, value, interp=None):
+    def add_keyframe(self, frame: int, value: Any, interp: str = None) -> None:
         """
         Adds a keyframe and performs value checks.
         :param frame: Frame to insert a keyframe.
@@ -68,7 +88,7 @@ class Property:
         self._keyframes.append(Keyframe(frame, self.dtype(value), interp))
         self._keyframes.sort(key=lambda x: x.frame)
 
-    def get_value(self, frame):
+    def get_value(self, frame: int) -> Any:
         """
         Gets property value at frame. Returns default_val if no keyframes exist.
         :param frame: Frame to get value. The value will change based on the keyframes.
@@ -94,19 +114,25 @@ class Property:
 
 
 class VectorProp:
-    def __init__(self, length, dtype, init_val):
+    """Vector property, a list of properties."""
+
+    length: int
+    dtype: Property
+    elements: Tuple[Property]
+
+    def __init__(self, length: int, dtype: Any, init_val: Any) -> None:
         """
         :param length: Length of vector property.
         :param dtype: Type of property, e.g. BoolProp, IntProp, FloatProp...
-        :param init_val: Initial value of each index.
+        :param init_val: Initial value of each index, in the form (val0, val1, val2, ...)
         """
         if not length >= 1:
             raise ValueError("Length is too short.")
-        self.elements = [dtype(init_val) for _ in range(length)]
+        self.elements = [dtype(init_val[i]) for i in range(length)]
         self.length = length
         self.dtype = dtype
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int) -> Property:
         return self.elements[index]
 
     def __repr__(self):
@@ -118,7 +144,7 @@ class VectorProp:
         string += "]"
         return string
 
-    def keyframe(self, values, frame, interp=None):
+    def keyframe(self, values: Tuple[Any], frame: int, interp: str = None) -> None:
         """
         :param values: List or Tuple of values to map to elements.
         :param frame: Frame to keyframe.
@@ -128,6 +154,13 @@ class VectorProp:
             raise ValueError("Values length does not match.")
         for i in range(self.length):
             self.elements[i].add_keyframe(frame, values[i], interp)
+
+    def get_value(self, frame: int) -> Tuple[Any]:
+        """
+        Returs a list of the value of each prop.
+        :param frame: Frame to get value. The value will change based on inserted keyframes.
+        """
+        return [p.get_value(frame) for p in self.elements]
 
 
 class BoolProp(Property):
