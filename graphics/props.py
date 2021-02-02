@@ -104,3 +104,9 @@ class IntProp(Property):
     dtype = int
     default_interp = "SIGMOID"
     allowed_interps = ("LINEAR", "SIGMOID")
+
+
+class FloatProp(Property):
+    dtype = float
+    default_interp = "SIGMOID"
+    allowed_interps = ("LINEAR", "SIGMOID")
