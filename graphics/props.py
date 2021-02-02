@@ -50,7 +50,7 @@ class BoolProp:
             interp = self.default_interp
         if interp not in self.allowed_interps:
             raise ValueError(f"Interpolation {interp} not allowed.")
-        self._keyframes.append((frame, value, interp))
+        self._keyframes.append((frame, bool(value), interp))
         self._keyframes.sort(key=lambda x: x[0])
 
     def get_value(self, frame):
