@@ -129,6 +129,13 @@ class VectorProp:
         for i in range(self.length):
             self.elements[i].add_keyframe(frame, values[i], interp)
 
+    def get_value(self, frame):
+        """
+        Returs a list of the value of each prop.
+        :param frame: Frame to get value. The value will change based on inserted keyframes.
+        """
+        return [p.get_value(frame) for p in self.elements]
+
 
 class BoolProp(Property):
     dtype = bool
