@@ -93,6 +93,33 @@ class Property:
         return self.dtype(rval)
 
 
+class VectorProp:
+    def __init__(self, length, type, init_val):
+        """
+        :param length: Length of vector property.
+        :param type: Type of property, e.g. BoolProp, IntProp, FloatProp...
+        :param init_val: Initial value of each index.
+        """
+        if not length >= 1:
+            raise ValueError("Length is too short.")
+        self.elements = [type(init_val) for _ in range(length)]
+        self.length = length
+
+    def __getitem__(self, index):
+        return self.elements[index]
+
+    def keyframe(self, values, frame, interp=None):
+        """
+        :param values: List or Tuple of values to map to elements.
+        :param frame: Frame to keyframe.
+        :param interp: Interpolation. Uses default if set to None.
+        """
+        if not len(values) == self.length:
+            raise ValueError("Values length does not match.")
+        for i in range(self.length):
+            self.elements[i].add_keyframe(frame, values[i], interp)
+
+
 class BoolProp(Property):
     dtype = bool
     default_interp = "CONSTANT"
