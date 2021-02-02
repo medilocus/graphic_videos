@@ -77,3 +77,9 @@ class BoolProp(Property):
     type = bool
     default_interp = "CONSTANT"
     allowed_interps = ("CONSTANT",)
+
+
+class IntProp(Property):
+    type = int
+    default_interp = "SIGMOID"
+    allowed_interps = ("LINEAR", "SIGMOID")
