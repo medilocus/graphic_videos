@@ -20,11 +20,16 @@
 from .options import *
 
 
-def interpolate(key1, key2):
-    interp = key1[2]
+class Keyframe:
+    def __init__(self, frame, value, interp):
+        self.frame = frame
+        self.value = value
+        self.interp = interp
 
-    if interp == "CONSTANT":
-        return key1[1]
+
+def interpolate(key1, key2):
+    if key1.interp == "CONSTANT":
+        return key1.value
 
 
 class Property:
@@ -47,8 +52,8 @@ class Property:
             interp = self.default_interp
         if interp not in self.allowed_interps:
             raise ValueError(f"Interpolation {interp} not allowed.")
-        self._keyframes.append((frame, self.type(value), interp))
-        self._keyframes.sort(key=lambda x: x[0])
+        self._keyframes.append(Keyframe(frame, self.type(value), interp))
+        self._keyframes.sort(key=lambda x: x.frame)
 
     def get_value(self, frame):
         """
@@ -58,17 +63,17 @@ class Property:
         if len(self._keyframes) == 0:
             rval = self._default_val
         else:
-            if frame < self._keyframes[0][0]:
-                rval = self._keyframes[0][1]
+            if frame < self._keyframes[0].frame:
+                rval = self._keyframes[0].value
             else:
                 low_idx = len(self._keyframes) - 1
                 for i, key in enumerate(self._keyframes):
-                    if key[0] > frame:
+                    if key.frame > frame:
                         low_idx = i - 1
                         break
 
                 if low_idx == len(self._keyframes) - 1:
-                    rval = self._keyframes[-1][1]
+                    rval = self._keyframes[-1].value
                 else:
                     rval = interpolate(self._keyframes[low_idx], self._keyframes[low_idx+1])
 
