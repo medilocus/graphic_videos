@@ -108,6 +108,15 @@ class VectorProp:
     def __getitem__(self, index):
         return self.elements[index]
 
+    def __repr__(self):
+        string = "["
+        for i in range(self.length):
+            string += self.elements[i].__repr__()
+            if i != self.length - 1:
+                string += ", "
+        string += "]"
+        return string
+
     def keyframe(self, values, frame, interp=None):
         """
         :param values: List or Tuple of values to map to elements.
@@ -125,11 +134,17 @@ class BoolProp(Property):
     default_interp = "CONSTANT"
     allowed_interps = ("CONSTANT",)
 
+    def __repr__(self):
+        return f"<BoolProp object, default_val={self._default_val}>"
+
 
 class IntProp(Property):
     dtype = int
     default_interp = "SIGMOID"
     allowed_interps = ("LINEAR", "SIGMOID")
+
+    def __repr__(self):
+        return f"<IntProp object, default_val={self._default_val}>"
 
 
 class FloatProp(Property):
@@ -137,8 +152,14 @@ class FloatProp(Property):
     default_interp = "SIGMOID"
     allowed_interps = ("LINEAR", "SIGMOID")
 
+    def __repr__(self):
+        return f"<FloatProp object, default_val={self._default_val}>"
+
 
 class StringProp(Property):
     dtype = str
     default_interp = "CONSTANT"
     allowed_interps = ("CONSTANT",)
+
+    def __repr__(self):
+        return f"<StringProp object, default_val={self._default_val}>"
