@@ -141,3 +141,55 @@ class Circle:
             pygame.draw.circle(surface, border_color, loc, radius, border)
 
         return surface
+
+
+class Line:
+    """Line element."""
+
+    loc1: VectorProp
+    loc2: VectorProp
+    thickness: IntProp
+    color: VectorProp
+    antialias: BoolProp
+
+    def __init__(self, loc1: Tuple[int], loc2: Tuple[int], thickness: int, color: Tuple[int], antialias: bool = True):
+        """
+        Initializes line.
+        :param loc1: Location (x, y) of the first point.
+        :param loc2: Location (x, y) of the second point.
+        :param thickness: Thickness (pixels) of line.
+        :param color: Color (RGB) of line.
+        :param antialias: Whether to perform simple antialiasing when rendering.
+        """
+        if len(color) == 3:
+            color = (*color, 255)
+
+        self.loc1 = VectorProp(2, IntProp, loc1)
+        self.loc2 = VectorProp(2, IntProp, loc2)
+        self.thickness = IntProp(thickness)
+        self.color = VectorProp(4, IntProp, color)
+        self.antialias = BoolProp(antialias)
+
+    def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
+        """
+        Renders the rectangle as a pygame.Surface.
+        :param res: Output resolution.
+        :param frame: Frame to render.
+        :param transp: Background transparent?
+        """
+        if transp:
+            surface = pygame.Surface(res, pygame.SRCALPHA)
+        else:
+            surface = pygame.Surface(res)
+
+        loc1 = self.loc1.get_value(frame)
+        loc2 = self.loc2.get_value(frame)
+        thickness = self.thickness.get_value(frame)
+        color = self.color.get_value(frame)
+        antialias = self.antialias.get_value(frame)
+
+        if antialias and False:  # todo improve
+            pass
+        pygame.draw.line(surface, color, loc1, loc2, thickness)
+
+        return surface
