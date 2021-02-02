@@ -27,9 +27,14 @@ class Keyframe:
         self.interp = interp
 
 
-def interpolate(key1, key2):
+def interpolate(key1, key2, frame):
     if key1.interp == "CONSTANT":
         return key1.value
+
+    elif key1.interp == "LINEAR":
+        fac = (frame-key1.frame) / (key2.frame-key1.frame)
+        value = fac * (key2.value-key1.value) + key1.value
+        return value
 
 
 class Property:
@@ -75,7 +80,7 @@ class Property:
                 if low_idx == len(self._keyframes) - 1:
                     rval = self._keyframes[-1].value
                 else:
-                    rval = interpolate(self._keyframes[low_idx], self._keyframes[low_idx+1])
+                    rval = interpolate(self._keyframes[low_idx], self._keyframes[low_idx+1], frame)
 
         return self.type(rval)
 
