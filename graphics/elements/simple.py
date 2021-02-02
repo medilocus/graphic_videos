@@ -68,3 +68,50 @@ class Rect:
         pygame.draw.rect(surface, color, (*loc, *size))
 
         return surface
+
+
+class Circle:
+    """Circle element."""
+
+    loc: VectorProp
+    radius: IntProp
+    color: VectorProp
+    antialias: BoolProp
+
+    def __init__(self, loc: Tuple[int], radius: int, color: Tuple[int], antialias: bool = True) -> None:
+        """
+        Initializes rectangle.
+        :param loc: Center location (pixels) of circle.
+        :param radius: Radius of circle (pixels).
+        :param color: Color (rgba, 0 to 255) of rectangle. The ALPHA will be set to 255 if no alpha is given.
+        :param antialias: Whether to perform simple antialiasing when rendering.
+        """
+        if len(color) == 3:
+            color = (*color, 255)
+        self.loc = VectorProp(2, IntProp, loc)
+        self.radius = IntProp(radius)
+        self.color = VectorProp(4, IntProp, color)
+        self.antialias = BoolProp(antialias)
+
+    def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
+        """
+        Renders the rectangle as a pygame.Surface.
+        :param res: Output resolution.
+        :param frame: Frame to render.
+        :param transp: Background transparent?
+        """
+        if transp:
+            surface = pygame.Surface(res, pygame.SRCALPHA)
+        else:
+            surface = pygame.Surface(res)
+
+        loc = self.loc.get_value(frame)
+        radius = self.radius.get_value(frame)
+        color = self.color.get_value(frame)
+        antialias = self.antialias.get_value(frame)
+
+        if antialias:
+            pygame.draw.circle(surface, (*color[:3], int(color[3]/2)), loc, radius+1)
+        pygame.draw.circle(surface, color, loc, radius)
+
+        return surface
