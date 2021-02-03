@@ -95,11 +95,11 @@ class Circle:
 
     def __init__(self, loc: Tuple[int], radius: int, border: int, color: Tuple[int], border_color: Tuple[int], antialias: bool = True) -> None:
         """
-        Initializes rectangle.
+        Initializes circle.
         :param loc: Center location (pixels) of circle.
         :param radius: Radius of circle (pixels).
         :param border: Border of circle (pixels).
-        :param color: Color (rgba, 0 to 255) of rectangle. The ALPHA will be set to 255 if no alpha is given.
+        :param color: Color (rgba, 0 to 255) of circle. The ALPHA will be set to 255 if no alpha is given.
         :param border_color: Color of circle border.
         :param antialias: Whether to perform simple antialiasing when rendering.
         """
@@ -117,7 +117,7 @@ class Circle:
 
     def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
         """
-        Renders the rectangle as a pygame.Surface.
+        Renders the circle as a pygame.Surface.
         :param res: Output resolution.
         :param frame: Frame to render.
         :param transp: Background transparent?
@@ -172,7 +172,7 @@ class Line:
 
     def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
         """
-        Renders the rectangle as a pygame.Surface.
+        Renders the line as a pygame.Surface.
         :param res: Output resolution.
         :param frame: Frame to render.
         :param transp: Background transparent?
