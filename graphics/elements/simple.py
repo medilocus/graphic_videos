@@ -23,6 +23,14 @@ from ..props import *
 pygame.init()
 
 
+class BaseElement:
+    """
+    Empty element, NOT for inheritance.
+    This is for type definitions and referencing the structure of an element.
+    """
+    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:...
+
+
 class Rect:
     """Rectangle element."""
 
