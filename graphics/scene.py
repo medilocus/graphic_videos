@@ -25,7 +25,7 @@ pygame.init()
 class Scene:
     """Scene object."""
 
-    def __init__(self, before_pause=10, after_pause=10):
+    def __init__(self, before_pause=30, after_pause=30):
         """
         Initializes scene.
         :param before_pause: Pause (frames) before the scene starts.
@@ -43,5 +43,5 @@ class Scene:
     def render(self, res, frame):
         surface = pygame.Surface(res)
         for element in self._elements:
-            surface.blit(element.render(res, frame), (0, 0))
+            surface.blit(element.render(res, frame-self._pause[0]), (0, 0))
         return surface
