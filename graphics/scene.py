@@ -50,7 +50,7 @@ class Scene:
         """
         Returns a list of all frames to render.
         """
-        return list(range(self._start, self._end+1, self.step))
+        return list(range(self._start, self._end+sum(self._pause), self._step))
 
     def add_element(self, element: BaseElement) -> None:
         self._elements.append(element)
