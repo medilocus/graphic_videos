@@ -29,13 +29,13 @@ class Keyframe:
     value: Any
     interp: str
 
-    def __init__(self, frame: int, value: Any, interp: str):
+    def __init__(self, frame: int, value: Any, interp: str) -> None:
         self.frame = frame
         self.value = value
         self.interp = interp
 
 
-def interpolate(key1, key2, frame):
+def interpolate(key1: Keyframe, key2: Keyframe, frame: int) -> Any:
     """
     Calculates interpolation between two keyframes.
     Meant for internal use.
@@ -48,12 +48,30 @@ def interpolate(key1, key2, frame):
         value = fac * (key2.value-key1.value) + key1.value
         return value
 
+    elif key1.interp == "PARABOLIC":
+        fac = (frame-key1.frame) / (key2.frame-key1.frame)
+        para_max = PARABOLA_XMAX ** 2
+        if fac > 0.5:
+            fac = 1 - fac
+            fac = (PARABOLA_XMAX/0.5 * fac) ** 2
+            fac = -1 * fac / 2 / para_max
+            fac += 1
+        else:
+            fac = (PARABOLA_XMAX/0.5 * fac) ** 2
+            fac = fac / 2 / para_max
+        value = fac * (key2.value-key1.value) + key1.value
+        return value
+
     elif key1.interp == "SIGMOID":
+        raise ValueError("Using the SIGMOID interpolation may produce unexpected results.\n    Please use PARABOLIC instead.")
         fac = 2 * (frame-key1.frame) / (key2.frame-key1.frame) * SIGMOID_XRANGE - SIGMOID_XRANGE
         fac = 1 / (1 + e**(-1*fac))
         fac = (fac-0.5) * SIGMOID_COMPENSATION + 0.5
         value = fac * (key2.value-key1.value) + key1.value
         return value
+
+    else:
+        raise NotImplementedError(f"Interpolation {key1.interp} is not supported.")
 
 
 class Property:
@@ -174,8 +192,8 @@ class BoolProp(Property):
 
 class IntProp(Property):
     dtype = int
-    default_interp = "SIGMOID"
-    allowed_interps = ("LINEAR", "SIGMOID")
+    default_interp = "PARABOLIC"
+    allowed_interps = ("LINEAR", "PARABOLIC", "SIGMOID")
 
     def __repr__(self):
         return f"<IntProp object, default_val={self._default_val}>"
@@ -183,8 +201,8 @@ class IntProp(Property):
 
 class FloatProp(Property):
     dtype = float
-    default_interp = "SIGMOID"
-    allowed_interps = ("LINEAR", "SIGMOID")
+    default_interp = "PARABOLIC"
+    allowed_interps = ("LINEAR", "PARABOLIC", "SIGMOID")
 
     def __repr__(self):
         return f"<FloatProp object, default_val={self._default_val}>"
