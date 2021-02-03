@@ -198,4 +198,12 @@ class Line:
 class Polygon:
     """Polygon element."""
 
+    verts: Tuple[VectorProp]
+    border: IntProp
+    color: VectorProp
+    border_color: VectorProp
+    offset: VectorProp
+    antialias: BoolProp
+
     def __init__(self, verts: Tuple[Tuple[int]], border: int, color: Tuple[int], border_color: Tuple[int], offset: Tuple[int], antialias: bool = True):
+        pass
