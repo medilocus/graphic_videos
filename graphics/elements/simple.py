@@ -196,5 +196,6 @@ class Line:
 
 
 class Polygon:
+    """Polygon element."""
+
     def __init__(self, verts: Tuple[Tuple[int]], border: int, color: Tuple[int], border_color: Tuple[int], offset: Tuple[int], antialias: bool = True):
-        pass
