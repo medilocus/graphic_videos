@@ -20,3 +20,5 @@
 from . import options
 from . import props
 from . import elements
+from . import export
+from .scene import Scene
