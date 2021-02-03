@@ -21,6 +21,8 @@ import sys
 
 
 class Printer:
+    """Simplifies sys.stdout and clearing stdout line."""
+
     def __init__(self):
         self.max_len = 0
 
