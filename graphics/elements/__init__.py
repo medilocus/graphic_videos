@@ -17,4 +17,15 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+import pygame
+from typing import Tuple
 from . import simple
+pygame.init()
+
+
+class BaseElement:
+    """
+    Empty element, NOT for inheritance.
+    This is for type definitions and referencing the structure of an element.
+    """
+    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:...
