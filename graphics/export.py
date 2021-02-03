@@ -22,8 +22,9 @@ import cv2
 from . import options
 
 
-def export(resolution, fps, scenes):
+def export_sc(resolution, fps, scenes):
     """
+    Single core export.
     :param resolution: Resolution of video.
     :param fps: FPS of video.
     :param scenes: List of scenes to export in order.
