@@ -28,12 +28,14 @@ class Printer:
 
     def write(self, msg):
         sys.stdout.write(msg)
+        sys.stdout.flush()
         self.max_len = max(len(msg), self.max_len)
 
     def clearline(self):
         sys.stdout.write("\r")
         sys.stdout.write(" "*self.max_len)
         sys.stdout.write("\r")
+        sys.stdout.flush()
 
 
 printer = Printer()
