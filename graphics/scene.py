@@ -28,10 +28,11 @@ class Scene:
 
     _start: int
     _end: int
+    _step: int
     _pause: Tuple[int]
     _elements: List[BaseElement]
 
-    def __init__(self, start: int, end: int, before_pause: int = 30, after_pause: int = 30) -> None:
+    def __init__(self, start: int, end: int, step: int, before_pause: int = 30, after_pause: int = 30) -> None:
         """
         Initializes scene.
         :param start: Start frame of scene.
@@ -41,8 +42,15 @@ class Scene:
         """
         self._start = start
         self._end = end
+        self._step = step
         self._pause = (before_pause, after_pause)
         self._elements = []
+
+    def get_frames(self) -> List[int]:
+        """
+        Returns a list of all frames to render.
+        """
+        return list(range(self._start, self._end+1, self.step))
 
     def add_element(self, element: BaseElement) -> None:
         self._elements.append(element)
