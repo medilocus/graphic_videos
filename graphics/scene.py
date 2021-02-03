@@ -42,3 +42,6 @@ class Scene:
 
     def render(self, res, frame):
         surface = pygame.Surface(res)
+        for element in self._elements:
+            surface.blit(element.render(res, frame), (0, 0))
+        return surface
