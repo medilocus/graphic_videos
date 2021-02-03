@@ -49,6 +49,7 @@ def interpolate(key1, key2, frame):
         return value
 
     elif key1.interp == "SIGMOID":
+        raise ValueError("Using the SIGMOID interpolation may produce unexpected results.\n    Please use PARABOLIC instead.")
         fac = 2 * (frame-key1.frame) / (key2.frame-key1.frame) * SIGMOID_XRANGE - SIGMOID_XRANGE
         fac = 1 / (1 + e**(-1*fac))
         fac = (fac-0.5) * SIGMOID_COMPENSATION + 0.5
