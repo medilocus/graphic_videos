@@ -32,3 +32,16 @@ def export_sc(resolution: Tuple, fps: int, scenes: Tuple[Scene], path: str) -> N
     :param scenes: List of scenes to export in order of appearance.
     :param path: Output path of final video (must be .mp4 for now).
     """
+    if not path.endswith(".mp4"):
+        raise ValueError("Path must be an MP4 (.mp4) file.")
+
+    video = cv2.VideoWriter(path, cv2.VideoWriter_fourcc(*"MPEG"), fps, resolution)
+    total_frames = 0
+    for scene in scenes:
+        for frame in scene.get_frames():
+            surface = scene.render(resolution, frame)
+            surface = pygame.transform.rotate(pygame.transform.flip(surface, False, True), -90)
+            image = cv2.cvtColor(pygame.surfarray.array3d(surface), cv2.COLOR_RGB2BGR)
+            video.write(image)
+
+    video.release()
