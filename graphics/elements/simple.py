@@ -33,8 +33,8 @@ class Rect:
     border_color: VectorProp
     antialias: BoolProp
 
-    def __init__(self, loc: Tuple[int], size: Tuple[int], border: int, color: Tuple[int],
-            border_color: Tuple[int] = (0, 0, 0), antialias: bool = True) -> None:
+    def __init__(self, loc: Tuple[int], size: Tuple[int], color: Tuple[int], border: int = 0,
+            border_color: Tuple[int] = (255, 255, 255), antialias: bool = True) -> None:
         """
         Initializes rectangle.
         :param loc: Top left corner location (pixels) of rectangle.
@@ -94,8 +94,8 @@ class Circle:
     border_color: VectorProp
     antialias: BoolProp
 
-    def __init__(self, loc: Tuple[int], radius: int, border: int, color: Tuple[int],
-            border_color: Tuple[int] = (0, 0, 0), antialias: bool = True) -> None:
+    def __init__(self, loc: Tuple[int], radius: int, color: Tuple[int], border: int = 0,
+            border_color: Tuple[int] = (255, 255, 255), antialias: bool = True) -> None:
         """
         Initializes circle.
         :param loc: Center location (pixels) of circle.
@@ -207,7 +207,8 @@ class Polygon:
     offset: VectorProp
     antialias: BoolProp
 
-    def __init__(self, verts: Tuple[Tuple[int]], border: int, color: Tuple[int], border_color: Tuple[int], offset: Tuple[int], antialias: bool = True):
+    def __init__(self, verts: Tuple[Tuple[int]], color: Tuple[int], border: int = 0,
+            border_color: Tuple[int] = (255, 255, 255), offset: Tuple[int] = (0, 0), antialias: bool = True):
         """
         Initializes polygon.
         :param verts: List of verts of polygon in the form ((x1, y1), (x2, y2), (x3, y3), ...).
