@@ -17,8 +17,8 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-import pygame
 from typing import List, Tuple
+import pygame
 from .elements import BaseElement
 pygame.init()
 
