@@ -18,34 +18,37 @@
 #
 
 import pygame
-from .props import *
+from typing import List, Tuple
+from .elements import BaseElement
 pygame.init()
 
 
 class Scene:
     """Scene object."""
 
-    cam_loc: VectorProp
-    cam_xsize: FloatProp
+    _start: int
+    _end: int
+    _pause: Tuple[int]
+    _elements: List[BaseElement]
 
-    def __init__(self, cam_loc, cam_xsize, before_pause=10, after_pause=10):
+    def __init__(self, start: int, end: int, before_pause: int = 30, after_pause: int = 30) -> None:
         """
         Initializes scene.
-        :param cam_loc: Location of the center of the camera.
-        :param cam_xsize: Size, NOT resolution (pixels) of the camera X. Decreasing this value is like zooming in.
+        :param start: Start frame of scene.
+        :param end: End frame of scene.
         :param before_pause: Pause (frames) before the scene starts.
         :param after_pause: Pause (frames) after the scene starts.
         """
+        self._start = start
+        self._end = end
         self._pause = (before_pause, after_pause)
         self._elements = []
-        self.cam_loc = VectorProp(2, IntProp, cam_loc)
-        self.cam_xsize = FloatProp(cam_xsize)
 
-    def add_element(self, element):
+    def add_element(self, element: BaseElement) -> None:
         self._elements.append(element)
-
-    def get_length(self):
-        pass
 
     def render(self, res, frame):
         surface = pygame.Surface(res)
+        for element in self._elements:
+            surface.blit(element.render(res, frame-self._pause[0]), (0, 0))
+        return surface
