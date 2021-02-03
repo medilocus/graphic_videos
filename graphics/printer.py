@@ -17,15 +17,25 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from typing import Tuple
-import pygame
-from . import simple
-pygame.init()
+import sys
 
 
-class BaseElement:
-    """
-    Empty element, NOT for inheritance.
-    This is for type definitions and referencing the structure of an element.
-    """
-    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:...
+class Printer:
+    """Simplifies sys.stdout and clearing stdout line."""
+
+    def __init__(self):
+        self.max_len = 0
+
+    def write(self, msg):
+        sys.stdout.write(msg)
+        sys.stdout.flush()
+        self.max_len = max(len(msg), self.max_len)
+
+    def clearline(self):
+        sys.stdout.write("\r")
+        sys.stdout.write(" "*self.max_len)
+        sys.stdout.write("\r")
+        sys.stdout.flush()
+
+
+printer = Printer()

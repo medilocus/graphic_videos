@@ -17,14 +17,42 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+from typing import Tuple
+import time
 import pygame
 import cv2
 from . import options
+from .scene import Scene
+from .printer import printer
 
 
-def export(resolution, fps, scenes):
+def export_sc(resolution: Tuple, fps: int, scenes: Tuple[Scene], path: str, print: bool = True) -> None:
     """
+    Single core export.
     :param resolution: Resolution of video.
     :param fps: FPS of video.
-    :param scenes: List of scenes to export in order.
+    :param scenes: List of scenes to export in order of appearance.
+    :param path: Output path of final video (must be .mp4 for now).
+    :param print: Whether to show information prints.
     """
+    if not path.endswith(".mp4"):
+        raise ValueError("Path must be an MP4 (.mp4) file.")
+
+    video = cv2.VideoWriter(path, cv2.VideoWriter_fourcc(*"MPEG"), fps, resolution)
+    total_frames = 0
+    for scene in scenes:
+        for frame in scene.get_frames():
+            if print:
+                printer.clearline()
+                printer.write(f"[GRAPHICS] Exporting video: {total_frames} frames encoded.")
+            total_frames += 1
+
+            surface = scene.render(resolution, frame)
+            surface = pygame.transform.rotate(pygame.transform.flip(surface, False, True), -90)
+            image = cv2.cvtColor(pygame.surfarray.array3d(surface), cv2.COLOR_RGB2BGR)
+            video.write(image)
+
+    video.release()
+    if print:
+        printer.clearline()
+        printer.write("[GRAPHICS] Exporting video: Finished\n")

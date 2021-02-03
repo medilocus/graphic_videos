@@ -17,8 +17,8 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-import pygame
 from typing import Tuple
+import pygame
 from ..props import *
 pygame.init()
 
@@ -33,7 +33,8 @@ class Rect:
     border_color: VectorProp
     antialias: BoolProp
 
-    def __init__(self, loc: Tuple[int], size: Tuple[int], border: int, color: Tuple[int], border_color: Tuple[int], antialias: bool = True) -> None:
+    def __init__(self, loc: Tuple[int], size: Tuple[int], border: int, color: Tuple[int],
+            border_color: Tuple[int] = (0, 0, 0), antialias: bool = True) -> None:
         """
         Initializes rectangle.
         :param loc: Top left corner location (pixels) of rectangle.
@@ -93,7 +94,8 @@ class Circle:
     border_color: VectorProp
     antialias: BoolProp
 
-    def __init__(self, loc: Tuple[int], radius: int, border: int, color: Tuple[int], border_color: Tuple[int], antialias: bool = True) -> None:
+    def __init__(self, loc: Tuple[int], radius: int, border: int, color: Tuple[int],
+            border_color: Tuple[int] = (0, 0, 0), antialias: bool = True) -> None:
         """
         Initializes circle.
         :param loc: Center location (pixels) of circle.
