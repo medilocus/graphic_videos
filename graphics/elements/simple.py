@@ -206,4 +206,44 @@ class Polygon:
     antialias: BoolProp
 
     def __init__(self, verts: Tuple[Tuple[int]], border: int, color: Tuple[int], border_color: Tuple[int], offset: Tuple[int], antialias: bool = True):
-        pass
+        """
+        Initializes polygon.
+        :param verts: List of verts of polygon in the form ((x1, y1), (x2, y2), (x3, y3), ...).
+        :param border: Border of polygon (pixels).
+        :param color: Color (rgba, 0 to 255) of polygon. The ALPHA will be set to 255 if no alpha is given.
+        :param border_color: Color of polygon border.
+        :param offset: Offset all the verts by this value in the form (x, y).
+        :param antialias: Whether to perform simple antialiasing when rendering.
+        """
+        if len(color) == 3:
+            color = (*color, 255)
+        if len(border_color) == 3:
+            border_color = (*border_color, 255)
+
+        self.verts = [VectorProp(2, IntProp, vert) for vert in verts]
+        self.border = IntProp(border)
+        self.color = VectorProp(4, IntProp, color)
+        self.border_color = VectorProp(4, IntProp, border_color)
+        self.offset = VectorProp(2, IntProp, offset)
+        self.antialias = BoolProp(antialias)
+
+    def render(self, res: Tuple[int], frame: int, transp: bool = True):
+        if transp:
+            surface = pygame.Surface(res, pygame.SRCALPHA)
+        else:
+            surface = pygame.Surface(res)
+
+        border = self.border.get_value(frame)
+        color = self.color.get_value(frame)
+        border_color = self.border_color.get_value(frame)
+        offset = self.offset.get_value(frame)
+        antialias = self.antialias.get_value(frame)
+        verts = [(vx + offset[0], vy + offset[1]) for v in self.verts for vx, vy in v.get_value(frame)]
+
+        if antialias and False:  # todo improve
+            pygame.draw.polygon(surface, (*color[:3], int(color[3]/2)), verts)
+        pygame.draw.polygon(surface, color, verts)
+        if border > 0:
+            pygame.draw.polygon(surface, border_color, verts, border)
+
+        return surface
