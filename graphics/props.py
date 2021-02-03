@@ -175,8 +175,8 @@ class BoolProp(Property):
 
 class IntProp(Property):
     dtype = int
-    default_interp = "SIGMOID"
-    allowed_interps = ("LINEAR", "SIGMOID")
+    default_interp = "PARABOLIC"
+    allowed_interps = ("LINEAR", "PARABOLIC", "SIGMOID")
 
     def __repr__(self):
         return f"<IntProp object, default_val={self._default_val}>"
@@ -184,8 +184,8 @@ class IntProp(Property):
 
 class FloatProp(Property):
     dtype = float
-    default_interp = "SIGMOID"
-    allowed_interps = ("LINEAR", "SIGMOID")
+    default_interp = "PARABOLIC"
+    allowed_interps = ("LINEAR", "PARABOLIC", "SIGMOID")
 
     def __repr__(self):
         return f"<FloatProp object, default_val={self._default_val}>"
