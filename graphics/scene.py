@@ -24,14 +24,16 @@ pygame.init()
 class Scene:
     """Scene object."""
 
-    def __init__(self, length, before_pause=30, after_pause=30):
+    def __init__(self, start, end, before_pause=30, after_pause=30):
         """
         Initializes scene.
-        :param length: Total length (frames) of scene.
+        :param start: Start frame of scene.
+        :param end: End frame of scene.
         :param before_pause: Pause (frames) before the scene starts.
         :param after_pause: Pause (frames) after the scene starts.
         """
-        self._length = length
+        self._start = start
+        self._end = end
         self._pause = (before_pause, after_pause)
         self._elements = []
 
