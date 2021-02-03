@@ -18,13 +18,20 @@
 #
 
 import pygame
+from typing import List, Tuple
+from .elements import BaseElement
 pygame.init()
 
 
 class Scene:
     """Scene object."""
 
-    def __init__(self, start, end, before_pause=30, after_pause=30):
+    _start: int
+    _end: int
+    _pause: Tuple[int]
+    _elements: List[BaseElement]
+
+    def __init__(self, start: int, end: int, before_pause: int = 30, after_pause: int = 30) -> None:
         """
         Initializes scene.
         :param start: Start frame of scene.
@@ -37,7 +44,7 @@ class Scene:
         self._pause = (before_pause, after_pause)
         self._elements = []
 
-    def add_element(self, element):
+    def add_element(self, element: BaseElement) -> None:
         self._elements.append(element)
 
     def render(self, res, frame):
