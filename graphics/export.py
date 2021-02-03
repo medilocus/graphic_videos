@@ -17,15 +17,18 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+from typing import Tuple
 import pygame
 import cv2
 from . import options
+from .scene import Scene
 
 
-def export_sc(resolution, fps, scenes):
+def export_sc(resolution: Tuple, fps: int, scenes: Tuple[Scene], path: str) -> None:
     """
     Single core export.
     :param resolution: Resolution of video.
     :param fps: FPS of video.
-    :param scenes: List of scenes to export in order.
+    :param scenes: List of scenes to export in order of appearance.
+    :param path: Output path of final video (must be .mp4 for now).
     """
