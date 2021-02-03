@@ -193,3 +193,8 @@ class Line:
         pygame.draw.line(surface, color, loc1, loc2, thickness)
 
         return surface
+
+
+class Polygon:
+    def __init__(self, verts: Tuple[Tuple[int]], border: int, color: Tuple[int], border_color: Tuple[int], offset: Tuple[int], antialias: bool = True):
+        pass
