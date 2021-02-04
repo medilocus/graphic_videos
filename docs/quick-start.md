@@ -13,5 +13,25 @@ new_folder     # The new folder you created
 |__ main.py    # New Python file.
 ```
 
+## Inside the main Python file
+<!-- Add info links. -->
+Follow this structure:
+``` python
+import graphics   # This imports the copied folder.
+
+frame_start = 0
+frame_end = 60
+frame_step = 1
+
+rectangle = graphics.elements.simple.Rect((10, 10), (300, 100), (255, 255, 255))
+rectangle.loc.keyframe((10, 10), 0)
+rectangle.loc.keyframe((500, 100), 60)
+
+scene = graphics.Scene(frame_start, frame_end, frame_step)
+scene.add_element(rectangle)
+
+graphics.export.export_sc((1280, 720), 30, [scene], "out.mp4")
+```
+
 
 [latestzip]: https://github.com/medilocus/graphic_videos/archive/main.zip
