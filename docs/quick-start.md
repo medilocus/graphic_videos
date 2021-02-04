@@ -1,5 +1,7 @@
 # Quick Start
 
+[Back to home][home]
+
 ## Setting Up Files
 1. Download the [latest zip file][latestzip] and extract it somewhere.
 2. Inside the extracted zip, you will find a folder titled **graphics**.
@@ -34,4 +36,5 @@ graphics.export.export_sc((1280, 720), 30, [scene], "out.mp4")
 ```
 
 
+[home]: https://medilocus.github.io/graphic_videos/
 [latestzip]: https://github.com/medilocus/graphic_videos/archive/main.zip
