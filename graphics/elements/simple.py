@@ -284,6 +284,7 @@ class Text:
 
         font = pygame.font.SysFont(font_family, size)
         text = font.render(text_str, antialias, color)
+        loc = [loc[i] - text.get_size()[i]//2 for i in range(2)]
         surface.blit(text, loc)
 
         return surface
