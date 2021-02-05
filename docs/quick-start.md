@@ -8,6 +8,7 @@
 3. Make a new folder for a new animation.
 4. Copy the graphics folder from the zip into the new folder.
 5. Make a new Python file in the new folder.
+
 Your folder structure should look like this:
 ```
 new_folder     # The new folder you created
@@ -18,6 +19,7 @@ new_folder     # The new folder you created
 ## Inside the main Python file
 <!-- Add info links. -->
 Follow this structure:
+
 ``` python
 import graphics   # This imports the copied folder.
 

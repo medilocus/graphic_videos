@@ -3,10 +3,14 @@
 An API for creating graphic videos in Python.
 
 ## Getting Started
-[Quick Start][quickstart] <br>
-[Detailed Documentation][documentation] <br>
-[Extending Graphic Videos][extending] <br>
-[About][about] <br>
+
+[Quick Start][quickstart]
+
+[Detailed Documentation][documentation]
+
+[Extending Graphic Videos][extending]
+
+[About][about]
 
 
 [quickstart]: https://medilocus.github.io/graphic_videos/quick-start
