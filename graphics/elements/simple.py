@@ -152,7 +152,8 @@ class Line:
     color: VectorProp
     antialias: BoolProp
 
-    def __init__(self, loc1: Tuple[int], loc2: Tuple[int], thickness: int, color: Tuple[int], antialias: bool = True):
+    def __init__(self, loc1: Tuple[int], loc2: Tuple[int], thickness: int,
+            color: Tuple[int], antialias: bool = True) -> None:
         """
         Initializes line.
         :param loc1: Location (x, y) of the first point.
@@ -203,8 +204,8 @@ class Polygon:
     offset: VectorProp
     antialias: BoolProp
 
-    def __init__(self, verts: Tuple[Tuple[int]], color: Tuple[int], border: int = 0,
-            border_color: Tuple[int] = (255, 255, 255), offset: Tuple[int] = (0, 0), antialias: bool = True):
+    def __init__(self, verts: Tuple[Tuple[int]], color: Tuple[int], border: int = 0, border_color: Tuple[int] = (255, 255, 255),
+            offset: Tuple[int] = (0, 0), antialias: bool = True) -> None:
         """
         Initializes polygon.
         :param verts: List of verts of polygon in the form ((x1, y1), (x2, y2), (x3, y3), ...).
@@ -226,7 +227,7 @@ class Polygon:
         self.offset = VectorProp(2, IntProp, offset)
         self.antialias = BoolProp(antialias)
 
-    def render(self, res: Tuple[int], frame: int, transp: bool = True):
+    def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
         if transp:
             surface = pygame.Surface(res, pygame.SRCALPHA)
         else:
@@ -242,5 +243,47 @@ class Polygon:
         pygame.draw.polygon(surface, color, verts)
         if border > 0:
             pygame.draw.polygon(surface, border_color, verts, border)
+
+        return surface
+
+
+class Text:
+    """Text element."""
+
+    loc: VectorProp
+    color: VectorProp
+    font: StringProp
+    text: StringProp
+    size: IntProp
+    antialias: BoolProp
+
+    def __init__(self, loc: Tuple[int], color: Tuple[int], font: str,
+            text: str, size: int, antialias: bool = True) -> None:
+        if len(color) == 3:
+            color = (*color, 255)
+
+        self.loc = VectorProp(2, IntProp, loc)
+        self.color = VectorProp(4, IntProp, color)
+        self.font = StringProp(font)
+        self.text = StringProp(text)
+        self.size = IntProp(size)
+        self.antialias = BoolProp(antialias)
+
+    def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
+        if transp:
+            surface = pygame.Surface(res, pygame.SRCALPHA)
+        else:
+            surface = pygame.Surface(res)
+
+        loc = self.loc.get_value(frame)
+        color = self.color.get_value(frame)
+        font_family = self.font.get_value(frame)
+        text_str = self.text.get_value(frame)
+        size = self.size.get_value(frame)
+        antialias = self.antialias.get_value(frame)
+
+        font = pygame.font.SysFont(font_family, size)
+        text = font.render(text_str, antialias, color)
+        surface.blit(text, loc)
 
         return surface
