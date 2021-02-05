@@ -37,6 +37,7 @@ class Scene:
         Initializes scene.
         :param start: Start frame of scene.
         :param end: End frame of scene.
+        :param step: Frame step.
         :param before_pause: Pause (frames) before the scene starts.
         :param after_pause: Pause (frames) after the scene starts.
         """
