@@ -22,6 +22,8 @@ import pygame
 from ..props import *
 pygame.init()
 
+# todo antialiasing
+
 
 class Rect:
     """Rectangle element."""
@@ -75,8 +77,6 @@ class Rect:
         border_color = self.border_color.get_value(frame)
         antialias = self.antialias.get_value(frame)
 
-        if antialias and False:  # todo improve
-            pygame.draw.rect(surface, (*color[:3], int(color[3]/2)), (loc[0]-1, loc[1]-1, size[0]+2, size[1]+2))
         pygame.draw.rect(surface, color, (*loc, *size))
         if border > 0:
             pygame.draw.rect(surface, border_color, (*loc, *size), border)
@@ -136,8 +136,6 @@ class Circle:
         border_color = self.border_color.get_value(frame)
         antialias = self.antialias.get_value(frame)
 
-        if antialias and False:  # todo improve
-            pygame.draw.circle(surface, (*color[:3], int(color[3]/2)), loc, radius+1)
         pygame.draw.circle(surface, color, loc, radius)
         if border > 0:
             pygame.draw.circle(surface, border_color, loc, radius, border)
@@ -190,8 +188,6 @@ class Line:
         color = self.color.get_value(frame)
         antialias = self.antialias.get_value(frame)
 
-        if antialias and False:  # todo improve
-            pass
         pygame.draw.line(surface, color, loc1, loc2, thickness)
 
         return surface
@@ -243,8 +239,6 @@ class Polygon:
         antialias = self.antialias.get_value(frame)
         verts = [(vx + offset[0], vy + offset[1]) for v in self.verts for vx, vy in v.get_value(frame)]
 
-        if antialias and False:  # todo improve
-            pygame.draw.polygon(surface, (*color[:3], int(color[3]/2)), verts)
         pygame.draw.polygon(surface, color, verts)
         if border > 0:
             pygame.draw.polygon(surface, border_color, verts, border)
