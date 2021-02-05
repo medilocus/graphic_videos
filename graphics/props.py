@@ -92,7 +92,7 @@ class Property:
         self._default_val = self.dtype(default_val)
         self._keyframes = []
 
-    def keyframe(self, frame: int, value: Any, interp: str = None) -> None:
+    def keyframe(self, value: Any, frame: int, interp: str = None) -> None:
         """
         Adds a keyframe and performs value checks.
         :param frame: Frame to insert a keyframe.
@@ -171,7 +171,7 @@ class VectorProp:
         if not len(values) == self.length:
             raise ValueError("Values length does not match.")
         for i in range(self.length):
-            self.elements[i].keyframe(frame, values[i], interp)
+            self.elements[i].keyframe(values[i], frame, interp)
 
     def get_value(self, frame: int) -> Tuple[Any]:
         """
