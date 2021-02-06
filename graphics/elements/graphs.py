@@ -28,8 +28,10 @@ class BarGraphVert:
 
     loc: VectorProp
     size: VectorProp
+    choices: Tuple[StringProp]
+    colors: Tuple[VectorProp]
     border: IntProp
     border_color: VectorProp
 
-    def __init__(self, loc: Tuple[int], size: Tuple[int], border: int, border_color: int):
+    def __init__(self, loc: Tuple[int], size: Tuple[int], choices: Tuple[str], colors: Tuple[Tuple[int]] = None, border: int = 4, border_color: int = (0, 0, 0)):
         pass
