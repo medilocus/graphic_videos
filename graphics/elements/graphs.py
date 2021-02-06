@@ -34,6 +34,8 @@ class BarGraphVert:
     border_color: VectorProp
 
     def __init__(self, loc: Tuple[int], size: Tuple[int], choices: Tuple[str], colors: Tuple[Tuple[int]] = None, border: int = 4, border_color: int = (0, 0, 0)):
+        if len(choices) != len(colors):
+            raise ValueError(f"The length of choices, {len(choices)} must be equal to the length of colors, {len(colors)}")
         self.loc = VectorProp(2, IntProp, loc)
         self.size = VectorProp(2, IntProp, size)
         self.choices = [StringProp(choices[i]) for i in range(len(choices))]
