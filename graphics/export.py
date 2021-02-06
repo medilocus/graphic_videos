@@ -39,9 +39,9 @@ def export_sc(resolution: Tuple, fps: int, scenes: Tuple[Scene], path: str, prin
         raise ValueError("Path must be an MP4 (.mp4) file.")
 
     video = cv2.VideoWriter(path, cv2.VideoWriter_fourcc(*"MPEG"), fps, resolution)
-    total_frames = 0
     for i, scene in enumerate(scenes):
         scene_num_frames = len(scene.get_frames())
+        total_frames = 1
         for frame in scene.get_frames():
             if print:
                 printer.clearline()
