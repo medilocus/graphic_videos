@@ -32,7 +32,7 @@ class Scene:
     _pause: Tuple[int]
     _elements: List[BaseElement]
 
-    def __init__(self, start: int, end: int, step: int, before_pause: int = 30, after_pause: int = 30) -> None:
+    def __init__(self, start: int, end: int, step: int = 1, before_pause: int = 30, after_pause: int = 30) -> None:
         """
         Initializes scene.
         :param start: Start frame of scene.
