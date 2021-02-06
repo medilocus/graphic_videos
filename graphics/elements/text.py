@@ -32,14 +32,14 @@ class TitleHoriz:
     text1: Text
     text2: Text
 
-    def __init__(self, frame_start: int, frame_len: int = 90, loc: Tuple[int] = (0, 0), size: Tuple[int] = (1920, 1080),
-            font: str = DEFAULT_FONT, font_size: int = 24, text1: str = "Text 1", text2: str = "Text 2",
+    def __init__(self, frame_start: int, frame_len: int = 120, loc: Tuple[int] = (0, 0), size: Tuple[int] = (1920, 1080),
+            font: str = DEFAULT_FONT, font_size_1: int = 36, font_size_2: int = 36, text1: str = "Text 1", text2: str = "Text 2",
             text_col: Tuple[int] = (255, 255, 255)) -> None:
 
         self.loc = loc
         self.size = size
-        self.text1 = Text((0, 0), text_col, font, text1, font_size)
-        self.text2 = Text((0, 0), text_col, font, text2, font_size)
+        self.text1 = Text((0, 0), text_col, font, text1, font_size_1)
+        self.text2 = Text((0, 0), text_col, font, text2, font_size_2)
 
         self.text1.loc.keyframe((-100, size[1]//3), frame_start, interp="LINEAR")
         self.text1.loc.keyframe((size[0]//2-75, size[1]//3), frame_start+frame_len//3, interp="LINEAR")
@@ -57,7 +57,7 @@ class TitleHoriz:
         else:
             surface = pygame.Surface(res)
 
-        subsurf = pygame.Surface(self.size)
+        subsurf = pygame.Surface(self.size, pygame.SRCALPHA)
         subsurf.blit(self.text1.render(res, frame), (0, 0))
         subsurf.blit(self.text2.render(res, frame), (0, 0))
 
