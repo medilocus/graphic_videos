@@ -41,15 +41,17 @@ class TitleHoriz:
         self.text1 = Text((0, 0), text_col, font, text1, font_size_1)
         self.text2 = Text((0, 0), text_col, font, text2, font_size_2)
 
-        self.text1.loc.keyframe((-100, size[1]//3), frame_start, interp="LINEAR")
-        self.text1.loc.keyframe((size[0]//2-75, size[1]//3), frame_start+frame_len//3, interp="LINEAR")
-        self.text1.loc.keyframe((size[0]//2+75, size[1]//3), frame_start+frame_len//1.5, interp="LINEAR")
-        self.text1.loc.keyframe((size[0]+100, size[1]//3), frame_start+frame_len, interp="LINEAR")
+        width = self.text1.get_size()[0]
+        self.text1.loc.keyframe((width//-1.5, size[1]//3), frame_start, interp="LINEAR")
+        self.text1.loc.keyframe((size[0]//2-size[0]//15, size[1]//3), frame_start+frame_len//3, interp="LINEAR")
+        self.text1.loc.keyframe((size[0]//2+size[0]//15, size[1]//3), frame_start+frame_len//1.5, interp="LINEAR")
+        self.text1.loc.keyframe((size[0]+width//1.5, size[1]//3), frame_start+frame_len, interp="LINEAR")
 
-        self.text2.loc.keyframe((size[0]+100, size[1]//1.5), frame_start, interp="LINEAR")
-        self.text2.loc.keyframe((size[0]//2+75, size[1]//1.5), frame_start+frame_len//3, interp="LINEAR")
-        self.text2.loc.keyframe((size[0]//2-75, size[1]//1.5), frame_start+frame_len//1.5, interp="LINEAR")
-        self.text2.loc.keyframe((-100, size[1]//1.5), frame_start+frame_len, interp="LINEAR")
+        width = self.text2.get_size()[0]
+        self.text2.loc.keyframe((size[0]+width//1.5, size[1]//1.5), frame_start, interp="LINEAR")
+        self.text2.loc.keyframe((size[0]//2+size[0]//15, size[1]//1.5), frame_start+frame_len//3, interp="LINEAR")
+        self.text2.loc.keyframe((size[0]//2-size[0]//15, size[1]//1.5), frame_start+frame_len//1.5, interp="LINEAR")
+        self.text2.loc.keyframe((width//-1.5, size[1]//1.5), frame_start+frame_len, interp="LINEAR")
 
     def render(self, res: Tuple[int], frame: int, transp: bool = True):
         if transp:
