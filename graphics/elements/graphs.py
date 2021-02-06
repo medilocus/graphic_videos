@@ -24,4 +24,5 @@ pygame.init()
 
 
 class BarGraphVert:
-    pass
+    def __init__(self, loc: Tuple[int], size: Tuple[int], border: int, border_color: int):
+        pass
