@@ -53,6 +53,9 @@ def export_sc(resolution: Tuple, fps: int, scenes: Tuple[Scene], path: str, prin
             image = cv2.cvtColor(pygame.surfarray.array3d(surface), cv2.COLOR_RGB2BGR)
             video.write(image)
 
+        if print:
+            printer.newline()
+
     video.release()
     if print:
         printer.clearline()

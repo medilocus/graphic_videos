@@ -37,5 +37,9 @@ class Printer:
         sys.stdout.write("\r")
         sys.stdout.flush()
 
+    def newline(self):
+        sys.stdout.write("\n")
+        sys.stdout.flush()
+
 
 printer = Printer()
