@@ -40,11 +40,12 @@ def export_sc(resolution: Tuple, fps: int, scenes: Tuple[Scene], path: str, prin
 
     video = cv2.VideoWriter(path, cv2.VideoWriter_fourcc(*"MPEG"), fps, resolution)
     total_frames = 0
-    for scene in scenes:
+    for i, scene in enumerate(scenes):
+        scene_num_frames = len(scene.get_frames())
         for frame in scene.get_frames():
             if print:
                 printer.clearline()
-                printer.write(f"[GRAPHICS] Exporting video: {total_frames} frames encoded.")
+                printer.write(f"[GRAPHICS] Exporting video: Scene {i+1}/{len(scenes)}: {total_frames}/{scene_num_frames} frames encoded.")
             total_frames += 1
 
             surface = scene.render(resolution, frame)
