@@ -30,6 +30,7 @@ class BarGraphVert:
     loc: VectorProp
     size: VectorProp
     categories: Tuple[StringProp]
+    values: Tuple[IntProp]
     colors: Tuple[VectorProp]
     border: IntProp
     border_color: VectorProp
@@ -40,6 +41,7 @@ class BarGraphVert:
         :param loc: Top left corner location (pixels) of vertical bar graph.
         :param size: Size (x, y) pixels of vertical bar graph.
         :param categories: The name of each category of vertical bar graph. This will be a column.
+        :param values: The initializing values for each category.
         :param colors: Colors (rgba, 0 to 255) of each choice of vertical bar graph. The ALPHA will be set to 255 if no alpha is given. None will make all colors random.
         :param border: Border width (pixels) of the axes of vertical bar graph.
         :param border_color: Border color of vertical bar graph.
