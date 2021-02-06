@@ -24,5 +24,12 @@ pygame.init()
 
 
 class BarGraphVert:
+    """Vertical Bar Graph element."""
+
+    loc: VectorProp
+    size: VectorProp
+    border: IntProp
+    border_color: VectorProp
+
     def __init__(self, loc: Tuple[int], size: Tuple[int], border: int, border_color: int):
         pass
