@@ -23,3 +23,5 @@ SIGMOID_XRANGE = 3  # Sigmoid function starts moving from 0 to 1 noticeably in t
 SIGMOID_COMPENSATION = 1 + e**((1-3**0.5) * SIGMOID_XRANGE)  # todo give explanation
 
 PARABOLA_XMAX = 2
+
+DEFAULT_FONT = "ubuntu"

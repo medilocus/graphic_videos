@@ -20,6 +20,7 @@
 from typing import Tuple
 import pygame
 from . import simple
+from . import text
 pygame.init()
 
 
