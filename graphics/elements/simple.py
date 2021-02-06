@@ -269,6 +269,16 @@ class Text:
         self.size = IntProp(size)
         self.antialias = BoolProp(antialias)
 
+    def get_size(self, frame: int = 0) -> Tuple[int]:
+        font_family = self.font.get_value(frame)
+        text_str = self.text.get_value(frame)
+        size = self.size.get_value(frame)
+
+        font = pygame.font.SysFont(font_family, size)
+        text = font.render(text_str, True, (0, 0, 0))
+
+        return text.get_size()
+
     def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
         if transp:
             surface = pygame.Surface(res, pygame.SRCALPHA)
