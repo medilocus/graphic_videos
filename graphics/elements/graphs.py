@@ -34,4 +34,9 @@ class BarGraphVert:
     border_color: VectorProp
 
     def __init__(self, loc: Tuple[int], size: Tuple[int], choices: Tuple[str], colors: Tuple[Tuple[int]] = None, border: int = 4, border_color: int = (0, 0, 0)):
-        pass
+        self.loc = VectorProp(2, IntProp, loc)
+        self.size = VectorProp(2, IntProp, size)
+        self.choices = [StringProp(choices[i]) for i in range(len(choices))]
+        self.colors = [VectorProp(4, IntProp, (*colors[i], 255) if len(colors[i]) == 3 else colors[i]) for i in range(len(colors))]
+        self.border = IntProp(border)
+        self.border_color = VectorProp(2, IntProp, border_color)
