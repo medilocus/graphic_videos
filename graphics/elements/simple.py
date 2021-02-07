@@ -17,6 +17,7 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+import os
 from typing import Tuple
 import pygame
 from ..props import *
@@ -278,6 +279,14 @@ class Text:
         self.size = IntProp(size)
         self.antialias = BoolProp(antialias)
 
+    def get_font(self, frame):
+        font_family = self.font.get_value(frame)
+        font_size = self.size.get_value(frame)
+        if os.path.isfile(font_family):
+            return pygame.font.Font(font_family, font_size)
+        else:
+            return pygame.font.SysFont(font_family, font_size)
+
     def get_size(self, frame: int = 0) -> Tuple[int]:
         font_family = self.font.get_value(frame)
         text_str = self.text.get_value(frame)
@@ -296,12 +305,10 @@ class Text:
 
         loc = self.loc.get_value(frame)
         color = self.color.get_value(frame)
-        font_family = self.font.get_value(frame)
         text_str = self.text.get_value(frame)
-        size = self.size.get_value(frame)
         antialias = self.antialias.get_value(frame)
 
-        font = pygame.font.SysFont(font_family, size)
+        font = self.get_font(frame)
         text = font.render(text_str, antialias, color)
         loc = [loc[i] - text.get_size()[i]//2 for i in range(2)]
         surface.blit(text, loc)
