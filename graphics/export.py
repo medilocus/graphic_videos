@@ -17,6 +17,8 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+import sys
+import subprocess
 from typing import Tuple
 import pygame
 import cv2
@@ -25,7 +27,7 @@ from .scene import Scene
 from .printer import printer
 
 
-def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str, print: bool = True) -> None:
+def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str, print: bool = True, notify: bool = True) -> None:
     """
     Single core export.
     :param resolution: Resolution of video.
@@ -59,3 +61,13 @@ def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
     if print:
         printer.clearline()
         printer.write("[GRAPHICS] Exporting video: Finished\n")
+    if notify:
+        notify()
+
+
+def notify():
+    if sys.platform == "linux":
+        subprocess.Popen(["notify-send", "Graphic Videos", "Finished exporting an animation!"]).wait()
+    elif sys.platform == "windows":
+        from win10toast import ToastNotifier
+        ToastNotifier().show_toast("Graphic Videos", "Finished exporting an animation!", duration=10)
