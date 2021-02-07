@@ -355,12 +355,13 @@ class Image:
 class Video:
     """Video element."""
     # todo speed
-    # todo efficiency
 
     loc: VectorProp
     size: VectorProp
     speed: FloatProp
     src: str
+    video: Any
+    last_frame: int
 
     def __init__(self, loc: Tuple[int], size: Tuple[int], src: str, speed: int = 1):
         """
@@ -375,22 +376,30 @@ class Video:
         self.speed = FloatProp(speed)
         self.src = src
 
+        self.video = cv2.VideoCapture(self.src)
+        self.last_frame = None
+
     def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
         if transp:
             surface = pygame.Surface(res, pygame.SRCALPHA)
         else:
             surface = pygame.Surface(res)
 
-        video = cv2.VideoCapture(self.src)
-        success, image = video.read()
-        count = 0
+        if self.last_frame is not None and frame > self.last_frame:
+            curr_frame = self.last_frame
+        else:
+            self.video = cv2.VideoCapture(self.src)
+            curr_frame = 0
+
         surf = None
+        success, image = self.video.read()
         while success:
-            success, image = video.read()
-            if count >= frame:
+            if curr_frame >= frame:
                 surf = pygame.image.frombuffer(image.tostring(), image.shape[1::-1], "RGB")
+                self.last_frame = curr_frame
                 break
-            count += 1
+            curr_frame += 1
+        # todo check surf is None
 
         loc = self.loc.get_value(frame)
         size = self.size.get_value(frame)
