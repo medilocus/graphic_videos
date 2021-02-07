@@ -373,6 +373,7 @@ class Video:
         success, image = self.video.read()
         while success:
             if curr_frame >= frame*self.speed:
+                image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                 surf = pygame.image.frombuffer(image.tostring(), image.shape[1::-1], "RGB")
                 self.last_frame = curr_frame
                 break
