@@ -61,7 +61,7 @@ Interpolation is the way of moving from one value to another.
 Linear interpolation, for example, is moving at the exact same speed the whole time.
 The `graphics` module supports a few types of interpolation, stated below.
 
-The documentation below for different types of interpolation are written based on this setup:
+The documentation below for different types of interpolation is written based on this setup:
 
 ``` python
 import graphics
@@ -89,3 +89,9 @@ for i in range(6):
 Some props do not support some interpolations.
 For example, StringProp does not support Linear or Quadratic,
 because it is unclear how to interpolate between two strings.
+
+To control the type of interpolation, pass it as an argument while keyframing:
+
+``` python
+my_prop.keyframe(0, 0, "LINEAR")
+```
