@@ -17,6 +17,16 @@ There are also many advanced elements, like text effects.
 
 Detailed documentation [here][elementdoc].
 
+## Keyframes
+
+Keyframes are used to add changes in your elements over time.
+Each element has many animatable properties which are animated with keyframes.
+
+As an example, a circle has a size property, which defines its radius. This can be animated with keyframes.
+
+Detailed documentation is [here][keyframedoc].
+
 
 [scenedoc]: https://medilocus.github.io/graphic_videos/four-zero-four
 [elementdoc]: https://medilocus.github.io/graphic_videos/four-zero-four
+[keyframedoc]: https://medilocus.github.io/graphic_videos/four-zero-four
