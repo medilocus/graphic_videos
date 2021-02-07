@@ -354,6 +354,8 @@ class Image:
 
 class Video:
     """Video element."""
+    # todo speed
+    # todo efficiency
 
     loc: VectorProp
     size: VectorProp
