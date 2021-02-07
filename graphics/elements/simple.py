@@ -339,12 +339,12 @@ class Video:
 
     loc: VectorProp
     size: VectorProp
-    speed: FloatProp
+    speed: float
     src: str
     video: Any
     last_frame: int
 
-    def __init__(self, loc: Tuple[int], size: Tuple[int], src: str, speed: int = 1):
+    def __init__(self, loc: Tuple[int], size: Tuple[int], src: str, speed: float = 1):
         """
         Initializes video.
         :param loc: Location of top left corner of video.
@@ -354,7 +354,7 @@ class Video:
         """
         self.loc = VectorProp(2, IntProp, loc)
         self.size = VectorProp(2, IntProp, size)
-        self.speed = FloatProp(speed)
+        self.speed = speed
         self.src = src
 
         self.video = cv2.VideoCapture(self.src)
@@ -363,7 +363,7 @@ class Video:
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
-        if self.last_frame is not None and frame > self.last_frame:
+        if self.last_frame is not None and frame*self.speed > self.last_frame:
             curr_frame = self.last_frame
         else:
             self.video = cv2.VideoCapture(self.src)
@@ -372,13 +372,12 @@ class Video:
         surf = None
         success, image = self.video.read()
         while success:
-            if curr_frame >= frame:
+            if curr_frame >= frame*self.speed:
                 surf = pygame.image.frombuffer(image.tostring(), image.shape[1::-1], "RGB")
                 self.last_frame = curr_frame
                 break
             success, image = self.video.read()
-            curr_speed = self.speed.get_value(curr_frame)
-            curr_frame += 1/curr_speed
+            curr_frame += 1
 
         loc = self.loc.get_value(frame)
         size = self.size.get_value(frame)
