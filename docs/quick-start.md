@@ -27,6 +27,6 @@ As an example, a circle has a size property, which defines its radius. This can 
 Detailed documentation is [here][keyframedoc].
 
 
-[scenedoc]: https://medilocus.github.io/graphic_videos/four-zero-four
-[elementdoc]: https://medilocus.github.io/graphic_videos/four-zero-four
+[scenedoc]: https://medilocus.github.io/graphic_videos/scene
+[elementdoc]: https://medilocus.github.io/graphic_videos/elements
 [keyframedoc]: https://medilocus.github.io/graphic_videos/keyframes
