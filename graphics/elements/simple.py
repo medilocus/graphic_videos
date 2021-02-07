@@ -259,6 +259,15 @@ class Text:
 
     def __init__(self, loc: Tuple[int], color: Tuple[int], font: str,
             text: str, size: int, antialias: bool = True) -> None:
+        """
+        Initializes text element.
+        :param loc: Location of top left corner.
+        :param color: Color (rgba) of text. Alpha will be set to 255 if omitted.
+        :param font: Font family of text.
+        :param text: Text.
+        :param size: Font size.
+        :param antialias: Whether to antialias rendered text.
+        """
         if len(color) == 3:
             color = (*color, 255)
 
@@ -308,6 +317,12 @@ class Image:
     src: StringProp
 
     def __init__(self, loc: Tuple[int], size: Tuple[int], src: str):
+        """
+        Initializes image.
+        :param loc: Location of top left corner of image.
+        :param size: Size (x, y) of image.
+        :param src: Source path of image.
+        """
         self.loc = VectorProp(2, IntProp, loc)
         self.size = VectorProp(2, IntProp, size)
         self.src = StringProp(src)
