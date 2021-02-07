@@ -20,6 +20,7 @@
 import os
 from typing import Tuple
 import pygame
+import cv2
 from ..props import *
 pygame.init()
 
@@ -349,3 +350,31 @@ class Image:
         surface.blit(image, loc)
 
         return surface
+
+
+class Video:
+    """Video element."""
+
+    loc: VectorProp
+    size: VectorProp
+    speed: FloatProp
+    frames: Tuple[pygame.Surface]
+
+    def __init__(self, loc: Tuple[int], size: Tuple[int], src: str, speed: int = 1):
+        """
+        Initializes video.
+        :param loc: Location of top left corner of video.
+        :param size: Size (x, y) of video.
+        :param src: Source path of video.
+        :param speed: Speed of video. A speed of 1 means 1 frame of the video will be played every frame.
+        """
+        self.loc = VectorProp(2, IntProp, loc)
+        self.size = VectorProp(2, IntProp, size)
+        self.speed = FloatProp(speed)
+
+        self.frames = []
+        video = cv2.VideoCapture(src)
+        success, image = video.read()
+        while success:
+            surf = pygame.image.frombuffer(image.tostring(), image.shape[1::-1], "RGB")
+            self.frames.append(surf)
