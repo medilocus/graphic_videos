@@ -298,3 +298,32 @@ class Text:
         surface.blit(text, loc)
 
         return surface
+
+
+class Image:
+    """Image element."""
+
+    loc: VectorProp
+    size: VectorProp
+    src: StringProp
+
+    def __init__(self, loc: Tuple[int], size: Tuple[int], src: str):
+        self.loc = VectorProp(2, IntProp, loc)
+        self.size = VectorProp(2, IntProp, size)
+        self.src = StringProp(src)
+
+    def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
+        if transp:
+            surface = pygame.Surface(res, pygame.SRCALPHA)
+        else:
+            surface = pygame.Surface(res)
+
+        loc = self.loc.get_value(frame)
+        size = self.size.get_value(frame)
+        src = self.src.get_value(frame)
+
+        image = pygame.image.load(src)
+        image = pygame.transform.scale(image, size)
+        surface.blit(image, loc)
+
+        return surface
