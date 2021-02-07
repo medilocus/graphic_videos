@@ -371,7 +371,9 @@ class Video:
             if curr_frame >= frame:
                 return cv2img2surf(img)
             curr_frame += 1
-            success, img = self.video.read()
+            success, tmp = self.video.read()
+            if success:
+                img = tmp
 
         return cv2img2surf(img)
 
