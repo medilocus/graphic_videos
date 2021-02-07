@@ -60,17 +60,14 @@ class Rect:
         self.border_color = VectorProp(4, IntProp, border_color)
         self.antialias = BoolProp(antialias)
 
-    def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
+    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         """
         Renders the rectangle as a pygame.Surface.
         :param res: Output resolution.
         :param frame: Frame to render.
         :param transp: Background transparent?
         """
-        if transp:
-            surface = pygame.Surface(res, pygame.SRCALPHA)
-        else:
-            surface = pygame.Surface(res)
+        surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc = self.loc.get_value(frame)
         size = self.size.get_value(frame)
@@ -119,17 +116,14 @@ class Circle:
         self.border_color = VectorProp(4, IntProp, border_color)
         self.antialias = BoolProp(antialias)
 
-    def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
+    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         """
         Renders the circle as a pygame.Surface.
         :param res: Output resolution.
         :param frame: Frame to render.
         :param transp: Background transparent?
         """
-        if transp:
-            surface = pygame.Surface(res, pygame.SRCALPHA)
-        else:
-            surface = pygame.Surface(res)
+        surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc = self.loc.get_value(frame)
         radius = self.radius.get_value(frame)
@@ -173,17 +167,14 @@ class Line:
         self.color = VectorProp(4, IntProp, color)
         self.antialias = BoolProp(antialias)
 
-    def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
+    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         """
         Renders the line as a pygame.Surface.
         :param res: Output resolution.
         :param frame: Frame to render.
         :param transp: Background transparent?
         """
-        if transp:
-            surface = pygame.Surface(res, pygame.SRCALPHA)
-        else:
-            surface = pygame.Surface(res)
+        surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc1 = self.loc1.get_value(frame)
         loc2 = self.loc2.get_value(frame)
@@ -229,11 +220,8 @@ class Polygon:
         self.offset = VectorProp(2, IntProp, offset)
         self.antialias = BoolProp(antialias)
 
-    def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
-        if transp:
-            surface = pygame.Surface(res, pygame.SRCALPHA)
-        else:
-            surface = pygame.Surface(res)
+    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
+        surface = pygame.Surface(res, pygame.SRCALPHA)
 
         border = self.border.get_value(frame)
         color = self.color.get_value(frame)
@@ -298,11 +286,8 @@ class Text:
 
         return text.get_size()
 
-    def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
-        if transp:
-            surface = pygame.Surface(res, pygame.SRCALPHA)
-        else:
-            surface = pygame.Surface(res)
+    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
+        surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc = self.loc.get_value(frame)
         color = self.color.get_value(frame)
@@ -335,11 +320,8 @@ class Image:
         self.size = VectorProp(2, IntProp, size)
         self.src = StringProp(src)
 
-    def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
-        if transp:
-            surface = pygame.Surface(res, pygame.SRCALPHA)
-        else:
-            surface = pygame.Surface(res)
+    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
+        surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc = self.loc.get_value(frame)
         size = self.size.get_value(frame)
@@ -378,11 +360,8 @@ class Video:
         self.video = cv2.VideoCapture(self.src)
         self.last_frame = None
 
-    def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
-        if transp:
-            surface = pygame.Surface(res, pygame.SRCALPHA)
-        else:
-            surface = pygame.Surface(res)
+    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
+        surface = pygame.Surface(res, pygame.SRCALPHA)
 
         if self.last_frame is not None and frame > self.last_frame:
             curr_frame = self.last_frame
