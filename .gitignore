@@ -1,5 +1,5 @@
 *.pyc
 
-/test.py
+/test*
 /*.mp4
 .vscode
