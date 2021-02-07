@@ -22,6 +22,7 @@ from typing import Tuple
 import pygame
 import cv2
 from ..props import *
+from ..utils import *
 pygame.init()
 
 # todo antialiasing
@@ -345,6 +346,7 @@ class Video:
     src: str
     video: Any
     last_frame: int
+    last_img: pygame.Surface
 
     def __init__(self, loc: Tuple[int], size: Tuple[int], src: str, speed: float = 1):
         """
@@ -360,30 +362,25 @@ class Video:
         self.src = src
 
         self.video = cv2.VideoCapture(self.src)
-        self.last_frame = None
+
+    def get_surf(self, frame):
+        self.video = cv2.VideoCapture(self.src)
+        curr_frame = 0
+        success, img = self.video.read()
+        while success:
+            if curr_frame >= frame:
+                return cv2img2surf(img)
+            curr_frame += 1
+            success, img = self.video.read()
+
+        return cv2img2surf(img)
 
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
-        if self.last_frame is not None and frame*self.speed > self.last_frame and False:
-            curr_frame = self.last_frame
-        else:
-            self.video = cv2.VideoCapture(self.src)
-            curr_frame = 0
-
-        surf = None
-        success, image = self.video.read()
-        while success:
-            if curr_frame >= frame*self.speed:
-                image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-                surf = pygame.image.frombuffer(image.tostring(), image.shape[1::-1], "RGB")
-                self.last_frame = curr_frame
-                break
-            success, image = self.video.read()
-            curr_frame += 1
-
         loc = self.loc.get_value(frame)
         size = self.size.get_value(frame)
+        surf = self.get_surf(frame*self.speed)
 
         surf = pygame.transform.scale(surf, size)
         surface.blit(surf, loc)
