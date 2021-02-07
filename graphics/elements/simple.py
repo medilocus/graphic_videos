@@ -363,7 +363,7 @@ class Video:
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
-        if self.last_frame is not None and frame*self.speed > self.last_frame:
+        if self.last_frame is not None and frame*self.speed > self.last_frame and False:
             curr_frame = self.last_frame
         else:
             self.video = cv2.VideoCapture(self.src)
