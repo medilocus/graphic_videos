@@ -358,7 +358,7 @@ class Video:
     loc: VectorProp
     size: VectorProp
     speed: FloatProp
-    frames: Tuple[pygame.Surface]
+    src: str
 
     def __init__(self, loc: Tuple[int], size: Tuple[int], src: str, speed: int = 1):
         """
@@ -371,10 +371,29 @@ class Video:
         self.loc = VectorProp(2, IntProp, loc)
         self.size = VectorProp(2, IntProp, size)
         self.speed = FloatProp(speed)
+        self.src = src
 
-        self.frames = []
-        video = cv2.VideoCapture(src)
+    def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
+        if transp:
+            surface = pygame.Surface(res, pygame.SRCALPHA)
+        else:
+            surface = pygame.Surface(res)
+
+        video = cv2.VideoCapture(self.src)
         success, image = video.read()
+        count = 0
+        surf = None
         while success:
-            surf = pygame.image.frombuffer(image.tostring(), image.shape[1::-1], "RGB")
-            self.frames.append(surf)
+            success, image = video.read()
+            if count >= frame:
+                surf = pygame.image.frombuffer(image.tostring(), image.shape[1::-1], "RGB")
+                break
+            count += 1
+
+        loc = self.loc.get_value(frame)
+        size = self.size.get_value(frame)
+
+        surf = pygame.transform.scale(surf, size)
+        surface.blit(surf, loc)
+
+        return surface
