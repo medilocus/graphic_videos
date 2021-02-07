@@ -33,8 +33,11 @@ class TitleHoriz:
     text2: Text
 
     def __init__(self, frame_start: int, frame_len: int = 120, loc: Tuple[int] = (0, 0), size: Tuple[int] = (1920, 1080),
-            font: str = DEFAULT_FONT, font_size_1: int = 36, font_size_2: int = 36, text1: str = "Text 1", text2: str = "Text 2",
+            font: str = None, font_size_1: int = 36, font_size_2: int = 36, text1: str = "Text 1", text2: str = "Text 2",
             text_col: Tuple[int] = (255, 255, 255)) -> None:
+
+        if font is None:
+            font = get_font()
 
         self.loc = loc
         self.size = size

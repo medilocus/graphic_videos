@@ -50,14 +50,14 @@ def interpolate(key1: Keyframe, key2: Keyframe, frame: int) -> Any:
 
     elif key1.interp == "PARABOLIC":
         fac = (frame-key1.frame) / (key2.frame-key1.frame)
-        para_max = PARABOLA_XMAX ** 2
+        para_max = get_pbola_xmax() ** 2
         if fac > 0.5:
             fac = 1 - fac
-            fac = (PARABOLA_XMAX/0.5 * fac) ** 2
+            fac = (get_pbola_xmax()/0.5 * fac) ** 2
             fac = -1 * fac / 2 / para_max
             fac += 1
         else:
-            fac = (PARABOLA_XMAX/0.5 * fac) ** 2
+            fac = (get_pbola_xmax()/0.5 * fac) ** 2
             fac = fac / 2 / para_max
         value = fac * (key2.value-key1.value) + key1.value
         return value
