@@ -35,6 +35,7 @@ def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
     :param scenes: List of scenes to export in order of appearance.
     :param path: Output path of final video (must be .mp4 for now).
     :param print: Whether to show information prints.
+    :param notify: Whether to send a notification after exporting is finished.
     """
     if not path.endswith(".mp4"):
         raise ValueError("Path must be an MP4 (.mp4) file.")
@@ -62,10 +63,10 @@ def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
         printer.clearline()
         printer.write("[GRAPHICS] Exporting video: Finished\n")
     if notify:
-        notify()
+        notify_done()
 
 
-def notify():
+def notify_done():
     if sys.platform == "linux":
         subprocess.Popen(["notify-send", "Graphic Videos", "Finished exporting an animation!"]).wait()
     elif sys.platform == "windows":
