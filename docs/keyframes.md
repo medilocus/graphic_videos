@@ -50,3 +50,42 @@ print(my_prop.get_value(5))
 # Read the section "Interpolation" below to find out.
 print(my_prop.get_value(2))
 ```
+
+## Interpolation
+
+As stated above, it is uncertain what the value of the property will be on frame 2.
+
+The `graphics` module supports many types of interpolations.
+
+Interpolation is the way of moving from one value to another.
+Linear interpolation, for example, is moving at the exact same speed the whole time.
+The `graphics` module supports a few types of interpolation, stated below.
+
+The documentation below for different types of interpolation are written based on this setup:
+
+``` python
+import graphics
+
+my_prop = graphics.props.IntProp(1)
+
+my_prop.keyframe(0, 0)
+my_prop.keyframe(5, 10)
+
+for i in range(6):
+    # Print the value of each frame from 0 to 5.
+    print(my_prop.get_value(i), end=" ")
+```
+
+* Constant Interpolation
+    * Will remain at the first value until the frame reaches the second.
+    * Output: `0 0 0 0 0 10`
+* Linear Interpolation
+    * Rises from the values at a constant speed.
+    * Output: `0 2 4 6 8 10`
+* Quadratic Interpolation
+    * Starts slow, rises fast in the middle, and ends slow. Creates a smooth motion.
+    * Output: `TODO write output`
+
+Some props do not support some interpolations.
+For example, StringProp does not support Linear or Quadratic,
+because it is unclear how to interpolate between two strings.
