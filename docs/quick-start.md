@@ -29,4 +29,4 @@ Detailed documentation is [here][keyframedoc].
 
 [scenedoc]: https://medilocus.github.io/graphic_videos/four-zero-four
 [elementdoc]: https://medilocus.github.io/graphic_videos/four-zero-four
-[keyframedoc]: https://medilocus.github.io/graphic_videos/four-zero-four
+[keyframedoc]: https://medilocus.github.io/graphic_videos/keyframes
