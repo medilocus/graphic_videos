@@ -20,6 +20,7 @@
 import os
 from typing import Tuple
 import pygame
+import cv2
 from ..props import *
 pygame.init()
 
@@ -347,5 +348,63 @@ class Image:
         image = pygame.image.load(src)
         image = pygame.transform.scale(image, size)
         surface.blit(image, loc)
+
+        return surface
+
+
+class Video:
+    """Video element."""
+
+    loc: VectorProp
+    size: VectorProp
+    speed: FloatProp
+    src: str
+    video: Any
+    last_frame: int
+
+    def __init__(self, loc: Tuple[int], size: Tuple[int], src: str, speed: int = 1):
+        """
+        Initializes video.
+        :param loc: Location of top left corner of video.
+        :param size: Size (x, y) of video.
+        :param src: Source path of video.
+        :param speed: Speed of video. A speed of 1 means 1 frame of the video will be played every frame.
+        """
+        self.loc = VectorProp(2, IntProp, loc)
+        self.size = VectorProp(2, IntProp, size)
+        self.speed = FloatProp(speed)
+        self.src = src
+
+        self.video = cv2.VideoCapture(self.src)
+        self.last_frame = None
+
+    def render(self, res: Tuple[int], frame: int, transp: bool = True) -> pygame.Surface:
+        if transp:
+            surface = pygame.Surface(res, pygame.SRCALPHA)
+        else:
+            surface = pygame.Surface(res)
+
+        if self.last_frame is not None and frame > self.last_frame:
+            curr_frame = self.last_frame
+        else:
+            self.video = cv2.VideoCapture(self.src)
+            curr_frame = 0
+
+        surf = None
+        success, image = self.video.read()
+        while success:
+            if curr_frame >= frame:
+                surf = pygame.image.frombuffer(image.tostring(), image.shape[1::-1], "RGB")
+                self.last_frame = curr_frame
+                break
+            success, image = self.video.read()
+            curr_speed = self.speed.get_value(curr_frame)
+            curr_frame += 1/curr_speed
+
+        loc = self.loc.get_value(frame)
+        size = self.size.get_value(frame)
+
+        surf = pygame.transform.scale(surf, size)
+        surface.blit(surf, loc)
 
         return surface
