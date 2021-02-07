@@ -18,7 +18,6 @@
 #
 
 from typing import Tuple
-import time
 import pygame
 import cv2
 from . import options
@@ -26,7 +25,7 @@ from .scene import Scene
 from .printer import printer
 
 
-def export_sc(resolution: Tuple, fps: int, scenes: Tuple[Scene], path: str, print: bool = True) -> None:
+def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str, print: bool = True) -> None:
     """
     Single core export.
     :param resolution: Resolution of video.
