@@ -1,42 +1,32 @@
 # Quick Start
 
-[Back to home][home]
+This page contains instructions on how to export your first video.
 
-## Setting Up Files
-1. Download the [latest zip file][latestzip] and extract it somewhere.
-2. Inside the extracted zip, you will find a folder titled **graphics**.
-3. Make a new folder for a new animation.
-4. Copy the graphics folder from the zip into the new folder.
-5. Make a new Python file in the new folder.
+## Scenes
 
-Your folder structure should look like this:
-```
-new_folder     # The new folder you created
-|__ graphics   # The copied folder from the zip
-|__ main.py    # New Python file.
-```
+Scenes are the building blocks of each video.
+In each video, one or more scenes are defined and exported in sequence into one video file.
 
-## Inside the main Python file
-<!-- Add info links. -->
-Follow this structure:
+You can think of scenes like a section of your full video. Detailed documentation is available [here][scenedoc].
 
-``` python
-import graphics   # This imports the copied folder.
+## Elements
 
-frame_start = 0
-frame_end = 60
-frame_step = 1
+Elements are parts of scenes. Each scene has a list of elements, which can be appended to.
+There are many simple pre-written elements, such as polygons, circles, text, and images.
+There are also many advanced elements, like text effects.
 
-rectangle = graphics.elements.simple.Rect((10, 10), (300, 100), (255, 255, 255))
-rectangle.loc.keyframe((10, 10), 0)
-rectangle.loc.keyframe((500, 100), 60)
+Detailed documentation [here][elementdoc].
 
-scene = graphics.Scene(frame_start, frame_end, frame_step)
-scene.add_element(rectangle)
+## Keyframes
 
-graphics.export.export_sc((1280, 720), 30, [scene], "out.mp4")
-```
+Keyframes are used to add changes in your elements over time.
+Each element has many animatable properties which are animated with keyframes.
+
+As an example, a circle has a size property, which defines its radius. This can be animated with keyframes.
+
+Detailed documentation is [here][keyframedoc].
 
 
-[home]: https://medilocus.github.io/graphic_videos/
-[latestzip]: https://github.com/medilocus/graphic_videos/archive/main.zip
+[scenedoc]: https://medilocus.github.io/graphic_videos/scene
+[elementdoc]: https://medilocus.github.io/graphic_videos/elements
+[keyframedoc]: https://medilocus.github.io/graphic_videos/keyframes
