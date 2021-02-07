@@ -2,6 +2,8 @@
 
 This page contains instructions on how to export your first video.
 
+Before using, please follow the [setup][setup] guide.
+
 ## Scenes
 
 Scenes are the building blocks of each video.
@@ -27,6 +29,7 @@ As an example, a circle has a size property, which defines its radius. This can 
 Detailed documentation is [here][keyframedoc].
 
 
+[setup]: https://medilocus.github.io/graphic_videos/setup
 [scenedoc]: https://medilocus.github.io/graphic_videos/scene
 [elementdoc]: https://medilocus.github.io/graphic_videos/elements
 [keyframedoc]: https://medilocus.github.io/graphic_videos/keyframes
