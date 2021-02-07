@@ -2,7 +2,7 @@
 
 An API for creating graphic videos in Python.
 
-## Getting Started
+## Table of Contents
 
 [Quick Start][quickstart]
 
