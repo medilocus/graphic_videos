@@ -247,8 +247,8 @@ class Text:
     size: IntProp
     antialias: BoolProp
 
-    def __init__(self, loc: Tuple[int], color: Tuple[int], font: str,
-            text: str, size: int, antialias: bool = True) -> None:
+    def __init__(self, loc: Tuple[int], color: Tuple[int] = (255, 255, 255), font: str = None,
+            text: str = "Text", size: int = 36, antialias: bool = True) -> None:
         """
         Initializes text element.
         :param loc: Location of top left corner.
@@ -260,6 +260,8 @@ class Text:
         """
         if len(color) == 3:
             color = (*color, 255)
+        if font is None:
+            font = get_font()
 
         self.loc = VectorProp(2, IntProp, loc)
         self.color = VectorProp(4, IntProp, color)

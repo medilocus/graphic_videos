@@ -27,14 +27,14 @@ from .scene import Scene
 from .printer import printer
 
 
-def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str, print: bool = True, notify: bool = True) -> None:
+def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str, verbose: bool = True, notify: bool = True) -> None:
     """
     Single core export.
     :param resolution: Resolution of video.
     :param fps: FPS of video.
     :param scenes: List of scenes to export in order of appearance.
     :param path: Output path of final video (must be .mp4 for now).
-    :param print: Whether to show information prints.
+    :param verbose: Whether to show information prints.
     :param notify: Whether to send a notification after exporting is finished.
     """
     if not path.endswith(".mp4"):
@@ -45,7 +45,7 @@ def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
         scene_num_frames = len(scene.get_frames())
         total_frames = 1
         for frame in scene.get_frames():
-            if print:
+            if verbose:
                 printer.clearline()
                 printer.write(f"[GRAPHICS] Exporting video: Scene {i+1}/{len(scenes)}: {total_frames}/{scene_num_frames} frames encoded.")
             total_frames += 1
@@ -55,11 +55,11 @@ def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
             image = cv2.cvtColor(pygame.surfarray.array3d(surface), cv2.COLOR_RGB2BGR)
             video.write(image)
 
-        if print:
+        if verbose:
             printer.newline()
 
     video.release()
-    if print:
+    if verbose:
         printer.clearline()
         printer.write("[GRAPHICS] Exporting video: Finished\n")
     if notify:

@@ -25,3 +25,9 @@ SIGMOID_COMPENSATION = 1 + e**((1-3**0.5) * SIGMOID_XRANGE)  # todo give explana
 PARABOLA_XMAX = 2
 
 DEFAULT_FONT = "ubuntu"
+
+def get_pbola_xmax():
+    return PARABOLA_XMAX
+
+def get_font():
+    return DEFAULT_FONT
