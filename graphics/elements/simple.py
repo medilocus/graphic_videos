@@ -354,7 +354,6 @@ class Image:
 
 class Video:
     """Video element."""
-    # todo speed
 
     loc: VectorProp
     size: VectorProp
@@ -398,8 +397,9 @@ class Video:
                 surf = pygame.image.frombuffer(image.tostring(), image.shape[1::-1], "RGB")
                 self.last_frame = curr_frame
                 break
-            curr_frame += 1
-        # todo check surf is None
+            success, image = self.video.read()
+            curr_speed = self.speed.get_value(curr_frame)
+            curr_frame += 1/curr_speed
 
         loc = self.loc.get_value(frame)
         size = self.size.get_value(frame)
