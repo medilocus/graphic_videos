@@ -343,22 +343,25 @@ class Video:
     loc: VectorProp
     size: VectorProp
     speed: float
+    offset: float
     src: str
     video: Any
     last_frame: int
     last_img: pygame.Surface
 
-    def __init__(self, loc: Tuple[int], size: Tuple[int], src: str, speed: float = 1):
+    def __init__(self, loc: Tuple[int], size: Tuple[int], src: str, speed: float = 1, offset: float = 0):
         """
         Initializes video.
         :param loc: Location of top left corner of video.
         :param size: Size (x, y) of video.
         :param src: Source path of video.
         :param speed: Speed of video. A speed of 1 means 1 frame of the video will be played every frame.
+        :param offset: Offset in frames before the video starts playing.
         """
         self.loc = VectorProp(2, IntProp, loc)
         self.size = VectorProp(2, IntProp, size)
         self.speed = speed
+        self.offset = offset
         self.src = src
 
         self.video_reset()
@@ -404,7 +407,7 @@ class Video:
 
         loc = self.loc.get_value(frame)
         size = self.size.get_value(frame)
-        surf = self.get_surf(frame*self.speed)
+        surf = self.get_surf(frame*self.speed-self.offset)
 
         surf = pygame.transform.scale(surf, size)
         surface.blit(surf, loc)
