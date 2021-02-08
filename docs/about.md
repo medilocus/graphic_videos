@@ -12,5 +12,8 @@ It is developed by [medilocus][medilocus], a company striving for computer intel
 * Custom fonts (.ttf)
 
 
+[Back to documentation home][dochome]
+
+[dochome]: https://medilocus.github.io/graphic_videos/
 [medilocus]: https://github.com/medilocus
 [github]: https://github.com/medilocus/graphic_videos

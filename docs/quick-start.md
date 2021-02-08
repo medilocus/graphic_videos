@@ -29,6 +29,9 @@ As an example, a circle has a size property, which defines its radius. This can 
 Detailed documentation is [here][keyframedoc].
 
 
+[Back to documentation home][dochome]
+
+[dochome]: https://medilocus.github.io/graphic_videos/
 [setup]: https://medilocus.github.io/graphic_videos/setup
 [scenedoc]: https://medilocus.github.io/graphic_videos/scene
 [elementdoc]: https://medilocus.github.io/graphic_videos/elements

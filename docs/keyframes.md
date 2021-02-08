@@ -95,3 +95,8 @@ To control the type of interpolation, pass it as an argument while keyframing:
 ``` python
 my_prop.keyframe(0, 0, "LINEAR")
 ```
+
+
+[Back to documentation home][dochome]
+
+[dochome]: https://medilocus.github.io/graphic_videos/

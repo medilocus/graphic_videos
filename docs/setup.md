@@ -23,5 +23,8 @@ filename.py   # Python file which will be run
 ```
 
 
+[Back to documentation home][dochome]
+
+[dochome]: https://medilocus.github.io/graphic_videos/
 [releases]: https://github.com/medilocus/graphic_videos/releases
 [latest]: https://github.com/medilocus/graphic_videos/archive/main.zip
