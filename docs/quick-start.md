@@ -29,7 +29,25 @@ As an example, a circle has a size property, which defines its radius. This can 
 Detailed documentation is [here][keyframedoc].
 
 ## Sample Code
-To be written
+
+Example code which exports a simple video.
+
+This will only work if your files are correctly [set up][setup].
+
+``` python
+import graphics
+
+scene = graphics.Scene(0, 60)
+
+rect = graphics.elements.simple.Rect((0, 0), (200, 150), (255, 255, 255))
+rect.loc.keyframe((0, 0), 0)
+rect.loc.keyframe((500, 300), 30)
+rect.loc.keyframe((100, 500), 60)
+
+scene.add_element(rect)
+
+graphics.export.export_sc((1920, 1080), 30, [scene], "out.mp4")
+```
 
 
 [Back to documentation home][dochome]
