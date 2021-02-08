@@ -17,7 +17,9 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+from typing import Tuple
 import pygame
+from .props import *
 pygame.init()
 
 
@@ -25,3 +27,24 @@ class Modifier:
     """Base modifier class. Other modifiers should inherit from this."""
 
     def modify(self, src: pygame.Surface) -> pygame.Surface:...
+
+
+class ModFlip(Modifier):
+    """Flips the surface along x or y or both axes."""
+
+    x: BoolProp
+    y: BoolProp
+
+    def __init__(self, x: bool, y: bool) -> None:
+        """
+        Initializes modifier.
+        :param x: Flip on x axis?
+        :param y: Flip on y axis?
+        """
+        self.x = BoolProp(x)
+        self.y = BoolProp(y)
+
+    def modify(self, src: pygame.Surface, frame: int) -> None:
+        x = self.x.get_value(frame)
+        y = self.y.get_value(frame)
+        pygame.transform.flip(src, x, y)

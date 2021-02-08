@@ -57,7 +57,7 @@ class Group:
         for element in self.elements:
             surface.blit(element.render(res, frame), (0, 0))
         for modifier in self.modifiers:
-            surface = modifier.modify(surface)
+            modifier.modify(surface, frame)
 
         loc = self.loc.get_value(frame)
         size = self.size.get_value(frame)
