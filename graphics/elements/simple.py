@@ -361,7 +361,24 @@ class Video:
         self.speed = speed
         self.src = src
 
+        self.video_reset()
+        self.max_frame = 0
+        while True:
+            img = self.video_next()
+            if img is None:
+                break
+            self.max_frame += 1
+
+        self.video_reset()
+
+    def video_reset(self):
         self.video = cv2.VideoCapture(self.src)
+        self.last_frame = 0
+
+    def video_next(self):
+        success, img = self.video.read()
+        self.last_frame += 1
+        return (img if success else None)
 
     def get_surf(self, frame):
         self.video = cv2.VideoCapture(self.src)
