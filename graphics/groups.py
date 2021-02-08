@@ -19,6 +19,7 @@
 
 from typing import List, Tuple
 import pygame
+from .props import *
 from .elements import BaseElement
 from .modifiers import Modifier
 pygame.init()
@@ -27,8 +28,21 @@ pygame.init()
 class Group:
     """Group class, which contains elements and modifiers."""
 
+    loc: VectorProp
+    size: VectorProp
     elements: List[BaseElement]
     modifiers: List[Modifier]
+
+    def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (1920, 1080)):
+        """
+        Initializes group.
+        :param loc: Location (x, y) of top left corner of group.
+        :param size: Size (x, y) of group.
+        """
+        self.loc = VectorProp(2, IntProp, loc)
+        self.size = VectorProp(2, IntProp, size)
+        self.elements = []
+        self.modifiers = []
 
     def add_element(self, element: BaseElement) -> None:
         self.elements.append(element)
