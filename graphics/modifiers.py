@@ -26,7 +26,7 @@ pygame.init()
 class Modifier:
     """Base modifier class. Other modifiers should inherit from this."""
 
-    def modify(self, src: pygame.Surface) -> pygame.Surface:...
+    def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:...
 
 
 class ModFlip(Modifier):
@@ -47,4 +47,5 @@ class ModFlip(Modifier):
     def modify(self, src: pygame.Surface, frame: int) -> None:
         x = self.x.get_value(frame)
         y = self.y.get_value(frame)
-        pygame.transform.flip(src, x, y)
+        src = pygame.transform.flip(src, x, y)
+        return src
