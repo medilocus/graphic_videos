@@ -398,9 +398,9 @@ class Video:
             result = self.video_next()
             if result is None:
                 # means end of video.
-                return pygame.Surface((100, 100))
+                return pygame.Surface((100, 100), pygame.SRCALPHA)
 
-        return self.last_img
+        return (pygame.Surface((100, 100), pygame.SRCALPHA) if self.last_img is None else self.last_img)
 
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
