@@ -8,6 +8,7 @@ It is developed by [medilocus][medilocus], a company striving for computer intel
 
 * Exporting mp4 videos
 * Adding and moving shapes and text
+* Pre-written elements
 * Custom fonts (.ttf)
 
 
