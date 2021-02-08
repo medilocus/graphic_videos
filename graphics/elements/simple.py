@@ -373,26 +373,22 @@ class Video:
 
     def video_reset(self):
         self.video = cv2.VideoCapture(self.src)
-        self.last_frame = 0
+        self.last_frame = -1
+        self.last_img = None
 
     def video_next(self):
         success, img = self.video.read()
+        self.last_img = img
         self.last_frame += 1
         return (img if success else None)
 
     def get_surf(self, frame):
-        self.video = cv2.VideoCapture(self.src)
-        curr_frame = 0
-        success, img = self.video.read()
-        while success:
-            if curr_frame >= frame:
-                return cv2img2surf(img)
-            curr_frame += 1
-            success, tmp = self.video.read()
-            if success:
-                img = tmp
+        if self.last_frame > frame:
+            self.video_reset()
 
-        return cv2img2surf(img)
+        while self.last_frame < frame:
+            self.video_next()
+        return self.last_img
 
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
