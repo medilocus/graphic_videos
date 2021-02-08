@@ -51,9 +51,18 @@ class Group:
         self.modifiers.append(modifier)
 
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
-        surface = pygame.Surface(res)
+        surface = pygame.Surface(res, pygame.SRCALPHA)
+        final_surf = pygame.Surface(res, pygame.SRCALPHA)
+
         for element in self.elements:
             surface.blit(element.render(res, frame))
         for modifier in self.modifiers:
             surface = modifier.modify(surface)
-        return surface
+
+        loc = self.loc.get_value(frame)
+        size = self.size.get_value(frame)
+
+        surface = pygame.transform.scale(surface, size)
+        final_surf.blit(surface, loc)
+
+        return final_surf
