@@ -377,17 +377,26 @@ class Video:
         self.last_img = None
 
     def video_next(self):
+        if self.last_frame >= self.max_frame:
+            return None
+
         success, img = self.video.read()
-        self.last_img = img
-        self.last_frame += 1
-        return (img if success else None)
+        if success:
+            self.last_img = cv2img2surf(img)
+            self.last_frame += 1
+            return img
+        return None
 
     def get_surf(self, frame):
         if self.last_frame > frame:
             self.video_reset()
 
         while self.last_frame < frame:
-            self.video_next()
+            result = self.video_next()
+            if result is None:
+                # means end of video.
+                return pygame.Surface((100, 100))
+
         return self.last_img
 
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
