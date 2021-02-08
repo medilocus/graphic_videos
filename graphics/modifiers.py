@@ -18,9 +18,14 @@
 #
 
 from typing import Tuple
+import colorsys
 import pygame
 from .props import *
 pygame.init()
+
+
+def copysurf(surf: pygame.Surface) -> pygame.Surface:
+    return pygame.image.fromstring(pygame.image.tostring(surf, "RGBA"), surf.get_size(), "RGBA")
 
 
 class Modifier:
@@ -44,8 +49,49 @@ class ModFlip(Modifier):
         self.x = BoolProp(x)
         self.y = BoolProp(y)
 
-    def modify(self, src: pygame.Surface, frame: int) -> None:
+    def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
         x = self.x.get_value(frame)
         y = self.y.get_value(frame)
         src = pygame.transform.flip(src, x, y)
         return src
+
+
+class ModHsva(Modifier):
+    """Changes surface HSVA."""
+    # todo efficiency
+    # todo fix bugs
+
+    h: FloatProp
+    s: FloatProp
+    v: FloatProp
+    a: FloatProp
+
+    def __init__(self, h: float, s: float, v: float, a: float) -> None:
+        """
+        Initializes modifier.
+        :param h: Hue (additive).
+        :param s: Saturation (multiplicative).
+        :param v: Value (multiplicative).
+        :param a: Alpha (multiplicative).
+        """
+        self.h = FloatProp(h)
+        self.s = FloatProp(s)
+        self.v = FloatProp(v)
+        self.a = FloatProp(a)
+
+    def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
+        surf = copysurf(src)
+        h = self.h.get_value(frame)
+        s = self.s.get_value(frame)
+        v = self.v.get_value(frame)
+        a = self.a.get_value(frame)
+
+        for x in range(src.get_width()):
+            for y in range(src.get_height()):
+                curr_col = [i/255 for i in src.get_at((x, y))]
+                curr_col = [*colorsys.rgb_to_hsv(*curr_col[:3]), curr_col[3]]
+                curr_col = [curr_col[0]+h, curr_col[1]*s, curr_col[2]*v, curr_col[3]*a]
+                curr_col = [*[i*255 for i in colorsys.hsv_to_rgb(*curr_col[:3])], curr_col[3]]
+                surf.set_at((x, y), curr_col)
+
+        return surf
