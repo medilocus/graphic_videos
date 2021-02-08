@@ -19,7 +19,7 @@ Setup your files in this format:
 
 ```
 graphics  # The folder that was downloaded
-main.py   # Python file which will be run
+filename.py   # Python file which will be run
 ```
 
 
