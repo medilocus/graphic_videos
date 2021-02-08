@@ -1,3 +1,5 @@
 # Contributing Guidelines
 
-Please fork and create a pull request if you would like to contribute.
+If you would like to directly contribute, please fork and make a pull request.
+
+You can also contribute by submitting bug reports or feature requests.
