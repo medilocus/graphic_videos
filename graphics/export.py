@@ -19,10 +19,12 @@
 
 import sys
 import os
+import shutil
 import time
 import subprocess
 import multiprocessing
 from typing import Tuple
+from hashlib import sha256
 import pygame
 import cv2
 from .scene import Scene
@@ -90,20 +92,35 @@ def export_mc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
     if not path.endswith(".mp4"):
         raise ValueError("Path must be an MP4 (.mp4) file.")
 
+    num_cpus = multiprocessing.cpu_count()
+    parent = os.path.realpath(os.path.dirname(__file__))
+    get_path = lambda: os.path.join(parent, sha256(str(time.time()).encode()).hexdigest())
+    path = get_path()
+    while os.path.isdir(path):
+        path = get_path()
+    os.makedirs(path)
+
     video = cv2.VideoWriter(path, cv2.VideoWriter_fourcc(*"mp4v"), fps, resolution)
     abs_start = time.time()
-    for i, scene in enumerate(scenes):
-        pass
+    success = True
+    try:
+        for i, scene in enumerate(scenes):
+            frames_to_render = scene.get_frames()
+
+    except KeyboardInterrupt:
+        shutil.rmtree(path)
+        success = False
 
     video.release()
-    if verbose:
-        elapse = time.time() - abs_start
-        elapse = str(elapse)[:6]
-        printer.clearline()
-        printer.write(f"[GRAPHICS] Exporting video: Finished in {elapse}s")
-        printer.newline()
-    if notify:
-        notify_done()
+    if success:
+        if verbose:
+            elapse = time.time() - abs_start
+            elapse = str(elapse)[:6]
+            printer.clearline()
+            printer.write(f"[GRAPHICS] Exporting video: Finished in {elapse}s")
+            printer.newline()
+        if notify:
+            notify_done()
 
 
 def notify_done():
