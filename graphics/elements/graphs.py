@@ -66,16 +66,20 @@ class BarGraphVert:
         surf.fill((0, 0, 0, 0))
         base_x, base_y = self.loc.get_value(frame)
         width, height = self.size.get_value(frame)
+        border = self.border.get_value(frame)
+        border_color = self.border_color.get_value(frame)
         gap = (width - 100 - len(self.categories) * 5) // len(self.categories)
         for i in range(len(self.categories)):
             color = self.colors[i].get_value(frame)
+            value = self.values[i].get_value(frame)
+            category = self.categories[i].get_value(frame)
             x = 5 + 100 + gap*i + i*5 + base_x
-            y = height - 5 - 100 - self.values[i] + base_y
-            pygame.draw.rect(surf, color, (x, y, gap, self.values[i]))
-            text = font.render(self.categories[i], 1, self.border_color)
+            y = height - 5 - 100 - value + base_y
+            pygame.draw.rect(surf, color, (x, y, gap, value))
+            text = font.render(category, 1, self.border_color)
             surf.blit(text, (x + gap // 2 - text.get_width() // 2, height - 5 - 100 + 10))
-            text = font.render(str(self.values[i]), 1, self.border_color)
+            text = font.render(str(value), 1, self.border_color)
             surf.blit(text, (x + gap // 2 - text.get_width() // 2, y // 2 - text.get_height() // 2))
 
-        pygame.draw.rect(surf, self.border_color,(100 + base_x, 0 + base_y, 5, height - 100))
-        pygame.draw.rect(surf, self.border_color, (100 + base_x, height - 5 - 100 + base_y, width - 100, 5))
+        pygame.draw.rect(surf, border_color,(100 + base_x, 0 + base_y, border, height - 100))
+        pygame.draw.rect(surf, border_color, (100 + base_x, height - border - 100 + base_y, width - 100, border))
