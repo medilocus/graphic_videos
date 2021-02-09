@@ -89,7 +89,7 @@ def mc_render(scene, frames, path, res):
 
 def export_mc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], out_path: str, verbose: bool = True, notify: bool = True) -> None:
     """
-    Multi core export.
+    Multi core export. Will write images to disk.
     :param resolution: Resolution of video.
     :param fps: FPS of video.
     :param scenes: List of scenes to export in order of appearance.
