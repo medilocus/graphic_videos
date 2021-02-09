@@ -50,6 +50,7 @@ class Rect(BaseElement):
         :param border_color: Border color of rectangle.
         :param antialias: Whether to perform simple antialiasing when rendering.
         """
+        super().__init__()
         if len(color) == 3:
             color = (*color, 255)
         if len(border_color) == 3:
@@ -106,6 +107,7 @@ class Circle(BaseElement):
         :param border_color: Color of circle border.
         :param antialias: Whether to perform simple antialiasing when rendering.
         """
+        super().__init__()
         if len(color) == 3:
             color = (*color, 255)
         if len(border_color) == 3:
@@ -160,6 +162,7 @@ class Line(BaseElement):
         :param color: Color (RGB) of line.
         :param antialias: Whether to perform simple antialiasing when rendering.
         """
+        super().__init__()
         if len(color) == 3:
             color = (*color, 255)
 
@@ -210,6 +213,7 @@ class Polygon(BaseElement):
         :param offset: Offset all the verts by this value in the form (x, y).
         :param antialias: Whether to perform simple antialiasing when rendering.
         """
+        super().__init__()
         if len(color) == 3:
             color = (*color, 255)
         if len(border_color) == 3:
@@ -260,6 +264,7 @@ class Text(BaseElement):
         :param size: Font size.
         :param antialias: Whether to antialias rendered text.
         """
+        super().__init__()
         if len(color) == 3:
             color = (*color, 255)
         if font is None:
@@ -329,6 +334,7 @@ class Image(BaseElement):
         :param size: Size (x, y) of image.
         :param src: Source path of image.
         """
+        super().__init__()
         self.loc = VectorProp(2, IntProp, loc)
         self.size = VectorProp(2, IntProp, size)
         self.src = StringProp(src)
@@ -381,6 +387,7 @@ class Video(BaseElement):
         :param speed: Speed of video. A speed of 1 means 1 frame of the video will be played every frame.
         :param offset: Offset in frames before the video starts playing.
         """
+        super().__init__()
         self.loc = VectorProp(2, IntProp, loc)
         self.size = VectorProp(2, IntProp, size)
         self.speed = speed

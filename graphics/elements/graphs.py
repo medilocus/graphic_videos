@@ -50,6 +50,7 @@ class BarGraphVert(BaseElement):
         :param border: Border width (pixels) of the axes of vertical bar graph.
         :param border_color: Border color of vertical bar graph.
         """
+        super().__init__()
         if isinstance(colors, str) and colors.lower() == "auto":
             colors = [VectorProp(4, IntProp, (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255), random.randint(1, 255))) for _ in range(len(categories))]
         else:
