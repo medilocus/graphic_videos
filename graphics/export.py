@@ -79,6 +79,15 @@ def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
         notify_done()
 
 
+def mc_render(scene, frames, path, res):
+    for frame in frames:
+        curr_path = os.path.join(path, f"{frame}.png")
+
+        surface = scene.render(res, frame)
+        surface = pygame.transform.rotate(pygame.transform.flip(surface, False, True), -90)
+        pygame.image.save(surface, curr_path)
+
+
 def export_mc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str, verbose: bool = True, notify: bool = True) -> None:
     """
     Multi core export.
@@ -103,11 +112,33 @@ def export_mc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
     video = cv2.VideoWriter(path, cv2.VideoWriter_fourcc(*"mp4v"), fps, resolution)
     abs_start = time.time()
     success = True
+    processes = []
     try:
         for i, scene in enumerate(scenes):
+            processes = []
             frames_to_render = scene.get_frames()
 
+            if len(frames_to_render) < num_cpus:
+                p = multiprocessing.Process(target=mc_render, args=(scene, frames_to_render, path, resolution))
+                processes.append(p)
+            else:
+                chunk_size = len(frames_to_render) / num_cpus
+                for i in range(num_cpus):
+                    start = int(chunk_size * i)
+                    end = int(chunk_size * (i+1))
+                    frames = frames_to_render[start:end]
+                    p = multiprocessing.Process(target=mc_render, args=(scene, frames, path, resolution))
+                    processes.append(p)
+
+            for p in processes:
+                p.start()
+            for p in processes:
+                p.join()
+
     except KeyboardInterrupt:
+        for p in processes:
+            p.terminate()
+        time.sleep(0.1)
         shutil.rmtree(path)
         success = False
 
