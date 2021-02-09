@@ -51,7 +51,7 @@ class BarGraphVert:
         else:
             self.colors = [VectorProp(4, IntProp, (*colors[i], 255) if len(colors[i]) == 3 else colors[i]) for i in range(len(colors))]
         if not (len(categories) == len(values) == len(self.colors)):
-            raise ValueError(f"The length of categories, {len(categories)} must be equal to the length of values, {len(values)}, as well as the length of colors, {len(colors)}")
+            raise ValueError(f"The length of categories, {len(categories)} must be equal to the length of values, {len(values)}, as well as the length of colors, {len(self.colors)}")
         self.loc = VectorProp(2, IntProp, loc)
         self.size = VectorProp(2, IntProp, size)
         self.categories = [StringProp(categories[i]) for i in range(len(categories))]
