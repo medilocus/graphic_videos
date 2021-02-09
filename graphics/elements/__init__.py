@@ -19,6 +19,7 @@
 
 from typing import Tuple
 import pygame
+from ..props import *
 from . import simple
 from . import text
 pygame.init()
@@ -26,7 +27,9 @@ pygame.init()
 
 class BaseElement:
     """
-    Empty element, NOT for inheritance.
-    This is for type definitions and referencing the structure of an element.
+    Empty element, other elements should inherit.
     """
+
+    show: BoolProp
+
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:...
