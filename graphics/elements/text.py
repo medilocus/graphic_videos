@@ -20,11 +20,12 @@
 from typing import Tuple
 import pygame
 from ..options import *
+from .base import BaseElement
 from .simple import Text
 pygame.init()
 
 
-class TitleHoriz:
+class TitleHoriz(BaseElement):
     """Two text horizontal title."""
 
     loc: Tuple[int]
@@ -36,6 +37,7 @@ class TitleHoriz:
             font: str = None, font_size_1: int = 36, font_size_2: int = 36, text1: str = "Text 1", text2: str = "Text 2",
             text_col: Tuple[int] = (255, 255, 255)) -> None:
 
+        super().__init__()
         if font is None:
             font = get_font()
 
