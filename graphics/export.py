@@ -115,6 +115,7 @@ def export_mc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
     processes = []
     try:
         for i, scene in enumerate(scenes):
+            time_start = time.time()
             processes = []
             frames_to_render = scene.get_frames()
 
@@ -132,8 +133,18 @@ def export_mc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
 
             for p in processes:
                 p.start()
-            for p in processes:
-                p.join()
+
+            while True in [p.is_alive() for p in processes]:
+                time.sleep(0.05)
+                if verbose:
+                    num_files = len(os.listdir(path))
+                    elapse = time.time() - time_start
+                    per_frame = elapse / num_files
+                    remaining = per_frame * (len(frames_to_render)-num_files)
+                    remaining = str(remaining)[:6]
+                    printer.clearline()
+                    printer.write(f"[GRAPHICS] Exporting: Scene {i+1}/{len(scenes)}: " + \
+                        f"Frame {num_files}/{len(frames_to_render)}, {remaining}s remaining.")
 
     except KeyboardInterrupt:
         for p in processes:
