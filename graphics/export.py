@@ -84,11 +84,10 @@ def mc_render(scene, frames, path, res):
         curr_path = os.path.join(path, f"{frame}.png")
 
         surface = scene.render(res, frame)
-        surface = pygame.transform.rotate(pygame.transform.flip(surface, False, True), -90)
         pygame.image.save(surface, curr_path)
 
 
-def export_mc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str, verbose: bool = True, notify: bool = True) -> None:
+def export_mc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], out_path: str, verbose: bool = True, notify: bool = True) -> None:
     """
     Multi core export.
     :param resolution: Resolution of video.
@@ -98,7 +97,7 @@ def export_mc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
     :param verbose: Whether to show information prints.
     :param notify: Whether to send a notification after exporting is finished.
     """
-    if not path.endswith(".mp4"):
+    if not out_path.endswith(".mp4"):
         raise ValueError("Path must be an MP4 (.mp4) file.")
 
     num_cpus = multiprocessing.cpu_count()
@@ -107,14 +106,14 @@ def export_mc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
     path = get_path()
     while os.path.isdir(path):
         path = get_path()
-    os.makedirs(path)
 
-    video = cv2.VideoWriter(path, cv2.VideoWriter_fourcc(*"mp4v"), fps, resolution)
+    video = cv2.VideoWriter(out_path, cv2.VideoWriter_fourcc(*"mp4v"), fps, resolution)
     abs_start = time.time()
     success = True
     processes = []
     try:
-        for i, scene in enumerate(scenes):
+        for scene_num, scene in enumerate(scenes):
+            os.makedirs(path)
             time_start = time.time()
             processes = []
             frames_to_render = scene.get_frames()
@@ -137,14 +136,35 @@ def export_mc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
             while True in [p.is_alive() for p in processes]:
                 time.sleep(0.05)
                 if verbose:
-                    num_files = len(os.listdir(path))
+                    num_files = max(1, len(os.listdir(path)))
                     elapse = time.time() - time_start
                     per_frame = elapse / num_files
                     remaining = per_frame * (len(frames_to_render)-num_files)
                     remaining = str(remaining)[:6]
                     printer.clearline()
-                    printer.write(f"[GRAPHICS] Exporting: Scene {i+1}/{len(scenes)}: " + \
+                    printer.write(f"[GRAPHICS] Exporting: Scene {scene_num+1}/{len(scenes)}: " + \
                         f"Frame {num_files}/{len(frames_to_render)}, {remaining}s remaining.")
+
+            printer.newline()
+            time.sleep(0.1)
+            for i, frame in enumerate(frames_to_render):
+                img_path = os.path.join(path, f"{frame}.png")
+                if os.path.isfile(img_path):
+                    img = cv2.imread(img_path)
+                    video.write(img)
+
+                if verbose:
+                    num_done = i + 1
+                    elapse = time.time() - time_start
+                    per_frame = elapse / num_done
+                    remaining = per_frame * (len(frames_to_render)-num_done)
+                    remaining = str(remaining)[:6]
+                    printer.clearline()
+                    printer.write(f"[GRAPHICS] Exporting: Scene {scene_num+1}/{len(scenes)}: " + \
+                        f"Encoding {num_done}/{len(frames_to_render)}, {remaining}s remaining.")
+
+            printer.newline()
+            shutil.rmtree(path)
 
     except KeyboardInterrupt:
         for p in processes:
