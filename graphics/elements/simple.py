@@ -271,6 +271,9 @@ class Text:
         self.size = IntProp(size)
         self.antialias = BoolProp(antialias)
 
+        self.last_font_family = None
+        self.last_font = None
+
     def get_font(self, frame):
         font_family = self.font.get_value(frame)
         font_size = self.size.get_value(frame)
@@ -284,8 +287,14 @@ class Text:
         text_str = self.text.get_value(frame)
         size = self.size.get_value(frame)
 
+        if self.last_font_family == (font_family, size):
+            return self.last_font
+
         font = pygame.font.SysFont(font_family, size)
         text = font.render(text_str, True, (0, 0, 0))
+
+        self.last_font = font
+        self.last_font_family = (font_family, size)
 
         return text.get_size()
 
@@ -323,14 +332,27 @@ class Image:
         self.size = VectorProp(2, IntProp, size)
         self.src = StringProp(src)
 
+        self.last_src = None
+        self.last_img = None
+
+    def get_image(self, frame):
+        src = self.src.get_value(frame)
+        if src == self.last_src:
+            return self.last_img
+
+        image = pygame.image.load(src)
+        self.last_src = src
+        self.last_img = image
+
+        return image
+
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc = self.loc.get_value(frame)
         size = self.size.get_value(frame)
-        src = self.src.get_value(frame)
 
-        image = pygame.image.load(src)
+        image = self.get_image(frame)
         image = pygame.transform.scale(image, size)
         surface.blit(image, loc)
 
