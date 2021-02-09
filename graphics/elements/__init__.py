@@ -30,6 +30,6 @@ class BaseElement:
     Empty element, other elements should inherit.
     """
 
-    show: BoolProp
+    show = BoolProp(True)
 
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:...

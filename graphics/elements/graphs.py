@@ -20,12 +20,13 @@
 from typing import Tuple
 import pygame
 import numpy as np
+from . import BaseElement
 from ..props import *
 import random
 pygame.init()
 
 
-class BarGraphVert:
+class BarGraphVert(BaseElement):
     """Vertical Bar Graph element."""
 
     loc: VectorProp

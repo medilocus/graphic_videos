@@ -21,6 +21,7 @@ import os
 from typing import Tuple
 import pygame
 import cv2
+from . import BaseElement
 from ..props import *
 from ..utils import *
 pygame.init()
@@ -28,7 +29,7 @@ pygame.init()
 # todo antialiasing
 
 
-class Rect:
+class Rect(BaseElement):
     """Rectangle element."""
 
     loc: VectorProp
@@ -84,7 +85,7 @@ class Rect:
         return surface
 
 
-class Circle:
+class Circle(BaseElement):
     """Circle element."""
 
     loc: VectorProp
@@ -140,7 +141,7 @@ class Circle:
         return surface
 
 
-class Line:
+class Line(BaseElement):
     """Line element."""
 
     loc1: VectorProp
@@ -188,7 +189,7 @@ class Line:
         return surface
 
 
-class Polygon:
+class Polygon(BaseElement):
     """Polygon element."""
 
     verts: Tuple[VectorProp]
@@ -238,7 +239,7 @@ class Polygon:
         return surface
 
 
-class Text:
+class Text(BaseElement):
     """Text element."""
 
     loc: VectorProp
@@ -314,7 +315,7 @@ class Text:
         return surface
 
 
-class Image:
+class Image(BaseElement):
     """Image element."""
 
     loc: VectorProp
@@ -359,7 +360,7 @@ class Image:
         return surface
 
 
-class Video:
+class Video(BaseElement):
     """Video element."""
 
     loc: VectorProp
