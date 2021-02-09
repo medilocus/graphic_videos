@@ -47,11 +47,12 @@ class BarGraphVert:
         :param border_color: Border color of vertical bar graph.
         """
         if colors is None:
-            colors = [VectorProp(4, IntProp, (random.randint(1, 255), random.randint(1, 255), random.randint(1, 255), random.randint(1, 255))) for _ in range(len(categories))]
+            colors = [VectorProp(4, IntProp, (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255), random.randint(1, 255))) for _ in range(len(categories))]
         else:
             colors = [VectorProp(4, IntProp, (*colors[i], 255) if len(colors[i]) == 3 else colors[i]) for i in range(len(colors))]
         if not (len(categories) == len(values) == len(colors)):
             raise ValueError(f"The length of categories ({len(categories)}) must be equal to the length of values ({len(values)}) as well as the length of colors ({len(self.colors)})")
+        self.colors = colors
         self.loc = VectorProp(2, IntProp, loc)
         self.size = VectorProp(2, IntProp, size)
         self.categories = [StringProp(categories[i]) for i in range(len(categories))]
@@ -63,18 +64,19 @@ class BarGraphVert:
         surf = pygame.Surface(res, pygame.SRCALPHA)
         font = pygame.font.SysFont(DEFAULT_FONT, 20)
         surf.fill((0, 0, 0, 0))
-        gap = (self.size[0] - 100 - len(self.categories) * 5) // len(self.categories)
+        width, height = self.size.get_value(frame)
+        gap = (width - 100 - len(self.categories) * 5) // len(self.categories)
         for i in range(len(self.categories)):
             color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
             while sum(color) < 120:
                 color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
             x = 5 + 100 + gap*i + i*5
-            y = self.size[1] - 5 - 100 - self.values[i]
+            y = height - 5 - 100 - self.values[i]
             pygame.draw.rect(surf, color, (x, y, gap, self.values[i]))
             text = font.render(self.categories[i], 1, self.border_color)
-            surf.blit(text, (x + gap // 2 - text.get_width() // 2, self.size[1] - 5 - 100 + 10))
+            surf.blit(text, (x + gap // 2 - text.get_width() // 2, height - 5 - 100 + 10))
             text = font.render(str(self.values[i]), 1, self.border_color)
             surf.blit(text, (x + gap // 2 - text.get_width() // 2, y // 2 - text.get_height() // 2))
 
-        pygame.draw.rect(surf, self.border_color,(100, 0, 5, self.size[1] - 100))
-        pygame.draw.rect(surf, self.border_color, (100, self.size[1] - 5 - 100, self.size[0] - 100, 5))
+        pygame.draw.rect(surf, self.border_color,(100, 0, 5, height - 100))
+        pygame.draw.rect(surf, self.border_color, (100, height - 5 - 100, width - 100, 5))
