@@ -47,7 +47,7 @@ class BarGraphVert:
         :param border_color: Border color of vertical bar graph.
         """
         if colors is None:
-            self.colors = [VectorProp(4, IntProp, (random.randint(1, 255), random.randint(1, 255), random.randint(1, 255)))]
+            self.colors = [VectorProp(4, IntProp, (random.randint(1, 255), random.randint(1, 255), random.randint(1, 255), random.randint(1, 255)))]
         else:
             self.colors = [VectorProp(4, IntProp, (*colors[i], 255) if len(colors[i]) == 3 else colors[i]) for i in range(len(colors))]
         if not (len(categories) == len(values) == len(colors)):
