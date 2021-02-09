@@ -8,6 +8,11 @@ https://medilocus.github.io/graphic_videos/
 
 Latest version: [Version 1][latest]
 
+## News
+
+Graphic Videos is planning to release Version 1.1 on Thursday, Feburary 11.
+Contribute by forking and making a pull request!
+
 ## License
 
 Graphic Videos is licensed under the GPL 3 license.
