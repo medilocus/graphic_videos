@@ -23,3 +23,4 @@ You can put all videos exported online without credit, but credit is always appr
 
 
 [latest]: https://github.com/medilocus/graphic_videos/releases/tag/v1.0
+
