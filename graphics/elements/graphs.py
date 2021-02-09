@@ -31,7 +31,7 @@ class BarGraphVert:
     size: VectorProp
     categories: Tuple[StringProp]
     values: Tuple[IntProp]
-    text_color: Tuple[IntProp]
+    text_color: VectorProp
     colors: Tuple[VectorProp]
     border: IntProp
     border_color: VectorProp
@@ -43,7 +43,7 @@ class BarGraphVert:
         :param size: Size (x, y) pixels of vertical bar graph.
         :param categories: The name of each category of vertical bar graph. This will be a column.
         :param values: The initializing values for each category.
-        :param text_color: The color of the text on a bar, as well as the color on the axis. If it is set to auto, the text color for the axis would be black, and it will choose between black and white for the text color on the bar depending on the color of the bar.
+        :param text_color: The color of the text on a bar, as well as the color on the axis. If it is set to auto, the text color for the axis would be black, and it will choose between black and white for the text color on the bar depending on the color of the bar. NOTE: Auto doesn't have transparency.
         :param colors: Colors (rgba, 0 to 255) of each choice of vertical bar graph. The ALPHA will be set to 255 if no alpha is given. Auto will make all colors random.
         :param border: Border width (pixels) of the axes of vertical bar graph.
         :param border_color: Border color of vertical bar graph.
@@ -60,7 +60,7 @@ class BarGraphVert:
         self.categories = [StringProp(categories[i]) for i in range(len(categories))]
         self.values = [IntProp(values[i]) for i in range(len(values))]
         if isinstance(text_color, str):
-            self.text_color = StringProp(text_color)
+            self.text_color = StringProp(text_color.upper())
         else:
             self.text_color = VectorProp(4, IntProp, text_color)
         self.border = IntProp(border)
@@ -74,6 +74,7 @@ class BarGraphVert:
         width, height = self.size.get_value(frame)
         border = self.border.get_value(frame)
         border_color = self.border_color.get_value(frame)
+        text_color = self.text_color.get_value(frame)
         gap = (width - 100 - len(self.categories) * 5) // len(self.categories)
         for i in range(len(self.categories)):
             color = self.colors[i].get_value(frame)
@@ -82,8 +83,12 @@ class BarGraphVert:
             x = 5 + 100 + gap*i + i*5 + base_x
             y = height - 5 - 100 - value + base_y
             pygame.draw.rect(surf, color, (x, y, gap, value))
-            text = font.render(category, 1, self.border_color)
+            if text_color == "AUTO":
+                text_color = (0,)*255
+            text = font.render(category, 1, text_color)
             surf.blit(text, (x + gap // 2 - text.get_width() // 2, height - 5 - 100 + 10))
+            if text_color == "AUTO":
+                text_color = (0,)*3 if sum(color) > 120 else (255,)*3
             text = font.render(str(value), 1, self.border_color)
             surf.blit(text, (x + gap // 2 - text.get_width() // 2, y // 2 - text.get_height() // 2))
 
