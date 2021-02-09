@@ -31,22 +31,24 @@ class BarGraphVert:
     size: VectorProp
     categories: Tuple[StringProp]
     values: Tuple[IntProp]
+    text_color: Tuple[IntProp]
     colors: Tuple[VectorProp]
     border: IntProp
     border_color: VectorProp
 
-    def __init__(self, loc: Tuple[int], size: Tuple[int], categories: Tuple[str], values: Tuple[int], colors: Tuple[Tuple[int]] = None, border: int = 4, border_color: int = (0, 0, 0)):
+    def __init__(self, loc: Tuple[int], size: Tuple[int], categories: Tuple[str], values: Tuple[int], text_color: Tuple[int] = "AUTO", colors: Tuple[Tuple[int]] = "AUTO", border: int = 4, border_color: int = (0, 0, 0)):
         """
         Initializes vertical bar graph.
         :param loc: Top left corner location (pixels) of vertical bar graph.
         :param size: Size (x, y) pixels of vertical bar graph.
         :param categories: The name of each category of vertical bar graph. This will be a column.
         :param values: The initializing values for each category.
-        :param colors: Colors (rgba, 0 to 255) of each choice of vertical bar graph. The ALPHA will be set to 255 if no alpha is given. None will make all colors random.
+        :param text_color: The color of the text on a bar, as well as the color on the axis. If it is set to auto, the text color for the axis would be black, and it will choose between black and white for the text color on the bar depending on the color of the bar.
+        :param colors: Colors (rgba, 0 to 255) of each choice of vertical bar graph. The ALPHA will be set to 255 if no alpha is given. Auto will make all colors random.
         :param border: Border width (pixels) of the axes of vertical bar graph.
         :param border_color: Border color of vertical bar graph.
         """
-        if colors is None:
+        if isinstance(colors, str) and colors.lower() == "auto":
             colors = [VectorProp(4, IntProp, (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255), random.randint(1, 255))) for _ in range(len(categories))]
         else:
             colors = [VectorProp(4, IntProp, (*colors[i], 255) if len(colors[i]) == 3 else colors[i]) for i in range(len(colors))]
@@ -57,6 +59,10 @@ class BarGraphVert:
         self.size = VectorProp(2, IntProp, size)
         self.categories = [StringProp(categories[i]) for i in range(len(categories))]
         self.values = [IntProp(values[i]) for i in range(len(values))]
+        if isinstance(text_color, str):
+            self.text_color = StringProp(text_color)
+        else:
+            self.text_color = VectorProp(4, IntProp, text_color)
         self.border = IntProp(border)
         self.border_color = VectorProp(2, IntProp, border_color)
 
