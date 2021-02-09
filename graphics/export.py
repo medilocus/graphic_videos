@@ -18,8 +18,10 @@
 #
 
 import sys
+import os
 import time
 import subprocess
+import multiprocessing
 from typing import Tuple
 import pygame
 import cv2
@@ -63,6 +65,35 @@ def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
 
         if verbose:
             printer.newline()
+
+    video.release()
+    if verbose:
+        elapse = time.time() - abs_start
+        elapse = str(elapse)[:6]
+        printer.clearline()
+        printer.write(f"[GRAPHICS] Exporting video: Finished in {elapse}s")
+        printer.newline()
+    if notify:
+        notify_done()
+
+
+def export_mc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str, verbose: bool = True, notify: bool = True) -> None:
+    """
+    Multi core export.
+    :param resolution: Resolution of video.
+    :param fps: FPS of video.
+    :param scenes: List of scenes to export in order of appearance.
+    :param path: Output path of final video (must be .mp4 for now).
+    :param verbose: Whether to show information prints.
+    :param notify: Whether to send a notification after exporting is finished.
+    """
+    if not path.endswith(".mp4"):
+        raise ValueError("Path must be an MP4 (.mp4) file.")
+
+    video = cv2.VideoWriter(path, cv2.VideoWriter_fourcc(*"mp4v"), fps, resolution)
+    abs_start = time.time()
+    for i, scene in enumerate(scenes):
+        pass
 
     video.release()
     if verbose:
