@@ -52,7 +52,7 @@ def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
                 remaining = per_frame * (scene_num_frames-total_frames)
                 remaining = str(remaining)[:6]
                 printer.clearline()
-                printer.write(f"[GRAPHICS] Exporting: Scene {i+1}/{len(scenes)}: {total_frames}/{scene_num_frames}, {remaining}s remaining.")
+                printer.write(f"[GRAPHICS] Exporting: Scene {i+1}/{len(scenes)}: Frame {total_frames}/{scene_num_frames}, {remaining}s remaining.")
             total_frames += 1
 
             surface = scene.render(resolution, frame)
