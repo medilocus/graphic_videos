@@ -41,6 +41,7 @@ def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
         raise ValueError("Path must be an MP4 (.mp4) file.")
 
     video = cv2.VideoWriter(path, cv2.VideoWriter_fourcc(*"MPEG"), fps, resolution)
+    abs_start = time.time()
     for i, scene in enumerate(scenes):
         scene_num_frames = len(scene.get_frames())
         total_frames = 1
@@ -65,8 +66,11 @@ def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
 
     video.release()
     if verbose:
+        elapse = time.time() - abs_start
+        elapse = str(elapse)[:6]
         printer.clearline()
-        printer.write("[GRAPHICS] Exporting video: Finished\n")
+        printer.write(f"[GRAPHICS] Exporting video: Finished in {elapse}s")
+        printer.newline()
     if notify:
         notify_done()
 
