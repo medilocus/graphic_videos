@@ -18,11 +18,11 @@
 #
 
 import sys
+import time
 import subprocess
 from typing import Tuple
 import pygame
 import cv2
-from . import options
 from .scene import Scene
 from .printer import printer
 
@@ -44,10 +44,15 @@ def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
     for i, scene in enumerate(scenes):
         scene_num_frames = len(scene.get_frames())
         total_frames = 1
+        time_start = time.time()
         for frame in scene.get_frames():
             if verbose:
+                elapse = time.time() - time_start
+                per_frame = elapse / total_frames
+                remaining = per_frame * (scene_num_frames-total_frames)
+                remaining = str(remaining)[:6]
                 printer.clearline()
-                printer.write(f"[GRAPHICS] Exporting video: Scene {i+1}/{len(scenes)}: {total_frames}/{scene_num_frames} frames encoded.")
+                printer.write(f"[GRAPHICS] Exporting: Scene {i+1}/{len(scenes)}: Frame {total_frames}/{scene_num_frames}, {remaining}s remaining.")
             total_frames += 1
 
             surface = scene.render(resolution, frame)
