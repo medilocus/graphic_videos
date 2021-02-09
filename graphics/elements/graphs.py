@@ -36,7 +36,7 @@ class BarGraphVert:
     border: IntProp
     border_color: VectorProp
 
-    def __init__(self, loc: Tuple[int], size: Tuple[int], categories: Tuple[str], values: Tuple[int], text_color: Tuple[int] = "AUTO", colors: Tuple[Tuple[int]] = "AUTO", border: int = 4, border_color: int = (0, 0, 0)):
+    def __init__(self, loc: Tuple[int], size: Tuple[int], categories: Tuple[str], values: Tuple[int], text_color: Tuple[int] = "AUTO", colors: Tuple[Tuple[int]] = "AUTO", border: int = 4, border_color: int = (0, 0, 0, 255)):
         """
         Initializes vertical bar graph.
         :param loc: Top left corner location (pixels) of vertical bar graph.
@@ -64,7 +64,7 @@ class BarGraphVert:
         else:
             self.text_color = VectorProp(4, IntProp, text_color)
         self.border = IntProp(border)
-        self.border_color = VectorProp(2, IntProp, border_color)
+        self.border_color = VectorProp(4, IntProp, border_color)
 
     def render(self, res: Tuple[int], frame: int):
         surf = pygame.Surface(res, pygame.SRCALPHA)
@@ -84,7 +84,7 @@ class BarGraphVert:
             y = height - 5 - 100 - value + base_y
             pygame.draw.rect(surf, color, (x, y, gap, value))
             if text_color == "AUTO":
-                text_color = (0,)*255
+                text_color = (0,)*3
             text = font.render(category, 1, text_color)
             surf.blit(text, (x + gap // 2 - text.get_width() // 2, height - 5 - 100 + 10))
             if text_color == "AUTO":
@@ -92,5 +92,7 @@ class BarGraphVert:
             text = font.render(str(value), 1, text_color)
             surf.blit(text, (x + gap // 2 - text.get_width() // 2, y // 2 - text.get_height() // 2))
 
-        pygame.draw.rect(surf, border_color,(100 + base_x, 0 + base_y, border, height - 100))
+        pygame.draw.rect(surf, border_color, (100 + base_x, 0 + base_y, border, height - 100))
         pygame.draw.rect(surf, border_color, (100 + base_x, height - border - 100 + base_y, width - 100, border))
+    
+        return surf
