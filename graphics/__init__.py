@@ -17,6 +17,8 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+__version__ = 1.0
+
 from . import options
 from . import props
 from . import elements
