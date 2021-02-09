@@ -89,7 +89,7 @@ class BarGraphVert:
             surf.blit(text, (x + gap // 2 - text.get_width() // 2, height - 5 - 100 + 10))
             if text_color == "AUTO":
                 text_color = (0,)*3 if sum(color) > 120 else (255,)*3
-            text = font.render(str(value), 1, self.border_color)
+            text = font.render(str(value), 1, text_color)
             surf.blit(text, (x + gap // 2 - text.get_width() // 2, y // 2 - text.get_height() // 2))
 
         pygame.draw.rect(surf, border_color,(100 + base_x, 0 + base_y, border, height - 100))
