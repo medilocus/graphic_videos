@@ -76,25 +76,25 @@ class BarGraphVert:
         border = self.border.get_value(frame)
         border_color = self.border_color.get_value(frame)
         text_color = self.text_color.get_value(frame)
-        gap = (width - 100 - len(self.categories) * 5) // len(self.categories)
+        gap = (width - 5 - len(self.categories) * 5) // len(self.categories)
         for i in range(len(self.categories)):
             color = self.colors[i].get_value(frame)
             value = self.values[i].get_value(frame)
             category = self.categories[i].get_value(frame)
             val_h = np.interp(value, (0, max(self.values, key=lambda val: val.get_value(frame)).get_value(frame) + 1), (3, height - 100 - 5))
-            x = 5 + 100 + gap*i + i*5 + base_x
-            y = height - 5 - 100 - val_h + base_y
+            x = 5 + gap*i + i*5 + base_x
+            y = height - 5 - 50 - val_h + base_y
             pygame.draw.rect(surf, color, (x, y, gap, val_h))
             if text_color == "AUTO":
                 text_color = (0,)*3
             text = font.render(category, 1, text_color)
-            surf.blit(text, (x + gap // 2 - text.get_width() // 2, height - 5 - 100 + 10))
+            surf.blit(text, (x + gap // 2 - text.get_width() // 2, height - 5 - 50 + 10))
             if text_color == "AUTO" and sum(color) < 120:
                 text_color = (255,)*3
             text = font.render(str(value), 1, text_color)
             surf.blit(text, (x + gap // 2 - text.get_width() // 2, y + val_h//2 - text.get_height() // 2))
 
-        pygame.draw.rect(surf, border_color, (100 + base_x, 0 + base_y, border, height - 100))
-        pygame.draw.rect(surf, border_color, (100 + base_x, height - border - 100 + base_y, width - 100, border))
+        pygame.draw.rect(surf, border_color, (base_x, 0 + base_y, border, height - 50))
+        pygame.draw.rect(surf, border_color, (base_x, height - border - 50 + base_y, width, border))
 
         return surf
