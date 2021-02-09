@@ -19,6 +19,7 @@
 
 from typing import Tuple
 import pygame
+import numpy as np
 from ..props import *
 import random
 pygame.init()
@@ -80,19 +81,20 @@ class BarGraphVert:
             color = self.colors[i].get_value(frame)
             value = self.values[i].get_value(frame)
             category = self.categories[i].get_value(frame)
+            val_h = np.interp(value, (0, max(self.values, key=lambda val: val.get_value(frame)).get_value(frame) + 1), (3, height - 100 - 5))
             x = 5 + 100 + gap*i + i*5 + base_x
-            y = height - 5 - 100 - value + base_y
-            pygame.draw.rect(surf, color, (x, y, gap, value))
+            y = height - 5 - 100 - val_h + base_y
+            pygame.draw.rect(surf, color, (x, y, gap, val_h))
             if text_color == "AUTO":
                 text_color = (0,)*3
             text = font.render(category, 1, text_color)
             surf.blit(text, (x + gap // 2 - text.get_width() // 2, height - 5 - 100 + 10))
-            if text_color == "AUTO":
-                text_color = (0,)*3 if sum(color) > 120 else (255,)*3
+            if text_color == "AUTO" and sum(color) < 120:
+                text_color = (255,)*3
             text = font.render(str(value), 1, text_color)
-            surf.blit(text, (x + gap // 2 - text.get_width() // 2, y // 2 - text.get_height() // 2))
+            surf.blit(text, (x + gap // 2 - text.get_width() // 2, y + val_h//2 - text.get_height() // 2))
 
         pygame.draw.rect(surf, border_color, (100 + base_x, 0 + base_y, border, height - 100))
         pygame.draw.rect(surf, border_color, (100 + base_x, height - border - 100 + base_y, width - 100, border))
-    
+
         return surf
