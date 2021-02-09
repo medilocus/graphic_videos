@@ -58,3 +58,23 @@ class BarGraphVert:
             self.colors = [VectorProp(4, IntProp, (*colors[i], 255) if len(colors[i]) == 3 else colors[i]) for i in range(len(colors))]
         self.border = IntProp(border)
         self.border_color = VectorProp(2, IntProp, border_color)
+
+    def render(self, res: Tuple[int], frame: int):
+        surf = pygame.Surface(res, pygame.SRCALPHA)
+        font = pygame.font.SysFont(DEFAULT_FONT, 20)
+        surf.fill((0, 0, 0, 0))
+        gap = (self.size[0] - 100 - len(self.categories) * 5) // len(self.categories)
+        for i in range(len(self.categories)):
+            color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+            while sum(color) < 120:
+                color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+            x = 5 + 100 + gap*i + i*5
+            y = self.size[1] - 5 - 100 - self.values[i]
+            pygame.draw.rect(surf, color, (x, y, gap, self.values[i]))
+            text = font.render(self.categories[i], 1, self.border_color)
+            surf.blit(text, (x + gap // 2 - text.get_width() // 2, self.size[1] - 5 - 100 + 10))
+            text = font.render(str(self.values[i]), 1, self.border_color)
+            surf.blit(text, (x + gap // 2 - text.get_width() // 2, y // 2 - text.get_height() // 2))
+
+        pygame.draw.rect(surf, self.border_color,(100, 0, 5, self.size[1] - 100))
+        pygame.draw.rect(surf, self.border_color, (100, self.size[1] - 5 - 100, self.size[0] - 100, 5))
