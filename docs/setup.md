@@ -18,7 +18,7 @@ Take the folder named `graphics` and delete everything else.
 Setup your files in this format:
 
 ```
-graphics  # The folder that was downloaded
+graphics      # The folder that was downloaded
 filename.py   # Python file which will be run
 ```
 
