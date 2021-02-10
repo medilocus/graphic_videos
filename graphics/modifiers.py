@@ -111,3 +111,6 @@ class ModGaussianBlur(Modifier):
 
 class ModGrayscale(Modifier):
     """Converts the surface into grayscale"""
+
+    def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
+        pass
