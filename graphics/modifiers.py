@@ -100,7 +100,7 @@ class ModGaussianBlur(Modifier):
 
     radius: FloatProp
 
-    def __init__(self, radius: int = 4):
+    def __init__(self, radius: float = 4):
         self.radius = IntProp(radius)
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
@@ -117,3 +117,12 @@ class ModGrayscale(Modifier):
         surf = np.dstack((np.resize(pygame.surfarray.array3d(src), (*src.get_size(), 3)), np.ones(src.get_size())))
         arr = surf.dot([0.216, 0.587, 0.144, 1])[..., np.newaxis].repeat(3, 2)
         return pygame.surfarray.make_surface(arr)
+
+
+class ModBright(Modifier):
+    """Brightens the surface by a factor"""
+
+    factor: FloatProp
+
+    def __init__(self, factor: float = 4):
+        self.factor = FloatProp(factor)
