@@ -19,6 +19,7 @@
 
 from typing import Tuple
 from PIL import Image, ImageFilter
+import numpy as np
 import colorsys
 import pygame
 from .props import *
@@ -103,7 +104,7 @@ class ModGaussianBlur(Modifier):
         self.radius = IntProp(radius)
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
-        surf = pygame.surfarray.array3d(src).swapaxes(1, 0)
+        surf = pygame.surfarray.pixels3d(src).swapaxes(1, 0)
         img = Image.fromarray(surf).filter(ImageFilter.GaussianBlur(self.radius.get_value(frame)))
         data = (img.tobytes(), img.size, img.mode)
         return pygame.image.fromstring(*data)
@@ -113,4 +114,6 @@ class ModGrayscale(Modifier):
     """Converts the surface into grayscale"""
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
-        pass
+        surf = np.dstack((np.resize(pygame.surfarray.array3d(src), (*src.get_size(), 3)), np.ones(src.get_size())))
+        arr = surf.dot([0.216, 0.587, 0.144, 1])[..., np.newaxis].repeat(3, 2)
+        return pygame.surfarray.make_surface(arr)
