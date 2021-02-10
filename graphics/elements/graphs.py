@@ -70,32 +70,50 @@ class BarGraphVert(BaseElement):
         self.border_color = VectorProp(4, IntProp, border_color)
 
     def render(self, res: Tuple[int], frame: int):
+        # Initialize surface
         surf = pygame.Surface(res, pygame.SRCALPHA)
         font = pygame.font.SysFont(DEFAULT_FONT, 20)
         surf.fill((0, 0, 0, 0))
+
+        # Get current values
         base_x, base_y = self.loc.get_value(frame)
         width, height = self.size.get_value(frame)
         border = self.border.get_value(frame)
         border_color = self.border_color.get_value(frame)
         text_color = self.text_color.get_value(frame)
         gap = (width - 5 - len(self.categories) * 5) // len(self.categories)
+
+        # Draw bars and text for each bar
         for i in range(len(self.categories)):
+            # Get values for bar
             color = self.colors[i].get_value(frame)
             value = self.values[i].get_value(frame)
             category = self.categories[i].get_value(frame)
             val_h = np.interp(value, (0, max(self.values, key=lambda val: val.get_value(frame)).get_value(frame) + 1), (3, height - 100 - 5))
+
+            # Calculate x and y for bar
             x = 5 + gap*i + i*5 + base_x
             y = height - 5 - 50 - val_h + base_y
+
+            # Draw bar
             pygame.draw.rect(surf, color, (x, y, gap, val_h))
+
+            # Set text color for category text
             if text_color == "AUTO":
                 text_color = (0,)*3
+            # Create text
             text = font.render(category, 1, text_color)
+            # Draw text
             surf.blit(text, (x + gap // 2 - text.get_width() // 2, height - 5 - 50 + 10))
+            # Set text color for value text
             if text_color == "AUTO" and sum(color) < 120:
                 text_color = (255,)*3
+            # Create text
             text = font.render(str(value), 1, text_color)
+            # Draw text
             surf.blit(text, (x + gap // 2 - text.get_width() // 2, y + val_h//2 - text.get_height() // 2))
 
+        # Draw graph borders
         pygame.draw.rect(surf, border_color, (base_x, 0 + base_y, border, height - 50))
         pygame.draw.rect(surf, border_color, (base_x, height - border - 50 + base_y, width, border))
 
