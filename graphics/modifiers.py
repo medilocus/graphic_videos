@@ -65,11 +65,6 @@ class ModHsva(Modifier):
     # todo efficiency
     # todo fix bugs
 
-    h: FloatProp
-    s: FloatProp
-    v: FloatProp
-    a: FloatProp
-
     def __init__(self) -> None:
         """
         Initializes modifier.
