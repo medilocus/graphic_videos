@@ -208,7 +208,7 @@ class BarGraphHoriz(BaseElement):
             surf.blit(text, (x + val_w // 2 - text.get_width() // 2, y + gap // 2 - text.get_height() // 2))
 
         # Draw graph borders
-        pygame.draw.rect(surf, border_color, (base_x, base_y, border, height - 50))
-        pygame.draw.rect(surf, border_color, (base_x, height - border - 50 + base_y, width, border))
+        pygame.draw.rect(surf, border_color, (base_x + 50, base_y, border, height))
+        pygame.draw.rect(surf, border_color, (base_x + 50, height - border + base_y, width, border))
 
         return surf
