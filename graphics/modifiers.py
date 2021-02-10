@@ -73,9 +73,10 @@ class ModHsva(Modifier):
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
         surf = pygame.surfarray.pixels3d(src).swapaxes(1, 0)
+        alpha = pygame.surfarray.pixels_alpha(src).swapaxes(1, 0)
         img = Image.fromarray(surf).convert("HSV")
-        data = (img.tobytes(), img.size, "RGB")
-        return pygame.image.fromstring(*data)
+        arr = np.dstack((np.array(img), alpha))
+        return pygame.image.make_surface(arr)
 
 
 class ModGaussianBlur(Modifier):
