@@ -24,10 +24,6 @@ from .props import *
 pygame.init()
 
 
-def copysurf(surf: pygame.Surface) -> pygame.Surface:
-    return pygame.image.fromstring(pygame.image.tostring(surf, "RGBA"), surf.get_size(), "RGBA")
-
-
 class Modifier:
     """Base modifier class. Other modifiers should inherit from this."""
 
