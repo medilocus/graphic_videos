@@ -18,9 +18,13 @@
 #
 
 import sys
+import os
+import shutil
 import time
 import subprocess
+import multiprocessing
 from typing import Tuple
+from hashlib import sha256
 import pygame
 import cv2
 from .scene import Scene
@@ -40,7 +44,7 @@ def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
     if not path.endswith(".mp4"):
         raise ValueError("Path must be an MP4 (.mp4) file.")
 
-    video = cv2.VideoWriter(path, cv2.VideoWriter_fourcc(*"MPEG"), fps, resolution)
+    video = cv2.VideoWriter(path, cv2.VideoWriter_fourcc(*"mp4v"), fps, resolution)
     abs_start = time.time()
     for i, scene in enumerate(scenes):
         scene_num_frames = len(scene.get_frames())
@@ -73,6 +77,112 @@ def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
         printer.newline()
     if notify:
         notify_done()
+
+
+def mc_render(scene, frames, path, res):
+    for frame in frames:
+        curr_path = os.path.join(path, f"{frame}.png")
+
+        surface = scene.render(res, frame)
+        pygame.image.save(surface, curr_path)
+
+
+def export_mc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], out_path: str, verbose: bool = True, notify: bool = True) -> None:
+    """
+    Multi core export. Will write images to disk.
+    :param resolution: Resolution of video.
+    :param fps: FPS of video.
+    :param scenes: List of scenes to export in order of appearance.
+    :param path: Output path of final video (must be .mp4 for now).
+    :param verbose: Whether to show information prints.
+    :param notify: Whether to send a notification after exporting is finished.
+    """
+    if not out_path.endswith(".mp4"):
+        raise ValueError("Path must be an MP4 (.mp4) file.")
+
+    num_cpus = multiprocessing.cpu_count()
+    parent = os.path.realpath(os.path.dirname(__file__))
+    get_path = lambda: os.path.join(parent, sha256(str(time.time()).encode()).hexdigest())
+    path = get_path()
+    while os.path.isdir(path):
+        path = get_path()
+
+    video = cv2.VideoWriter(out_path, cv2.VideoWriter_fourcc(*"mp4v"), fps, resolution)
+    abs_start = time.time()
+    success = True
+    processes = []
+    try:
+        for scene_num, scene in enumerate(scenes):
+            os.makedirs(path)
+            time_start = time.time()
+            processes = []
+            frames_to_render = scene.get_frames()
+
+            if len(frames_to_render) < num_cpus:
+                p = multiprocessing.Process(target=mc_render, args=(scene, frames_to_render, path, resolution))
+                processes.append(p)
+            else:
+                chunk_size = len(frames_to_render) / num_cpus
+                for i in range(num_cpus):
+                    start = int(chunk_size * i)
+                    end = int(chunk_size * (i+1))
+                    frames = frames_to_render[start:end]
+                    p = multiprocessing.Process(target=mc_render, args=(scene, frames, path, resolution))
+                    processes.append(p)
+
+            for p in processes:
+                p.start()
+
+            while True in [p.is_alive() for p in processes]:
+                time.sleep(0.05)
+                if verbose:
+                    num_files = max(1, len(os.listdir(path)))
+                    elapse = time.time() - time_start
+                    per_frame = elapse / num_files
+                    remaining = per_frame * (len(frames_to_render)-num_files)
+                    remaining = str(remaining)[:6]
+                    printer.clearline()
+                    printer.write(f"[GRAPHICS] Exporting: Scene {scene_num+1}/{len(scenes)}: " + \
+                        f"Frame {num_files}/{len(frames_to_render)}, {remaining}s remaining.")
+
+            printer.newline()
+            time.sleep(0.1)
+            for i, frame in enumerate(frames_to_render):
+                img_path = os.path.join(path, f"{frame}.png")
+                if os.path.isfile(img_path):
+                    img = cv2.imread(img_path)
+                    video.write(img)
+
+                if verbose:
+                    num_done = i + 1
+                    elapse = time.time() - time_start
+                    per_frame = elapse / num_done
+                    remaining = per_frame * (len(frames_to_render)-num_done)
+                    remaining = str(remaining)[:6]
+                    printer.clearline()
+                    printer.write(f"[GRAPHICS] Exporting: Scene {scene_num+1}/{len(scenes)}: " + \
+                        f"Encoding {num_done}/{len(frames_to_render)}, {remaining}s remaining.")
+
+            printer.newline()
+            shutil.rmtree(path)
+
+    except KeyboardInterrupt:
+        for p in processes:
+            p.terminate()
+        time.sleep(0.1)
+        shutil.rmtree(path)
+        success = False
+
+    video.release()
+    if success:
+        if verbose:
+            elapse = time.time() - abs_start
+            elapse = str(elapse)[:6]
+            printer.clearline()
+            printer.write(f"[GRAPHICS] Exporting video: Finished in {elapse}s")
+            printer.newline()
+        if notify:
+            notify_done()
 
 
 def notify_done():
