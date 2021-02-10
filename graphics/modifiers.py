@@ -18,7 +18,7 @@
 #
 
 from typing import Tuple
-from PIL import Image, ImageFilter
+from PIL import Image, ImageFilter, ImageEnhance
 import numpy as np
 import colorsys
 import pygame
@@ -125,3 +125,18 @@ class ModGrayscale(Modifier):
         surf = np.dstack((np.resize(pygame.surfarray.array3d(src), (*src.get_size(), 3)), np.ones(src.get_size())))
         arr = surf.dot([0.216, 0.587, 0.144, 1])[..., np.newaxis].repeat(3, 2)
         return pygame.surfarray.make_surface(arr)
+
+
+class ModBright(Modifier):
+    """Brightens the surface by a factor"""
+
+    factor: FloatProp
+
+    def __init__(self, factor: float = 4):
+        self.factor = FloatProp(factor)
+
+    def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
+        surf = pygame.surfarray.pixels3d(src).swapaxes(1, 0)
+        img = ImageEnhance.Brightness(Image.fromarray(surf)).enhance(self.factor.get_value(frame))
+        data = (img.tobytes(), img.size, img.mode)
+        return pygame.image.fromstring(*data)
