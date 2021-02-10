@@ -74,7 +74,7 @@ class ModHsva(Modifier):
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
         surf = pygame.surfarray.pixels3d(src).swapaxes(1, 0)
         img = Image.fromarray(surf).convert("HSV")
-        data = (img.tobytes(), img.size, "RGBA")
+        data = (img.tobytes(), img.size, "RGB")
         return pygame.image.fromstring(*data)
 
 
