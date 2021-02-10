@@ -18,7 +18,7 @@
 #
 
 from typing import Tuple
-from PIL import Image, ImageFilter
+from PIL import Image, ImageFilter, ImageEnhance
 import numpy as np
 import colorsys
 import pygame
@@ -128,4 +128,7 @@ class ModBright(Modifier):
         self.factor = FloatProp(factor)
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
-        pass
+        surf = pygame.surfarray.pixels3d(src).swapaxes(1, 0)
+        img = Image.fromarray(surf).filter(ImageEnhance.Brightness(self.factor.get_value(frame)))
+        data = (img.tobytes(), img.size, img.mode)
+        return pygame.image.fromstring(*data)
