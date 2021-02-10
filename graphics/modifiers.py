@@ -126,3 +126,6 @@ class ModBright(Modifier):
 
     def __init__(self, factor: float = 4):
         self.factor = FloatProp(factor)
+    
+    def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
+        pass
