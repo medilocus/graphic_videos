@@ -12,6 +12,8 @@ An API for creating graphic videos in Python.
 
 [About][about]
 
+[Export][export]
+
 ## News
 
 Graphic Videos is planning to release Version 1.1 on Thursday, Feburary 11.
@@ -22,3 +24,4 @@ Contribute by forking and making a pull request!
 [quickstart]: https://medilocus.github.io/graphic_videos/quick-start
 [extending]: https://medilocus.github.io/graphic_videos/extending
 [about]: https://medilocus.github.io/graphic_videos/about
+[export]: https://medilocus.github.io/graphic_videos/export
