@@ -175,7 +175,7 @@ class BarGraphHoriz(BaseElement):
         border = self.border.get_value(frame)
         border_color = self.border_color.get_value(frame)
         text_color = self.text_color.get_value(frame)
-        gap = (width - 5 - len(self.categories) * 5) // len(self.categories)
+        gap = (height - 5 - len(self.categories) * 5) // len(self.categories)
 
         # Draw bars and text for each bar
         for i in range(len(self.categories)):
