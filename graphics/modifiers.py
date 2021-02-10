@@ -107,3 +107,7 @@ class ModGaussianBlur(Modifier):
         img = Image.fromarray(surf).filter(ImageFilter.GaussianBlur(self.radius.get_value(frame)))
         data = (img.tobytes(), img.size, img.mode)
         return pygame.image.fromstring(*data)
+
+
+class ModGrayscale(Modifier):
+    """Converts the surface into grayscale"""
