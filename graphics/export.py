@@ -192,3 +192,5 @@ def notify_done():
     elif sys.platform == "windows":
         from win10toast import ToastNotifier
         ToastNotifier().show_toast("Graphic Videos", "Finished exporting an animation!", duration=10)
+    elif sys.platform == "darwin":
+        os.system("osascript -e 'display notification \"Finished exporting an animation!\" with title \"Graphic Videos\"'")
