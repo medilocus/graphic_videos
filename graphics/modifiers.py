@@ -101,7 +101,7 @@ class ModGaussianBlur(Modifier):
     radius: FloatProp
 
     def __init__(self, radius: float = 4):
-        self.radius = IntProp(radius)
+        self.radius = FloatProp(radius)
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
         surf = pygame.surfarray.pixels3d(src).swapaxes(1, 0)
