@@ -77,8 +77,8 @@ class ModHsva(Modifier):
         super().__init__()
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
-        surf = pygame.pixels3d(src)
-
+        surf = pygame.surfarray.pixels3d(src)
+        img = Image.fromarray(surf)
         return surf
 
 
