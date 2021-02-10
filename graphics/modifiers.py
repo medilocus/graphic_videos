@@ -18,6 +18,7 @@
 #
 
 from typing import Tuple
+from PIL import Image, ImageFilter
 import colorsys
 import pygame
 from .props import *
@@ -91,3 +92,18 @@ class ModHsva(Modifier):
                 surf.set_at((x, y), curr_col)
 
         return surf
+
+
+class ModGaussianBlur(Modifier):
+    """Blurs the surface using Gaussian Blur"""
+
+    radius: FloatProp
+
+    def __init__(self, radius: int = 4):
+        self.radius = IntProp(radius)
+
+    def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
+        surf = pygame.surfarray.array3d(src)
+        img = Image.fromarray(surf).filter(ImageFilter.GaussianBlur(self.radius.get_value(frame)))
+        data = (img.tobytes(), img.size, img.mode)
+        return pygame.image.fromstring(*data)
