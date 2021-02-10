@@ -11,3 +11,8 @@ All export functions have these parameters:
 * `verbose`: Whether to print out info while exporting.
 * `notify`: Whether to notify user after finished exporting via system notification.
 
+## Available Methods
+
+* Single Core: Exports and encodes each frame.
+* Multi Core: Exports and encodes each frame on all system cores. Uses many temporary files. MAY BE UNSTABLE.
+* FFmpeg: Exports and compresses with FFmpeg. Uses one temporary file.
