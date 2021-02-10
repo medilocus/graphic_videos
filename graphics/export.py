@@ -47,10 +47,11 @@ def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str,
     video = cv2.VideoWriter(path, cv2.VideoWriter_fourcc(*"mp4v"), fps, resolution)
     abs_start = time.time()
     for i, scene in enumerate(scenes):
-        scene_num_frames = len(scene.get_frames())
+        scene_frames = scene.get_frames()
+        scene_num_frames = len(scene_frames)
         total_frames = 1
         time_start = time.time()
-        for frame in scene.get_frames():
+        for frame in scene_frames:
             if verbose:
                 elapse = time.time() - time_start
                 per_frame = elapse / total_frames
