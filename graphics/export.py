@@ -31,6 +31,14 @@ from .scene import Scene
 from .printer import printer
 
 
+def get_tmp_path():
+    parent = os.path.realpath(os.path.dirname(__file__))
+    get_path = lambda: os.path.join(parent, sha256(str(time.time()).encode()).hexdigest())
+    path = get_path()
+    while os.path.isdir(path):
+        path = get_path()
+
+
 def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str, verbose: bool = True, notify: bool = True) -> None:
     """
     Single core export.
@@ -102,11 +110,7 @@ def export_mc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], out_path: 
         raise ValueError("Path must be an MP4 (.mp4) file.")
 
     num_cpus = multiprocessing.cpu_count()
-    parent = os.path.realpath(os.path.dirname(__file__))
-    get_path = lambda: os.path.join(parent, sha256(str(time.time()).encode()).hexdigest())
-    path = get_path()
-    while os.path.isdir(path):
-        path = get_path()
+    path = get_tmp_path()
 
     video = cv2.VideoWriter(out_path, cv2.VideoWriter_fourcc(*"mp4v"), fps, resolution)
     abs_start = time.time()
