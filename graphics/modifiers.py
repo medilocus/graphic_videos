@@ -28,6 +28,11 @@ pygame.init()
 class Modifier:
     """Base modifier class. Other modifiers should inherit from this."""
 
+    show: BoolProp
+
+    def __init__(self):
+        self.show = BoolProp(True)
+
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:...
 
 
@@ -43,6 +48,7 @@ class ModFlip(Modifier):
         :param x: Flip on x axis?
         :param y: Flip on y axis?
         """
+        super().__init__()
         self.x = BoolProp(x)
         self.y = BoolProp(y)
 
@@ -71,6 +77,7 @@ class ModHsva(Modifier):
         :param v: Value (multiplicative).
         :param a: Alpha (multiplicative).
         """
+        super().__init__()
         self.h = FloatProp(h)
         self.s = FloatProp(s)
         self.v = FloatProp(v)
@@ -100,6 +107,7 @@ class ModGaussianBlur(Modifier):
     radius: FloatProp
 
     def __init__(self, radius: int = 4):
+        super().__init__()
         self.radius = IntProp(radius)
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
