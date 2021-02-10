@@ -70,34 +70,14 @@ class ModHsva(Modifier):
     v: FloatProp
     a: FloatProp
 
-    def __init__(self, h: float, s: float, v: float, a: float) -> None:
+    def __init__(self) -> None:
         """
         Initializes modifier.
-        :param h: Hue (additive).
-        :param s: Saturation (multiplicative).
-        :param v: Value (multiplicative).
-        :param a: Alpha (multiplicative).
         """
         super().__init__()
-        self.h = FloatProp(h)
-        self.s = FloatProp(s)
-        self.v = FloatProp(v)
-        self.a = FloatProp(a)
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
-        surf = src.copy()
-        h = self.h.get_value(frame)
-        s = self.s.get_value(frame)
-        v = self.v.get_value(frame)
-        a = self.a.get_value(frame)
-
-        for x in range(src.get_width()):
-            for y in range(src.get_height()):
-                curr_col = [i/255 for i in src.get_at((x, y))]
-                curr_col = [*colorsys.rgb_to_hsv(*curr_col[:3]), curr_col[3]]
-                curr_col = [curr_col[0]+h, curr_col[1]*s, curr_col[2]*v, curr_col[3]*a]
-                curr_col = [*[i*255 for i in colorsys.hsv_to_rgb(*curr_col[:3])], curr_col[3]]
-                surf.set_at((x, y), curr_col)
+        surf = pygame.pixels3d(src)
 
         return surf
 
