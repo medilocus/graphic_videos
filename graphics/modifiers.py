@@ -18,6 +18,7 @@
 #
 
 from typing import Tuple
+from PIL import Image, ImageFilter
 import colorsys
 import pygame
 from .props import *
