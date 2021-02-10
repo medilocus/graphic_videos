@@ -103,7 +103,7 @@ class ModGaussianBlur(Modifier):
         self.radius = IntProp(radius)
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
-        surf = pygame.surfarray.array3d(src)
+        surf = pygame.surfarray.array3d(src).swapaxes(1, 0)
         img = Image.fromarray(surf).filter(ImageFilter.GaussianBlur(self.radius.get_value(frame)))
         data = (img.tobytes(), img.size, img.mode)
         return pygame.image.fromstring(*data)
