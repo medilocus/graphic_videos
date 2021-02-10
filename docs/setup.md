@@ -2,6 +2,17 @@
 
 This page contains instructions on how to set up your files to use Graphic Videos.
 
+## Python Modules
+
+The required modules for Graphics are:
+
+* pygame
+* opencv-python
+* numpy
+* pillow
+
+Install these with the command `pip install <package>` or use the file `requirements.txt`, and do `pip install -r requirements.txt`
+
 ## Download Module
 
 First, you need to download the pre-written Graphic Videos module.
