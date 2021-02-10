@@ -55,9 +55,11 @@ class Group:
         final_surf = pygame.Surface(res, pygame.SRCALPHA)
 
         for element in self.elements:
-            surface.blit(element.render(res, frame), (0, 0))
+            if element.show.get_value(frame):
+                surface.blit(element.render(res, frame), (0, 0))
         for modifier in self.modifiers:
-            surface = modifier.modify(surface, frame)
+            if modifier.show.get_value(frame):
+                surface = modifier.modify(surface, frame)
 
         loc = self.loc.get_value(frame)
         size = self.size.get_value(frame)
