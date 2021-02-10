@@ -44,6 +44,7 @@ class ModFlip(Modifier):
         :param x: Flip on x axis?
         :param y: Flip on y axis?
         """
+        super().__init__()
         self.x = BoolProp(x)
         self.y = BoolProp(y)
 
@@ -72,6 +73,7 @@ class ModHsva(Modifier):
         :param v: Value (multiplicative).
         :param a: Alpha (multiplicative).
         """
+        super().__init__()
         self.h = FloatProp(h)
         self.s = FloatProp(s)
         self.v = FloatProp(v)
@@ -101,6 +103,11 @@ class ModGaussianBlur(Modifier):
     radius: FloatProp
 
     def __init__(self, radius: float = 4):
+        """
+        Initializes modifier.
+        :param radius: Radius of blurring
+        """
+        super().__init__()
         self.radius = FloatProp(radius)
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
@@ -112,8 +119,15 @@ class ModGaussianBlur(Modifier):
 
 class ModGrayscale(Modifier):
     """Converts the surface into grayscale"""
+    
+    def __init__(self):
+        """
+        Initializes modifier.
+        """
+        super().__init__()
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
+        super().__init__()
         surf = np.dstack((np.resize(pygame.surfarray.array3d(src), (*src.get_size(), 3)), np.ones(src.get_size())))
         arr = surf.dot([0.216, 0.587, 0.144, 1])[..., np.newaxis].repeat(3, 2)
         return pygame.surfarray.make_surface(arr)
@@ -125,6 +139,11 @@ class ModBright(Modifier):
     factor: FloatProp
 
     def __init__(self, factor: float = 4):
+        """
+        Initializes modifier.
+        :param factor: Factor of brightness
+        """
+        super().__init__()
         self.factor = FloatProp(factor)
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
