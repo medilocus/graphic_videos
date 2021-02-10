@@ -33,10 +33,12 @@ from .printer import printer
 
 def get_tmp_path():
     parent = os.path.realpath(os.path.dirname(__file__))
-    get_path = lambda: os.path.join(parent, sha256(str(time.time()).encode()).hexdigest())
+    get_path = lambda: os.path.join(parent, sha256(str(time.time()).encode()).hexdigest()[:16])
     path = get_path()
     while os.path.isdir(path):
         path = get_path()
+
+    return path
 
 
 def export_sc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], path: str, verbose: bool = True, notify: bool = True) -> None:
@@ -188,6 +190,61 @@ def export_mc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], out_path: 
             printer.newline()
         if notify:
             notify_done()
+
+
+def export_ffmpeg(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], out_path: str, verbose: bool = True, notify: bool = True) -> None:
+    """
+    Single core export.
+    :param resolution: Resolution of video.
+    :param fps: FPS of video.
+    :param scenes: List of scenes to export in order of appearance.
+    :param path: Output path of final video (must be .mp4 for now).
+    :param verbose: Whether to show information prints.
+    :param notify: Whether to send a notification after exporting is finished.
+    """
+    if not out_path.endswith(".mp4"):
+        raise ValueError("Path must be an MP4 (.mp4) file.")
+
+    path = get_tmp_path() + ".mp4"
+
+    video = cv2.VideoWriter(path, cv2.VideoWriter_fourcc(*"mp4v"), fps, resolution)
+    abs_start = time.time()
+    for i, scene in enumerate(scenes):
+        scene_frames = scene.get_frames()
+        scene_num_frames = len(scene_frames)
+        total_frames = 1
+        time_start = time.time()
+        for frame in scene_frames:
+            if verbose:
+                elapse = time.time() - time_start
+                per_frame = elapse / total_frames
+                remaining = per_frame * (scene_num_frames-total_frames)
+                remaining = str(remaining)[:6]
+                printer.clearline()
+                printer.write(f"[GRAPHICS] Exporting: Scene {i+1}/{len(scenes)}: Frame {total_frames}/{scene_num_frames}, {remaining}s remaining.")
+            total_frames += 1
+
+            surface = scene.render(resolution, frame)
+            surface = pygame.transform.rotate(pygame.transform.flip(surface, False, True), -90)
+            image = cv2.cvtColor(pygame.surfarray.array3d(surface), cv2.COLOR_RGB2BGR)
+            video.write(image)
+
+        if verbose:
+            printer.newline()
+
+    video.release()
+    time.sleep(0.1)
+    os.system(f"ffmpeg -y -i {path} -c:v libx265 -c:a copy -x265-params crf=25 {out_path}")
+    os.remove(path)
+
+    if verbose:
+        elapse = time.time() - abs_start
+        elapse = str(elapse)[:6]
+        printer.clearline()
+        printer.write(f"[GRAPHICS] Exporting video: Finished in {elapse}s")
+        printer.newline()
+    if notify:
+        notify_done()
 
 
 def notify_done():
