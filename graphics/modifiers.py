@@ -31,7 +31,7 @@ class Modifier:
 
     show: BoolProp
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.show = BoolProp(True)
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:...
@@ -87,7 +87,7 @@ class ModGaussianBlur(Modifier):
 
     radius: FloatProp
 
-    def __init__(self, radius: float = 4):
+    def __init__(self, radius: float = 4) -> None:
         """
         Initializes modifier.
         :param radius: Radius of blurring
@@ -105,7 +105,7 @@ class ModGaussianBlur(Modifier):
 class ModGrayscale(Modifier):
     """Converts the surface into grayscale"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initializes modifier.
         """
@@ -123,7 +123,7 @@ class ModBright(Modifier):
 
     factor: FloatProp
 
-    def __init__(self, factor: float = 4):
+    def __init__(self, factor: float = 4) -> None:
         """
         Initializes modifier.
         :param factor: Factor of brightness
