@@ -76,7 +76,7 @@ class ModHsva(Modifier):
         self.a = FloatProp(a)
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
-        surf = copysurf(src)
+        surf = src.copy()
         h = self.h.get_value(frame)
         s = self.s.get_value(frame)
         v = self.v.get_value(frame)
