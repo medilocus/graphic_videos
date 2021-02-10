@@ -91,3 +91,15 @@ class ModHsva(Modifier):
                 surf.set_at((x, y), curr_col)
 
         return surf
+
+
+class ModGaussianBlur(Modifier):
+    """Blurs the surface using Gaussian Blur"""
+
+    radius: FloatProp
+
+    def __init__(self, radius: int):
+        self.radius = IntProp(radius)
+
+    def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
+        surf = pygame.surfarray.array3d(src)
