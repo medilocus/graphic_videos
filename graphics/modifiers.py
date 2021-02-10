@@ -124,7 +124,7 @@ class ModGaussianBlur(Modifier):
 
 class ModGrayscale(Modifier):
     """Converts the surface into grayscale"""
-    
+
     def __init__(self):
         """
         Initializes modifier.
