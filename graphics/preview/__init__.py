@@ -30,6 +30,7 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene]) -> None:
 
     while True:
         clock.tick(FPS)
+        window.fill((0, 0, 0))
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
