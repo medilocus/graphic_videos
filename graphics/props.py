@@ -182,6 +182,10 @@ class VectorProp:
 
 
 class BoolProp(Property):
+    """
+    Boolean property.
+    Interpolations: CONSTANT
+    """
     dtype = bool
     default_interp = "CONSTANT"
     allowed_interps = ("CONSTANT",)
@@ -191,24 +195,36 @@ class BoolProp(Property):
 
 
 class IntProp(Property):
+    """
+    Integer property.
+    Interpolations: LINEAR, PARABOLIC, CONSTANT
+    """
     dtype = int
     default_interp = "PARABOLIC"
-    allowed_interps = ("LINEAR", "PARABOLIC", "SIGMOID")
+    allowed_interps = ("LINEAR", "PARABOLIC", "CONSTANT")
 
     def __repr__(self):
         return f"<IntProp object, default_val={self._default_val}>"
 
 
 class FloatProp(Property):
+    """
+    Float property.
+    Interpolations: LINEAR, PARABOLIC, CONSTANT
+    """
     dtype = float
     default_interp = "PARABOLIC"
-    allowed_interps = ("LINEAR", "PARABOLIC", "SIGMOID")
+    allowed_interps = ("LINEAR", "PARABOLIC", "CONSTANT")
 
     def __repr__(self):
         return f"<FloatProp object, default_val={self._default_val}>"
 
 
 class StringProp(Property):
+    """
+    String property.
+    Interpolations: CONSTANT
+    """
     dtype = str
     default_interp = "CONSTANT"
     allowed_interps = ("CONSTANT",)
