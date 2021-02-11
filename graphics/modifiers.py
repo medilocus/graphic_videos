@@ -201,4 +201,7 @@ class ModInvert(Modifier):
         super().__init__()
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
-        pass
+        surf = pygame.surfarray.pixels3d(src).swapaxes(1, 0)
+        img = ImageOps.invert(Image.fromarray(surf))
+        data = (img.tobytes(), img.size, img.mode)
+        return pygame.image.fromstring(*data)
