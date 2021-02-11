@@ -72,7 +72,7 @@ class BarGraphVert(BaseElement):
     def render(self, res: Tuple[int], frame: int):
         # Initialize surface
         surf = pygame.Surface(res, pygame.SRCALPHA)
-        font = pygame.font.SysFont(DEFAULT_FONT, 20)
+        font = pygame.font.SysFont(get_font(), 20)
         surf.fill((0, 0, 0, 0))
 
         # Get current values
@@ -166,7 +166,7 @@ class BarGraphHoriz(BaseElement):
     def render(self, res: Tuple[int], frame: int):
         # Initialize surface
         surf = pygame.Surface(res, pygame.SRCALPHA)
-        font = pygame.font.SysFont(DEFAULT_FONT, 20)
+        font = pygame.font.SysFont(get_font(), 20)
         surf.fill((0, 0, 0, 0))
 
         # Get current values
