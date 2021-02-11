@@ -174,5 +174,5 @@ class ModColorEnhance(Modifier):
 class ModSharpen(Modifier):
     """Sharpens color of surface"""
 
-    def __init__(self, factor: float = 4):
+    def __init__(self, factor: float = 4) -> None:
         self.factor = FloatProp(factor)
