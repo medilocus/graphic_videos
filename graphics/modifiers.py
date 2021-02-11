@@ -173,3 +173,4 @@ class ModColorEnhance(Modifier):
 
 class ModSharpen(Modifier):
     """Sharpens color of surface"""
+
