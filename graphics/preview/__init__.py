@@ -29,16 +29,18 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene]) -> None:
     clock = pygame.time.Clock()
     width, height = 1600, 900
     window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+    pygame.display.set_caption("Graphic Videos - Preview")
     frame_text = FrameText()
     resized = False
     playing = False
     curr_frame = 0
+    bottom_bar_height = 25
 
     while True:
         clock.tick(FPS)
         window.fill((0, 0, 0))
         events = pygame.event.get()
-        frame_text.draw(window, events, width, height, 20)
+        frame_text.draw(window, events, width, height, bottom_bar_height-5)
         for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()

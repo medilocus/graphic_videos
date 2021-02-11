@@ -19,7 +19,7 @@ class FrameText:
         self.frame += 1
         font = pygame.font.SysFont(get_font(), font_size)
 
-        text_size = font.size("Frame: " + self.text)
+        text_size = font.size("Frame: " + self.text + "9"*(5-len(self.text)))
         loc = [((width, height)[i] - text_size[i] - 2) for i in range(2)]
 
         text = font.render("Frame: " + self.text, 1, (255,)*3)
