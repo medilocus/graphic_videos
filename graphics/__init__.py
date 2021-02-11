@@ -17,12 +17,13 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-__version__ = "1.0"
+__version__ = "1.1"
 
 from . import options
 from . import props
 from . import elements
 from . import modifiers
 from . import export
+from . import preview
 from .groups import Group
 from .scene import Scene
