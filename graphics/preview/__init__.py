@@ -29,6 +29,8 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene]) -> None:
     width, height = 1600, 900
     window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
     resized = False
+    playing = False
+    curr_frame = 0
 
     while True:
         clock.tick(FPS)
