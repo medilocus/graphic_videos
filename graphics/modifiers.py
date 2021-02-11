@@ -163,5 +163,5 @@ class ModColorEnhance(Modifier):
         """
         self.factor = FloatProp(factor)
 
-    def modify(self, src: pygame.Surface, frame: int):
+    def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
         return src
