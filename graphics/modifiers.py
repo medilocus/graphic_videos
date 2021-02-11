@@ -169,3 +169,7 @@ class ModColorEnhance(Modifier):
         img = ImageEnhance.Color(Image.fromarray(surf)).enhance(self.factor.get_value(frame))
         data = (img.tobytes(), img.size, img.mode)
         return pygame.image.fromstring(*data)
+
+
+class ModSharpen(Modifier):
+    """Sharpens color of surface"""
