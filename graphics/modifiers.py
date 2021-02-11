@@ -18,7 +18,7 @@
 #
 
 from typing import Tuple
-from PIL import Image, ImageFilter, ImageEnhance
+from PIL import Image, ImageFilter, ImageEnhance, ImageOps
 import numpy as np
 import pygame
 from .props import *
