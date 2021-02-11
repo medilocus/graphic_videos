@@ -182,3 +182,6 @@ class ModSharpen(Modifier):
         :param factor: Factor of sharpness
         """
         self.factor = FloatProp(factor)
+
+    def modify():
+        pass
