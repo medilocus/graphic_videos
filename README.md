@@ -10,8 +10,7 @@ Latest stable version: [Version 1][latest]
 
 ## News
 
-Graphic Videos is planning to release Version 1.1 on Thursday, Feburary 11.
-Contribute by forking and making a pull request!
+Version 1.1 was recently released!
 
 ## License
 
