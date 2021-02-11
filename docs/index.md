@@ -4,25 +4,16 @@ An API for creating graphic videos in Python.
 
 ## Table of Contents
 
-[Setup][setup]
-
-[Quick Start][quickstart]
-
-[Scenes][scenedoc]
-
-[Elements][elementdoc]
-
-[Keyframes][keyframedoc]
-
-[Groups][groups]
-
-[Modifiers][modifiers]
-
-[Export][export]
-
-[Extending Graphic Videos][extending]
-
-[About][about]
+* [Setup][setup]
+* [Quick Start][quickstart]
+* [Scenes][scenedoc]
+* [Elements][elementdoc]
+* [Keyframes][keyframedoc]
+* [Groups][groups]
+* [Modifiers][modifiers]
+* [Export][export]
+* [Extending Graphic Videos][extending]
+* [About][about]
 
 ## News
 
