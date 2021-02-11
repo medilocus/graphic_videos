@@ -62,13 +62,6 @@ class ModFlip(Modifier):
 
 class ModHsva(Modifier):
     """Changes surface HSVA."""
-    # todo efficiency
-    # todo fix bugs
-
-    h: FloatProp
-    s: FloatProp
-    v: FloatProp
-    a: FloatProp
 
     def __init__(self) -> None:
         """
@@ -77,9 +70,10 @@ class ModHsva(Modifier):
         super().__init__()
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
-        surf = pygame.pixels3d(src)
-
-        return surf
+        surf = pygame.surfarray.pixels3d(src).swapaxes(1, 0)
+        img = Image.fromarray(surf).convert("HSV")
+        data = (img.tobytes(), img.size, "RGB")
+        return pygame.image.fromstring(*data)
 
 
 class ModGaussianBlur(Modifier):
