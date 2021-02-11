@@ -129,3 +129,7 @@ class ModBright(Modifier):
         img = ImageEnhance.Brightness(Image.fromarray(surf)).enhance(self.factor.get_value(frame))
         data = (img.tobytes(), img.size, img.mode)
         return pygame.image.fromstring(*data)
+
+
+class ModContrast(Modifier):
+    """Manipulates the contrast of the surface"""
