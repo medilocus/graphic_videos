@@ -18,7 +18,7 @@
 #
 
 from typing import Tuple
-from PIL import Image, ImageFilter, ImageEnhance
+from PIL import Image, ImageFilter, ImageEnhance, ImageOps
 import numpy as np
 import pygame
 from .props import *
@@ -187,5 +187,21 @@ class ModSharpen(Modifier):
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
         surf = pygame.surfarray.pixels3d(src).swapaxes(1, 0)
         img = ImageEnhance.Sharpness(Image.fromarray(surf)).enhance(self.factor.get_value(frame))
+        data = (img.tobytes(), img.size, img.mode)
+        return pygame.image.fromstring(*data)
+
+
+class ModInvert(Modifier):
+    """Inverts surface"""
+
+    def __init__(self) -> None:
+        """
+        Initializes modifier
+        """
+        super().__init__()
+
+    def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
+        surf = pygame.surfarray.pixels3d(src).swapaxes(1, 0)
+        img = ImageOps.invert(Image.fromarray(surf))
         data = (img.tobytes(), img.size, img.mode)
         return pygame.image.fromstring(*data)
