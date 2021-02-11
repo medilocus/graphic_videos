@@ -183,5 +183,5 @@ class ModSharpen(Modifier):
         """
         self.factor = FloatProp(factor)
 
-    def modify(self, src, frame):
+    def modify(self, src: pygame.Surface, frame: int):
         pass
