@@ -20,7 +20,6 @@
 from typing import Tuple
 import pygame
 from ..scene import Scene
-from ..options import get_font
 from .elements import FrameText
 pygame.init()
 
