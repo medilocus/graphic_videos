@@ -183,5 +183,5 @@ class ModSharpen(Modifier):
         """
         self.factor = FloatProp(factor)
 
-    def modify():
+    def modify(self, src, frame):
         pass
