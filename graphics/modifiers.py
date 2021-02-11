@@ -199,3 +199,6 @@ class ModInvert(Modifier):
         Initializes modifier
         """
         super().__init__()
+
+    def modify():
+        pass
