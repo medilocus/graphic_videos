@@ -33,12 +33,7 @@ setuptools.setup(
     url="https://github.com/medilocus/graphic_videos",
     py_modules=["graphics"],
     packages=setuptools.find_packages(),
-    install_requires=[
-        "numpy",
-        "pillow",
-        "pygame",
-        "opencv-python",
-    ],
+    install_requires=open("requirements.txt").read().strip().split("\n"),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
