@@ -62,8 +62,6 @@ class ModFlip(Modifier):
 
 class ModHsva(Modifier):
     """Changes surface HSVA."""
-    # todo efficiency
-    # todo fix bugs
 
     def __init__(self) -> None:
         """
