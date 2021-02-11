@@ -2,7 +2,7 @@ import pygame
 
 pygame.init()
 
-class TextInput:
+class FrameText:
     def __init__(self, font, label=""):
         self.font = font
         self.label = label
@@ -22,14 +22,12 @@ class TextInput:
         loc = list(loc)
         loc[0] -= size[0]//2
 
-        str_text = self.label if not self.editing and self.text == "" else self.text
-        text = self.font.render("Frame: " + str_text, 1, (255,)*3)
-        text_loc = [loc[i] + (size[i]-text.get_size()[i])//2 for i in range(2)]
+        text = self.font.render("Frame: " + self.text, 1, (255,)*3)
+        loc = (self.font.size("Frame: ")[0], loc[1])
+        window.blit(text, loc)
 
-        pygame.draw.rect(window, (0,)*3, (*loc, *size))
-        window.blit(text, text_loc)
         if self.editing and (self.frame//30) % 2 == 0:
-            cursor_x = text_loc[0] + self.font.size(str_text[:self.cursor_pos])[0]
+            cursor_x = loc[0] + self.font.size(self.text[:self.cursor_pos])[0]
             pygame.draw.line(window, (255,)*3, (cursor_x, loc[1]+12), (cursor_x, loc[1]+size[1]-12))
 
         for event in events:

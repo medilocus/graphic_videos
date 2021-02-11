@@ -20,7 +20,8 @@
 from typing import Tuple
 import pygame
 from ..scene import Scene
-from .elements import Slider, TextInput
+from ..options import get_font
+from .elements import FrameText
 pygame.init()
 
 FPS = 60
@@ -31,12 +32,14 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene]) -> None:
     window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
     resized = False
     playing = False
+    t = FrameText(pygame.font.SysFont(get_font(), 30))
     curr_frame = 0
 
     while True:
         clock.tick(FPS)
         window.fill((0, 0, 0))
         events = pygame.event.get()
+        t.draw(window, events, (10, 10), (200, 30))
         for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()
