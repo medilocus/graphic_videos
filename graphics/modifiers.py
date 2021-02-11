@@ -129,3 +129,23 @@ class ModBright(Modifier):
         img = ImageEnhance.Brightness(Image.fromarray(surf)).enhance(self.factor.get_value(frame))
         data = (img.tobytes(), img.size, img.mode)
         return pygame.image.fromstring(*data)
+
+
+class ModContrast(Modifier):
+    """Manipulates the contrast of the surface"""
+
+    factor: FloatProp
+
+    def __init__(self, factor: float = 4) -> None:
+        """
+        Initializes modifier.
+        :param factor: Factor of contrast
+        """
+        super().__init__()
+        self.factor = FloatProp(factor)
+
+    def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
+        surf = pygame.surfarray.pixels3d(src).swapaxes(1, 0)
+        img = ImageEnhance.Contrast(Image.fromarray(surf)).enhance(self.factor.get_value(frame))
+        data = (img.tobytes(), img.size, img.mode)
+        return pygame.image.fromstring(*data)
