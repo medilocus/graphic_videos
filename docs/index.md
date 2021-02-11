@@ -4,15 +4,16 @@ An API for creating graphic videos in Python.
 
 ## Table of Contents
 
-[Setup][setup]
-
-[Quick Start][quickstart]
-
-[Extending Graphic Videos][extending]
-
-[About][about]
-
-[Export][export]
+* [Setup][setup]
+* [Quick Start][quickstart]
+* [Scenes][scenedoc]
+* [Elements][elementdoc]
+* [Keyframes][keyframedoc]
+* [Groups][groups]
+* [Modifiers][modifiers]
+* [Export][export]
+* [Extending Graphic Videos][extending]
+* [About][about]
 
 ## News
 
@@ -25,3 +26,8 @@ Contribute by forking and making a pull request!
 [extending]: https://medilocus.github.io/graphic_videos/extending
 [about]: https://medilocus.github.io/graphic_videos/about
 [export]: https://medilocus.github.io/graphic_videos/export
+[scenedoc]: https://medilocus.github.io/graphic_videos/scene
+[elementdoc]: https://medilocus.github.io/graphic_videos/elements
+[keyframedoc]: https://medilocus.github.io/graphic_videos/keyframes
+[groups]: https://medilocus.github.io/graphic_videos/groups
+[modifiers]: https://medilocus.github.io/graphic_videos/modifiers
