@@ -39,6 +39,7 @@ class Group(BaseElement):
         :param loc: Location (x, y) of top left corner of group.
         :param size: Size (x, y) of group.
         """
+        super().__init__()
         self.loc = VectorProp(2, IntProp, loc)
         self.size = VectorProp(2, IntProp, size)
         self.elements = []
