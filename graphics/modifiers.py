@@ -154,6 +154,8 @@ class ModContrast(Modifier):
 class ModColorEnhance(Modifier):
     """Enhances color of surface"""
 
+    factor: FloatProp
+
     def __init__(self, factor: float = 4) -> None:
         """
         Initializes modifier.
