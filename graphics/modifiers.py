@@ -142,3 +142,6 @@ class ModContrast(Modifier):
         :param factor: Factor of contrast
         """
         self.factor = FloatProp(factor)
+
+    def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
+        return src
