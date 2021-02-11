@@ -200,5 +200,5 @@ class ModInvert(Modifier):
         """
         super().__init__()
 
-    def modify(self, src, frame):
+    def modify(self, src: pygame.Surface, frame: int):
         pass
