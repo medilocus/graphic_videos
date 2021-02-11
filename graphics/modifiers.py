@@ -195,4 +195,7 @@ class ModInvert(Modifier):
     """Inverts surface"""
 
     def __init__(self) -> None:
+        """
+        Initializes modifier
+        """
         super().__init__()
