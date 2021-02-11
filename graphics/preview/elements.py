@@ -58,7 +58,7 @@ class FrameText:
                     elif event.key == pygame.K_DELETE:
                         self.text = self.text[:self.cursor_pos] + self.text[self.cursor_pos+1:]
                     else:
-                        if event.unicode.isnumeric() and len(self.text) <= 5:
+                        if event.unicode.isnumeric() and len(self.text) < 5:
                             self.text = self.text[:self.cursor_pos] + event.unicode + self.text[self.cursor_pos:]
                             self.cursor_pos += 1
 
