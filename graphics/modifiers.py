@@ -133,3 +133,6 @@ class ModBright(Modifier):
 
 class ModContrast(Modifier):
     """Manipulates the contrast of the surface"""
+
+    def __init__(self, factor: float = 4):
+        self.factor = FloatProp(factor)
