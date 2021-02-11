@@ -193,3 +193,4 @@ class ModSharpen(Modifier):
 
 class ModInvert(Modifier):
     """Inverts surface"""
+
