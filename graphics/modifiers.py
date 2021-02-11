@@ -181,6 +181,7 @@ class ModSharpen(Modifier):
         Initializes modifier.
         :param factor: Factor of sharpness
         """
+        super().__init__()
         self.factor = FloatProp(factor)
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
