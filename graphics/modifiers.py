@@ -134,5 +134,9 @@ class ModBright(Modifier):
 class ModContrast(Modifier):
     """Manipulates the contrast of the surface"""
 
-    def __init__(self, factor: float = 4):
+    def __init__(self, factor: float = 4) -> None:
+        """
+        Initializes modifier.
+        :param factor: Factor of contrast
+        """
         self.factor = FloatProp(factor)
