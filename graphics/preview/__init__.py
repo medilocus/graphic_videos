@@ -19,7 +19,7 @@
 
 from typing import Tuple
 import pygame
-from .scene import Scene
+from ..scene import Scene
 pygame.init()
 
 FPS = 60
