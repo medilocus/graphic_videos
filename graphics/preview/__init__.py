@@ -26,7 +26,9 @@ FPS = 60
 
 def launch(resolution: Tuple[int], scenes: Tuple[Scene]) -> None:
     clock = pygame.time.Clock()
-    window = pygame.display.set_mode((1600, 900), pygame.RESIZABLE)
+    width, height = 1600, 900
+    window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+    resized = False
 
     while True:
         clock.tick(FPS)
@@ -36,5 +38,13 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene]) -> None:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
+
+            elif event.type == pygame.VIDEORESIZE:
+                resized = True
+                width, height = event.size
+
+            elif event.type == pygame.ACTIVEEVENT and resized:
+                window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+                resized = False
 
         pygame.display.update()
