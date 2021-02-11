@@ -153,3 +153,6 @@ class ModContrast(Modifier):
 
 class ModColorEnhance(Modifier):
     """Enhances color of surface"""
+
+    def __init__(self):
+        pass
