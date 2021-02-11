@@ -20,6 +20,7 @@
 from typing import Tuple
 import pygame
 from ..scene import Scene
+from .elements import Slider, TextInput
 pygame.init()
 
 FPS = 60
