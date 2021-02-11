@@ -162,3 +162,6 @@ class ModColorEnhance(Modifier):
         :param factor: Factor of color enhancement
         """
         self.factor = FloatProp(factor)
+
+    def modify(self):
+        pass
