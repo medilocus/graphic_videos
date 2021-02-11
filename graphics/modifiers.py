@@ -177,4 +177,8 @@ class ModSharpen(Modifier):
     factor: FloatProp
 
     def __init__(self, factor: float = 4) -> None:
+        """
+        Initializes modifier.
+        :param factor: Factor of sharpness
+        """
         self.factor = FloatProp(factor)
