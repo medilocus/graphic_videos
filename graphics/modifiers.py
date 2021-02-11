@@ -200,5 +200,5 @@ class ModInvert(Modifier):
         """
         super().__init__()
 
-    def modify():
+    def modify(self, src, frame):
         pass
