@@ -155,4 +155,8 @@ class ModColorEnhance(Modifier):
     """Enhances color of surface"""
 
     def __init__(self, factor: float = 4):
+        """
+        Initializes modifier.
+        :param factor: Factor of color enhancement
+        """
         self.factor = FloatProp(factor)
