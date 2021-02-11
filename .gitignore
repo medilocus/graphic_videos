@@ -1,6 +1,8 @@
 *.pyc
 *.vscode
 
+bin
+
 /ignore
 /test*
 /*.mp4
