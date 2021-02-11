@@ -17,22 +17,20 @@ class FrameText:
         self.rpt_int = 35
         self.clock = pygame.time.Clock()
 
-    def draw(self, window, events, loc, size):
+    def draw(self, window, events, loc):
         self.frame += 1
-        loc = list(loc)
-        loc[0] -= size[0]//2
 
         text = self.font.render("Frame: " + self.text, 1, (255,)*3)
-        loc = (self.font.size("Frame: ")[0], loc[1])
         window.blit(text, loc)
 
+        text_size = self.font.size("Frame: " + self.text[:self.cursor_pos])
         if self.editing and (self.frame//30) % 2 == 0:
-            cursor_x = loc[0] + self.font.size(self.text[:self.cursor_pos])[0]
-            pygame.draw.line(window, (255,)*3, (cursor_x, loc[1]+12), (cursor_x, loc[1]+size[1]-12))
+            cursor_x = loc[0] + text_size[0]
+            pygame.draw.line(window, (255,)*3, (cursor_x, loc[1]), (cursor_x, text_size[1]))
 
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                self.editing = self.hovered(loc, size)
+                self.editing = self.hovered(loc, text_size)
             elif event.type == pygame.KEYDOWN and self.editing:
                 if event.key in (pygame.K_ESCAPE, pygame.K_TAB):
                     self.editing = False
@@ -82,11 +80,4 @@ class FrameText:
         mouse = pygame.mouse.get_pos()
         if loc[0] <= mouse[0] <= loc[0]+size[0] and loc[1] <= mouse[1] <= loc[1]+size[1]:
             return True
-        return False
-
-    def clicked(self, events, loc, size):
-        if self.hovered(loc, size):
-            for event in events:
-                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    return True
         return False
