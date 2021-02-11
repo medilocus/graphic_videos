@@ -174,3 +174,5 @@ class ModColorEnhance(Modifier):
 class ModSharpen(Modifier):
     """Sharpens color of surface"""
 
+    def __init__(self):
+        pass
