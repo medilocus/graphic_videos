@@ -29,7 +29,7 @@ class TextInput:
         pygame.draw.rect(window, (0,)*3, (*loc, *size))
         window.blit(text, text_loc)
         if self.editing and (self.frame//30) % 2 == 0:
-            cursor_x = text_loc[0] + self.font.size(str_text[:self.cursor_pos], 1, (0,)*3)[0]
+            cursor_x = text_loc[0] + self.font.size(str_text[:self.cursor_pos])[0]
             pygame.draw.line(window, (255,)*3, (cursor_x, loc[1]+12), (cursor_x, loc[1]+size[1]-12))
 
         for event in events:
