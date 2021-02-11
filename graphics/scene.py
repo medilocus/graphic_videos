@@ -59,9 +59,18 @@ class Scene:
         return list(range(self.start, self.end+sum(self.pause), self.step))
 
     def add_element(self, element: BaseElement) -> None:
+        """
+        Appends element.
+        :param element: Element to append.
+        """
         self.elements.append(element)
 
     def render(self, res, frame):
+        """
+        Renders element as pygame surface.
+        :param res: Resolution to render.
+        :param frame: Frame to render.
+        """
         surface = pygame.Surface(res)
         surface.fill(self.bg_col.get_value(frame))
         for element in self.elements:

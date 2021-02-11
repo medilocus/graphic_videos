@@ -22,7 +22,7 @@ __version__ = "1.0"
 from . import options
 from . import props
 from . import elements
-from . import groups
 from . import modifiers
 from . import export
+from .groups import Group
 from .scene import Scene

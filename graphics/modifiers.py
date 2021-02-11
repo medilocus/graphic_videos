@@ -31,9 +31,18 @@ class Modifier:
     show: BoolProp
 
     def __init__(self) -> None:
+        """
+        Initializes base modifier. Inherited classes should have their own init
+        and call super().__init__()
+        """
         self.show = BoolProp(True)
 
-    def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:...
+    def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
+        """
+        Modifies surface.
+        :param src: Sources surface.
+        :param frame: Frame.
+        """
 
 
 class ModFlip(Modifier):

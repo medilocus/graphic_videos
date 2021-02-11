@@ -194,7 +194,7 @@ def export_mc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], out_path: 
 
 def export_ffmpeg(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], out_path: str, verbose: bool = True, notify: bool = True) -> None:
     """
-    Single core export.
+    Single core export with FFmpeg compression.
     :param resolution: Resolution of video.
     :param fps: FPS of video.
     :param scenes: List of scenes to export in order of appearance.
