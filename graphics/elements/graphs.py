@@ -38,7 +38,9 @@ class BarGraphVert(BaseElement):
     border: IntProp
     border_color: VectorProp
 
-    def __init__(self, loc: Tuple[int], size: Tuple[int], categories: Tuple[str], values: Tuple[int], text_color: Tuple[int] = "AUTO", colors: Tuple[Tuple[int]] = "AUTO", border: int = 4, border_color: int = (0, 0, 0, 255)):
+    def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (200, 200), categories: Tuple[str] = ("a", "b"),
+            values: Tuple[int] = (1, 2), text_color: Tuple[int] = "AUTO", colors: Tuple[Tuple[int]] = "AUTO", border: int = 4,
+            border_color: int = (0, 0, 0, 255)) -> None:
         """
         Initializes vertical bar graph.
         :param loc: Top left corner location (pixels) of vertical bar graph.
@@ -69,7 +71,7 @@ class BarGraphVert(BaseElement):
         self.border = IntProp(border)
         self.border_color = VectorProp(4, IntProp, border_color)
 
-    def render(self, res: Tuple[int], frame: int):
+    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         # Initialize surface
         surf = pygame.Surface(res, pygame.SRCALPHA)
         font = pygame.font.SysFont(get_font(), 20)
@@ -132,7 +134,9 @@ class BarGraphHoriz(BaseElement):
     border: IntProp
     border_color: VectorProp
 
-    def __init__(self, loc: Tuple[int], size: Tuple[int], categories: Tuple[str], values: Tuple[int], text_color: Tuple[int] = "AUTO", colors: Tuple[Tuple[int]] = "AUTO", border: int = 4, border_color: int = (0, 0, 0, 255)):
+    def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (200, 200), categories: Tuple[str] = ("a", "b"),
+            values: Tuple[int] = (1, 2), text_color: Tuple[int] = "AUTO", colors: Tuple[Tuple[int]] = "AUTO",
+            border: int = 4, border_color: int = (0, 0, 0, 255)):
         """
         Initializes horizontal bar graph.
         :param loc: Top left corner location (pixels) of horizontal bar graph.
@@ -163,7 +167,7 @@ class BarGraphHoriz(BaseElement):
         self.border = IntProp(border)
         self.border_color = VectorProp(4, IntProp, border_color)
 
-    def render(self, res: Tuple[int], frame: int):
+    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         # Initialize surface
         surf = pygame.Surface(res, pygame.SRCALPHA)
         font = pygame.font.SysFont(get_font(), 20)

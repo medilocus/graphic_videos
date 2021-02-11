@@ -39,8 +39,8 @@ class Rect(BaseElement):
     border_color: VectorProp
     antialias: BoolProp
 
-    def __init__(self, loc: Tuple[int], size: Tuple[int], color: Tuple[int], border: int = 0,
-            border_color: Tuple[int] = (255, 255, 255), antialias: bool = True) -> None:
+    def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (100, 200), color: Tuple[int] = (255, 255, 255),
+            border: int = 0, border_color: Tuple[int] = (255, 255, 255), antialias: bool = True) -> None:
         """
         Initializes rectangle.
         :param loc: Top left corner location (pixels) of rectangle.
@@ -64,12 +64,6 @@ class Rect(BaseElement):
         self.antialias = BoolProp(antialias)
 
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
-        """
-        Renders the rectangle as a pygame.Surface.
-        :param res: Output resolution.
-        :param frame: Frame to render.
-        :param transp: Background transparent?
-        """
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc = self.loc.get_value(frame)
@@ -96,8 +90,8 @@ class Circle(BaseElement):
     border_color: VectorProp
     antialias: BoolProp
 
-    def __init__(self, loc: Tuple[int], radius: int, color: Tuple[int], border: int = 0,
-            border_color: Tuple[int] = (255, 255, 255), antialias: bool = True) -> None:
+    def __init__(self, loc: Tuple[int] = (0, 0), radius: int = 25, color: Tuple[int] = (255, 255, 255),
+            border: int = 0, border_color: Tuple[int] = (255, 255, 255), antialias: bool = True) -> None:
         """
         Initializes circle.
         :param loc: Center location (pixels) of circle.
@@ -121,12 +115,6 @@ class Circle(BaseElement):
         self.antialias = BoolProp(antialias)
 
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
-        """
-        Renders the circle as a pygame.Surface.
-        :param res: Output resolution.
-        :param frame: Frame to render.
-        :param transp: Background transparent?
-        """
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc = self.loc.get_value(frame)
@@ -152,8 +140,8 @@ class Line(BaseElement):
     color: VectorProp
     antialias: BoolProp
 
-    def __init__(self, loc1: Tuple[int], loc2: Tuple[int], thickness: int,
-            color: Tuple[int], antialias: bool = True) -> None:
+    def __init__(self, loc1: Tuple[int] = (0, 0), loc2: Tuple[int] = (50, 50), thickness: int = 1,
+            color: Tuple[int] = (255, 255, 255), antialias: bool = True) -> None:
         """
         Initializes line.
         :param loc1: Location (x, y) of the first point.
@@ -173,12 +161,6 @@ class Line(BaseElement):
         self.antialias = BoolProp(antialias)
 
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
-        """
-        Renders the line as a pygame.Surface.
-        :param res: Output resolution.
-        :param frame: Frame to render.
-        :param transp: Background transparent?
-        """
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc1 = self.loc1.get_value(frame)
@@ -202,8 +184,8 @@ class Polygon(BaseElement):
     offset: VectorProp
     antialias: BoolProp
 
-    def __init__(self, verts: Tuple[Tuple[int]], color: Tuple[int], border: int = 0, border_color: Tuple[int] = (255, 255, 255),
-            offset: Tuple[int] = (0, 0), antialias: bool = True) -> None:
+    def __init__(self, verts: Tuple[Tuple[int]], color: Tuple[int] = (255, 255, 255), border: int = 0,
+            border_color: Tuple[int] = (255, 255, 255), offset: Tuple[int] = (0, 0), antialias: bool = True) -> None:
         """
         Initializes polygon.
         :param verts: List of verts of polygon in the form ((x1, y1), (x2, y2), (x3, y3), ...).
@@ -253,7 +235,7 @@ class Text(BaseElement):
     size: IntProp
     antialias: BoolProp
 
-    def __init__(self, loc: Tuple[int], color: Tuple[int] = (255, 255, 255), font: str = None,
+    def __init__(self, loc: Tuple[int] = (0, 0), color: Tuple[int] = (255, 255, 255), font: str = None,
             text: str = "Text", size: int = 36, antialias: bool = True) -> None:
         """
         Initializes text element.
@@ -327,7 +309,7 @@ class Image(BaseElement):
     size: VectorProp
     src: StringProp
 
-    def __init__(self, loc: Tuple[int], size: Tuple[int], src: str):
+    def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (1920, 1080), src: str = ""):
         """
         Initializes image.
         :param loc: Location of top left corner of image.
@@ -378,7 +360,7 @@ class Video(BaseElement):
     last_frame: int
     last_img: pygame.Surface
 
-    def __init__(self, loc: Tuple[int], size: Tuple[int], src: str, speed: float = 1, offset: float = 0):
+    def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (1920, 1080), src: str = "", speed: float = 1, offset: float = 0):
         """
         Initializes video.
         :param loc: Location of top left corner of video.
