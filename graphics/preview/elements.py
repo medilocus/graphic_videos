@@ -1,12 +1,10 @@
 import pygame
+from ..options import get_font
 
 pygame.init()
 
 class FrameText:
-    def __init__(self, font, label=""):
-        self.font = font
-        self.label = label
-
+    def __init__(self):
         self.cursor_pos = 0
         self.text = ""
         self.editing = False
@@ -17,17 +15,18 @@ class FrameText:
         self.rpt_int = 35
         self.clock = pygame.time.Clock()
 
-    def draw(self, window, events, width, height):
+    def draw(self, window, events, width, height, font_size):
         self.frame += 1
+        font = pygame.font.SysFont(get_font(), font_size)
 
-        text_size = self.font.size("Frame: " + self.text)
+        text_size = font.size("Frame: " + self.text)
         loc = [((width, height)[i] - text_size[i] - 2) for i in range(2)]
 
-        text = self.font.render("Frame: " + self.text, 1, (255,)*3)
+        text = font.render("Frame: " + self.text, 1, (255,)*3)
         window.blit(text, loc)
 
         if self.editing and (self.frame//30) % 2 == 0:
-            cursor_x = loc[0] + self.font.size("Frame: " + self.text[:self.cursor_pos])[0]
+            cursor_x = loc[0] + font.size("Frame: " + self.text[:self.cursor_pos])[0]
             pygame.draw.line(window, (255,)*3, (cursor_x, loc[1]), (cursor_x, loc[1] + text_size[1]))
 
         for event in events:

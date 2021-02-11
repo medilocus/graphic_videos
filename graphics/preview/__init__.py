@@ -30,7 +30,7 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene]) -> None:
     clock = pygame.time.Clock()
     width, height = 1600, 900
     window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
-    frame_text = FrameText(pygame.font.SysFont(get_font(), 20))
+    frame_text = FrameText()
     resized = False
     playing = False
     curr_frame = 0
