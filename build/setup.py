@@ -24,19 +24,7 @@ with open("README.md", "r") as f:
 
 setuptools.setup(
     name="graphic-videos",
-    version="1.1",
-    author="Medilocus",
-    author_email="huangpatrick16777216@gmail.com",
-    description="An API for creating graphic videos in Python.",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    url="https://github.com/medilocus/graphic_videos",
     py_modules=["graphics"],
     packages=setuptools.find_packages(),
     install_requires=open("requirements.txt").read().strip().split("\n"),
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
-        "Operating System :: OS Independent",
-    ],
 )
