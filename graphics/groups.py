@@ -25,7 +25,7 @@ from .modifiers import Modifier
 pygame.init()
 
 
-class Group:
+class Group(BaseElement):
     """Group class, which contains elements and modifiers."""
 
     loc: VectorProp
@@ -45,9 +45,17 @@ class Group:
         self.modifiers = []
 
     def add_element(self, element: BaseElement) -> None:
+        """
+        Appends element.
+        :param element: Element to append.
+        """
         self.elements.append(element)
 
     def add_modifier(self, modifier: Modifier) -> None:
+        """
+        Appends modifier.
+        :param modifier: Modifier to append.
+        """
         self.modifiers.append(modifier)
 
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
