@@ -26,7 +26,7 @@ FPS = 60
 
 def launch(resolution: Tuple[int], scenes: Tuple[Scene]) -> None:
     clock = pygame.time.Clock()
-    window = pygame.display.set_mode(resolution)
+    window = pygame.display.set_mode((1600, 900), pygame.RESIZABLE)
 
     while True:
         clock.tick(FPS)
