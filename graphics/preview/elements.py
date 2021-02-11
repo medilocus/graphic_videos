@@ -17,16 +17,18 @@ class FrameText:
         self.rpt_int = 35
         self.clock = pygame.time.Clock()
 
-    def draw(self, window, events, loc):
+    def draw(self, window, events, width, height):
         self.frame += 1
+
+        text_size = self.font.size("Frame: " + self.text)
+        loc = [((width, height)[i] - text_size[i] - 2) for i in range(2)]
 
         text = self.font.render("Frame: " + self.text, 1, (255,)*3)
         window.blit(text, loc)
 
-        text_size = self.font.size("Frame: " + self.text[:self.cursor_pos])
         if self.editing and (self.frame//30) % 2 == 0:
-            cursor_x = loc[0] + text_size[0]
-            pygame.draw.line(window, (255,)*3, (cursor_x, loc[1]), (cursor_x, text_size[1]))
+            cursor_x = loc[0] + self.font.size("Frame: " + self.text[:self.cursor_pos])[0]
+            pygame.draw.line(window, (255,)*3, (cursor_x, loc[1]), (cursor_x, loc[1] + text_size[1]))
 
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
@@ -51,12 +53,13 @@ class FrameText:
                         self.cursor_pos = len(self.text)
 
                     elif event.key == pygame.K_BACKSPACE:
-                        self.text = self.text[:self.cursor_pos-1] + self.text[self.cursor_pos:]
-                        self.cursor_pos -= 1
+                        if self.cursor_pos:
+                            self.text = self.text[:self.cursor_pos-1] + self.text[self.cursor_pos:]
+                            self.cursor_pos -= 1
                     elif event.key == pygame.K_DELETE:
                         self.text = self.text[:self.cursor_pos] + self.text[self.cursor_pos+1:]
                     else:
-                        if event.unicode.isnumeric():
+                        if event.unicode.isnumeric() and len(self.text) <= 5:
                             self.text = self.text[:self.cursor_pos] + event.unicode + self.text[self.cursor_pos:]
                             self.cursor_pos += 1
 

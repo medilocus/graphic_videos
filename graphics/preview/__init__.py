@@ -30,16 +30,16 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene]) -> None:
     clock = pygame.time.Clock()
     width, height = 1600, 900
     window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+    frame_text = FrameText(pygame.font.SysFont(get_font(), 20))
     resized = False
     playing = False
-    t = FrameText(pygame.font.SysFont(get_font(), 30))
     curr_frame = 0
 
     while True:
         clock.tick(FPS)
         window.fill((0, 0, 0))
         events = pygame.event.get()
-        t.draw(window, events, (10, 10))
+        frame_text.draw(window, events, width, height)
         for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()
