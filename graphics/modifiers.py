@@ -149,3 +149,7 @@ class ModContrast(Modifier):
         img = ImageEnhance.Contrast(Image.fromarray(surf)).enhance(self.factor.get_value(frame))
         data = (img.tobytes(), img.size, img.mode)
         return pygame.image.fromstring(*data)
+
+
+class ModColorEnhance(Modifier):
+    """Enhances color of surface"""
