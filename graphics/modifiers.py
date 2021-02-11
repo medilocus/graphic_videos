@@ -20,7 +20,6 @@
 from typing import Tuple
 from PIL import Image, ImageFilter, ImageEnhance
 import numpy as np
-import colorsys
 import pygame
 from .props import *
 pygame.init()
