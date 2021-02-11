@@ -163,5 +163,5 @@ class ModColorEnhance(Modifier):
         """
         self.factor = FloatProp(factor)
 
-    def modify(self):
+    def modify(self, src, frame):
         pass
