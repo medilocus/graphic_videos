@@ -1,7 +1,7 @@
 *.pyc
 *.vscode
 
-bin
+/bin
 
 /ignore
 /test*
