@@ -145,4 +145,7 @@ class ModContrast(Modifier):
         self.factor = FloatProp(factor)
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
-        return src
+        surf = pygame.surfarray.pixels3d(src).swapaxes(1, 0)
+        img = ImageEnhance.Contrast(Image.fromarray(surf)).enhance(self.factor.get_value(frame))
+        data = (img.tobytes(), img.size, img.mode)
+        return pygame.image.fromstring(*data)
