@@ -194,5 +194,5 @@ class ModSharpen(Modifier):
 class ModInvert(Modifier):
     """Inverts surface"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
