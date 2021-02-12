@@ -131,7 +131,6 @@ class Slider:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if y <= my <= y + h:
                     self.dragging = h + 5 <= mx <= w - h + 5
-                    updated = self.dragging
                     if 5 <= mx <= h + 5:
                         updated = True
                         self.value = max(self.value - 1, self.range[0])
@@ -152,7 +151,7 @@ class Slider:
         self.draw_arrows(window, y, w, h)
 
     def loc_to_value(self, w, h):
-        self.value = np.interp(pygame.mouse.get_pos()[0], (h*1.5 + 5, w - h*1.5 + 5), self.range)
+        self.value = int(np.interp(pygame.mouse.get_pos()[0], (h*1.5 + 5, w - h*1.5 + 5), self.range))
 
     def value_to_loc(self, w, h):
         return np.interp(self.value, self.range, (h*1.5 + 5, w - h*1.5 + 5))
