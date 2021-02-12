@@ -42,8 +42,9 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
     pygame.display.set_caption("Graphic Videos - Preview")
     frame_text = FrameText()
     frame_text.text = "0"
-    num_frames = set([f for s in scenes for f in s.get_frames()])
-    slider = Slider(min(num_frames), (min(num_frames), max(num_frames)))
+    frames = set([f for s in scenes for f in s.get_frames()])
+    end = max(frames)
+    slider = Slider(min(frames), (min(frames), end))
     resized = playing = False
     bottom_bar_height = 25
     image = pygame.Surface(resolution, pygame.SRCALPHA)
@@ -91,5 +92,8 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
                 elif event.type == pygame.ACTIVEEVENT and resized:
                     window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
                     resized = False
+
+        if playing and slider.value == end:
+            playing = False
 
         pygame.display.update()
