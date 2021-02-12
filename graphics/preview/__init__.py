@@ -61,7 +61,7 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
                     surf.blit(scene.render(resolution, curr_frame), (0, 0))
             window.blit(pygame.transform.scale(surf, (width, height-bottom_bar_height)), (0, 0))
             if playing:
-                curr_frame += 1
+                slider.set(slider.value + 1)
             pygame.display.update((0, 0, width, height-bottom_bar_height))
 
         for event in events:
