@@ -1,3 +1,5 @@
+![logo](graphic_videos/images/banner.png)
+
 # Graphic Videos
 
 An API for creating graphic videos in Python.
