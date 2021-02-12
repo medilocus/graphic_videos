@@ -48,6 +48,7 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
         text_size = font.size("Frame: " + frame_text.text + "9"*(5-len(frame_text.text)))
         if frame_text.draw(window, events, width, height, text_size, font):
             slider.set(int(frame_text.text))
+            frame_text.text = str(slider.value)
         if slider.update(window, events, width, height, width-text_size[0]-15, bottom_bar_height) or slider.dragging or playing:
             curr_frame = slider.value
             frame_text.text = str(curr_frame)
