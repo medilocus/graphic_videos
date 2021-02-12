@@ -31,6 +31,7 @@ class FrameText:
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 self.editing = self.hovered(loc, text_size)
+                if self.editing: self.cursor_pos = len(self.text)
             elif event.type == pygame.KEYDOWN and self.editing:
                 if event.key in (pygame.K_ESCAPE, pygame.K_TAB):
                     self.editing = False
