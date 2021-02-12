@@ -62,7 +62,7 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
             window.blit(pygame.transform.scale(surf, (width, height-bottom_bar_height)), (0, 0))
             if playing:
                 curr_frame += 1
-            pygame.display.update()
+            pygame.display.update((0, 0, width, height-bottom_bar_height))
 
         for event in events:
             if event.type == pygame.QUIT:
