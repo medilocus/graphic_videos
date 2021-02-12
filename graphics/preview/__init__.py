@@ -27,6 +27,14 @@ pygame.init()
 FPS = 60
 
 
+def draw_frame(window, res, scenes, frame, width, height, bottom_bar_height):
+    surf = pygame.Surface(res, pygame.SRCALPHA)
+    for scene in scenes:
+        if frame in scene.get_frames():
+            surf.blit(scene.render(res, frame), (0, 0))
+    window.blit(pygame.transform.scale(surf, (width, height-bottom_bar_height)), (0, 0))
+
+
 def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True) -> None:
     clock = pygame.time.Clock()
     width, height = 1600, 900
@@ -55,11 +63,7 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
         if slider.update(window, events, width, height, width-text_size[0]-15, bottom_bar_height) or slider.dragging or playing or updated:
             curr_frame = slider.value
             frame_text.text = str(curr_frame)
-            surf = pygame.Surface(resolution, pygame.SRCALPHA)
-            for scene in scenes:
-                if curr_frame in scene.get_frames():
-                    surf.blit(scene.render(resolution, curr_frame), (0, 0))
-            window.blit(pygame.transform.scale(surf, (width, height-bottom_bar_height)), (0, 0))
+            draw_frame(window, resolution, scenes, curr_frame, width, height, bottom_bar_height)
             if playing:
                 slider.set(slider.value + 1)
             pygame.display.update((0, 0, width, height-bottom_bar_height))
