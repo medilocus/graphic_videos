@@ -26,6 +26,7 @@ pygame.init()
 
 FPS = 60
 
+
 def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True) -> None:
     clock = pygame.time.Clock()
     width, height = 1600, 900
