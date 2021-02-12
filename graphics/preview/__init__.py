@@ -34,6 +34,7 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
     window = pygame.display.set_mode((width, height), flags)
     pygame.display.set_caption("Graphic Videos - Preview")
     frame_text = FrameText()
+    frame_text.text = "0"
     slider = Slider(0, (0, sum([len(s.get_frames()) for s in scenes])))
     resized = playing = False
     curr_frame = 0
@@ -43,12 +44,13 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
         clock.tick(FPS)
         window.fill((0, 0, 0))
         events = pygame.event.get()
-        curr_frame = slider.value
         font = pygame.font.SysFont(get_font(), bottom_bar_height-5)
         text_size = font.size("Frame: " + frame_text.text + "9"*(5-len(frame_text.text)))
         frame_text.draw(window, events, width, height, text_size, font)
         if slider.update(window, events, width, height, width-text_size[0]-15, bottom_bar_height) or slider.dragging or playing:
+            curr_frame = slider.value
             frame_text.text = str(curr_frame)
+
         for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()
