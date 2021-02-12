@@ -16,3 +16,7 @@ All export functions have these parameters:
 * Single Core: Exports and encodes each frame.
 * Multi Core: Exports and encodes each frame on all system cores. Uses many temporary files. MAY BE UNSTABLE.
 * FFmpeg: Exports and compresses with FFmpeg. Uses one temporary file.
+
+[Back to documentation home][dochome]
+
+[dochome]: https://medilocus.github.io/graphic_videos/
