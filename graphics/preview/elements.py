@@ -18,6 +18,7 @@ class FrameText:
 
     def draw(self, window, events, width, height, text_size, font):
         self.frame += 1
+        submitted = False
 
         loc = [((width, height)[i] - text_size[i] - 2) for i in range(2)]
 
@@ -37,6 +38,7 @@ class FrameText:
                     self.editing = False
                 elif event.key in (pygame.K_KP_ENTER, pygame.K_RETURN):
                     self.editing = False
+                    submitted = True
 
                 else:
                     if event.key not in self.rpt_count:
@@ -77,6 +79,7 @@ class FrameText:
                 pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=event_key, unicode=event_unicode))
 
         self.clock.tick()
+        return submitted
 
     def hovered(self, loc, size):
         mouse = pygame.mouse.get_pos()
