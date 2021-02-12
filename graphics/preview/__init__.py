@@ -81,5 +81,4 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
                     window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
                     resized = False
 
-
         pygame.display.update((0, height-bottom_bar_height, width, bottom_bar_height))
