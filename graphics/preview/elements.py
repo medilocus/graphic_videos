@@ -98,35 +98,30 @@ class Slider:
     tri_padx = 8
     tri_pady = 5
 
-    def __init__(self, x, y, width, height=40, init_val=80, val_range=(1, 100), label="Slider", only_int=True):
-        self.x, self.y = x, y
-        self.width, self.height = width, height
-        self.font = pygame.font.SysFont("comicsans", height - 15)
-        self.label = label
+    def __init__(self, init_val=80, val_range=(1, 100)):
         self.range = val_range
         self.value = init_val
         self.dragging = False
-        self.to_int = only_int
 
-    def draw_arrows(self, window):
-        left = pygame.Surface((self.height,)*2)
-        right = pygame.Surface((self.height,)*2)
+    def draw_arrows(self, window, x, y, width, height):
+        left = pygame.Surface((height,)*2)
+        right = pygame.Surface((height,)*2)
         mx, my = pygame.mouse.get_pos()
-        colliding = self.x <= mx <= self.x + self.height and self.y <= my <= self.y + self.height
+        colliding = x <= mx <= x + height and y <= my <= y + height
         color = self.colors["highlighted_boxes"] if colliding else self.colors["boxes"]
         left.fill(color)
-        colliding = self.x + self.width - self.height <= mx <= self.x + self.width and self.y <= my <= self.y + self.height
+        colliding = x + width - height <= mx <= x + width and y <= my <= y + height
         color = self.colors["highlighted_boxes"] if colliding else self.colors["boxes"]
         right.fill(color)
         l = self.tri_padx
-        r = self.height - self.tri_padx
+        r = height - self.tri_padx
         t = self.tri_pady
-        m = self.height/2
-        b = self.height - self.tri_pady
+        m = height/2
+        b = height - self.tri_pady
         pygame.draw.polygon(left, self.colors["arrows"], ((r, t), (l, m), (r, b)))
         pygame.draw.polygon(right, self.colors["arrows"], ((l, t), (r, m), (l, b)))
-        window.blit(left, (self.x, self.y))
-        window.blit(right, (self.x + self.width - self.height, self.y))
+        window.blit(left, (x, y))
+        window.blit(right, (x + width - height, y))
 
     def update(self, window, events):
         self.draw(window)
