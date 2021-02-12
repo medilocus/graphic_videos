@@ -35,8 +35,7 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
     pygame.display.set_caption("Graphic Videos - Preview")
     frame_text = FrameText()
     slider = Slider(0, (0, sum([len(s.get_frames()) for s in scenes])))
-    resized = False
-    playing = False
+    resized = playing = False
     curr_frame = 0
     bottom_bar_height = 25
 
