@@ -125,19 +125,25 @@ class Slider:
         y = height - h
         self.draw(window, y, w, h)
         mx, my = pygame.mouse.get_pos()
+        updated = False
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if y <= my <= y + h:
                     self.dragging = h + 5 <= mx <= w - h + 5
+                    updated = self.dragging
                     if 5 <= mx <= h + 5:
+                        updated = True
                         self.value = max(self.value - 1, self.range[0])
                     elif w - h + 5 <= mx <= w + 5:
+                        updated = True
                         self.value = min(self.value + 1, self.range[1])
             if event.type == pygame.MOUSEBUTTONUP:
                 self.dragging = False
 
         if self.dragging:
             self.loc_to_value(w, h)
+
+        return updated
 
     def draw(self, window, y, w, h):
         pygame.draw.rect(window, self.colors["slider"], (5, y, w, h))
