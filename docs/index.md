@@ -28,7 +28,7 @@ Version 1.1 was recently released!
 [extending]: https://medilocus.github.io/graphic_videos/extending
 [about]: https://medilocus.github.io/graphic_videos/about
 [export]: https://medilocus.github.io/graphic_videos/export
-[export]: https://medilocus.github.io/graphic_videos/preview
+[preview]: https://medilocus.github.io/graphic_videos/preview
 [scenedoc]: https://medilocus.github.io/graphic_videos/scene
 [elementdoc]: https://medilocus.github.io/graphic_videos/elements
 [keyframedoc]: https://medilocus.github.io/graphic_videos/keyframes
