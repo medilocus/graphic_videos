@@ -1,3 +1,5 @@
+![logo](https://github.com/medilocus/graphic_videos/blob/main/images/banner.jpg)
+
 # Graphic Videos
 
 An API for creating graphic videos in Python.
