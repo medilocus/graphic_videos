@@ -27,7 +27,7 @@ pygame.init()
 FPS = 60
 
 
-def draw_frame(window, res, scenes, frame, image):
+def draw_current(res, scenes, frame, image):
     image.fill((0, 0, 0, 0))
     for scene in scenes:
         if frame in scene.get_frames():
@@ -55,13 +55,14 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
         events = pygame.event.get()
         font = pygame.font.SysFont(get_font(), bottom_bar_height-5)
         text_size = font.size("Frame: " + frame_text.text + "9"*(5-len(frame_text.text)))
+        draw_frame = lambda: draw_current(resolution, scenes, slider.value, image)
         if frame_text.draw(window, events, width, height, text_size, font):
             slider.set(int(frame_text.text))
             frame_text.text = str(slider.value)
-            draw_frame(window, resolution, scenes, slider.value, image)
+            draw_frame()
         if slider.update(window, events, width, height, width-text_size[0]-15, bottom_bar_height) or slider.dragging or playing:
             frame_text.text = str(slider.value)
-            draw_frame(window, resolution, scenes, slider.value, image)
+            draw_frame()
             if playing:
                 slider.set(slider.value + 1)
 
@@ -72,6 +73,11 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
                 pygame.quit()
                 return
 
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    if pygame.mouse.get_pos()[1] < height - bottom_bar_height:
+                        playing = not playing
+
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     playing = not playing
@@ -79,7 +85,7 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
             if resizable:
                 if event.type == pygame.VIDEORESIZE:
                     resized = True
-                    draw_frame(window, resolution, scenes, slider.value, image)
+                    draw_frame()
                     width, height = event.size
 
                 elif event.type == pygame.ACTIVEEVENT and resized:
