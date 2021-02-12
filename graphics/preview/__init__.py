@@ -84,6 +84,16 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
                     playing = not playing
                     if playing and slider.value == end:
                         slider.set(slider.range[0])
+                
+                elif event.key == pygame.K_LEFT:
+                    slider.set(slider.value - 1)
+                    frame_text.text = str(slider.value)
+                    draw_frame()
+                
+                elif event.key == pygame.K_RIGHT:
+                    slider.set(slider.value + 1)
+                    frame_text.text = str(slider.value)
+                    draw_frame()
 
             if resizable:
                 if event.type == pygame.VIDEORESIZE:
