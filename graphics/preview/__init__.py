@@ -61,4 +61,7 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene]) -> None:
                 window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
                 resized = False
 
+            elif event.type == pygame.K_SPACE:
+                playing = not playing
+
         pygame.display.update()
