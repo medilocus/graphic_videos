@@ -24,8 +24,6 @@ from .elements import FrameText, Slider
 from ..options import get_font
 pygame.init()
 
-FPS = 60
-
 
 def draw_current(res, scenes, frame, image):
     image.fill((0, 0, 0, 0))
@@ -34,7 +32,7 @@ def draw_current(res, scenes, frame, image):
             image.blit(scene.render(res, frame), (0, 0))
 
 
-def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True) -> None:
+def launch(resolution: Tuple[int], fps, scenes: Tuple[Scene], resizable: bool = True) -> None:
     clock = pygame.time.Clock()
     width, height = 1600, 900
     flags = pygame.RESIZABLE if resizable else 0
@@ -51,7 +49,7 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
     image.fill((0, 0, 0, 0))
 
     while True:
-        clock.tick(FPS)
+        clock.tick(fps)
         window.fill((0, 0, 0))
         events = pygame.event.get()
         font = pygame.font.SysFont(get_font(), bottom_bar_height-5)
