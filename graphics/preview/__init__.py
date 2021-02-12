@@ -35,7 +35,8 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
     pygame.display.set_caption("Graphic Videos - Preview")
     frame_text = FrameText()
     frame_text.text = "0"
-    slider = Slider(0, (0, sum([len(s.get_frames()) for s in scenes])))
+    num_frames = [len(s.get_frames()) for s in scenes]
+    slider = Slider(min(num_frames), (min(num_frames), max(num_frames)))
     resized = playing = False
     curr_frame = 0
     bottom_bar_height = 25
@@ -46,12 +47,21 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
         events = pygame.event.get()
         font = pygame.font.SysFont(get_font(), bottom_bar_height-5)
         text_size = font.size("Frame: " + frame_text.text + "9"*(5-len(frame_text.text)))
+        updated = False
         if frame_text.draw(window, events, width, height, text_size, font):
             slider.set(int(frame_text.text))
             frame_text.text = str(slider.value)
-        if slider.update(window, events, width, height, width-text_size[0]-15, bottom_bar_height) or slider.dragging or playing:
+            updated = True
+        if slider.update(window, events, width, height, width-text_size[0]-15, bottom_bar_height) or slider.dragging or playing or updated:
             curr_frame = slider.value
             frame_text.text = str(curr_frame)
+            surf = pygame.Surface(resolution, pygame.SRCALPHA)
+            for scene in scenes:
+                if curr_frame in scene.get_frames():
+                    surf.blit(scene.render(resolution, curr_frame), (0, 0))
+            window.blit(pygame.transform.scale(surf, (width, height-bottom_bar_height)), (0, 0))
+            if playing:
+                curr_frame += 1
 
         for event in events:
             if event.type == pygame.QUIT:
