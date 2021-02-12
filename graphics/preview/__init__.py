@@ -20,7 +20,8 @@
 from typing import Tuple
 import pygame
 from ..scene import Scene
-from .elements import FrameText
+from .elements import FrameText, Slider
+from ..options import get_font
 pygame.init()
 
 FPS = 60
@@ -31,6 +32,7 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene]) -> None:
     window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
     pygame.display.set_caption("Graphic Videos - Preview")
     frame_text = FrameText()
+    slider = Slider(0, (0, sum([len(s.get_frames()) for s in scenes])))
     resized = False
     playing = False
     curr_frame = 0
@@ -40,7 +42,10 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene]) -> None:
         clock.tick(FPS)
         window.fill((0, 0, 0))
         events = pygame.event.get()
-        frame_text.draw(window, events, width, height, bottom_bar_height-5)
+        font = pygame.font.SysFont(get_font(), bottom_bar_height-5)
+        text_size = font.size("Frame: " + frame_text.text + "9"*(5-len(frame_text.text)))
+        frame_text.draw(window, events, width, height, text_size, font)
+        slider.update(window, events, width, height, width-text_size[0]-15, bottom_bar_height)
         for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()

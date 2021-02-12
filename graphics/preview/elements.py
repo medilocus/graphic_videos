@@ -16,11 +16,9 @@ class FrameText:
         self.rpt_int = 35
         self.clock = pygame.time.Clock()
 
-    def draw(self, window, events, width, height, font_size):
+    def draw(self, window, events, width, height, text_size, font):
         self.frame += 1
-        font = pygame.font.SysFont(get_font(), font_size)
 
-        text_size = font.size("Frame: " + self.text + "9"*(5-len(self.text)))
         loc = [((width, height)[i] - text_size[i] - 2) for i in range(2)]
 
         text = font.render("Frame: " + self.text, 1, (255,)*3)
@@ -103,54 +101,51 @@ class Slider:
         self.value = init_val
         self.dragging = False
 
-    def draw_arrows(self, window, x, y, width, height):
-        left = pygame.Surface((height,)*2)
-        right = pygame.Surface((height,)*2)
+    def draw_arrows(self, window, y, w, h):
+        left = pygame.Surface((h,)*2)
+        right = pygame.Surface((h,)*2)
         mx, my = pygame.mouse.get_pos()
-        colliding = x <= mx <= x + height and y <= my <= y + height
+        colliding = 0 <= mx <= h and y <= my <= y + h
         color = self.colors["highlighted_boxes"] if colliding else self.colors["boxes"]
         left.fill(color)
-        colliding = x + width - height <= mx <= x + width and y <= my <= y + height
+        colliding = w - h <= mx <= w and y <= my <= y + h
         color = self.colors["highlighted_boxes"] if colliding else self.colors["boxes"]
         right.fill(color)
         l = self.tri_padx
-        r = height - self.tri_padx
+        r = h - self.tri_padx
         t = self.tri_pady
-        m = height/2
-        b = height - self.tri_pady
+        m = h/2
+        b = h - self.tri_pady
         pygame.draw.polygon(left, self.colors["arrows"], ((r, t), (l, m), (r, b)))
         pygame.draw.polygon(right, self.colors["arrows"], ((l, t), (r, m), (l, b)))
-        window.blit(left, (x, y))
-        window.blit(right, (x + width - height, y))
+        window.blit(left, (0, y))
+        window.blit(right, (w - h, y))
 
-    def update(self, window, events):
-        self.draw(window)
+    def update(self, window, events, width, height, w, h):
+        y = height - h
+        self.draw(window, y, w, h)
         mx, my = pygame.mouse.get_pos()
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if self.y <= my <= self.y + self.height:
-                    self.dragging = self.x + self.height <= mx <= self.x + self.width - self.height
-                    if self.x <= mx <= self.x + self.height:
+                if y <= my <= y + h:
+                    self.dragging = h <= mx <= w - h
+                    if 0 <= mx <= h:
                         self.value = max(self.value - 1, self.range[0])
-                    elif self.x + self.width - self.height <= mx <= self.x + self.width:
+                    elif w - h <= mx <= w:
                         self.value = min(self.value + 1, self.range[1])
             if event.type == pygame.MOUSEBUTTONUP:
                 self.dragging = False
 
         if self.dragging:
-            self.loc_to_value()
+            self.loc_to_value(w, h)
 
-    def draw(self, window):
-        pygame.draw.rect(window, self.colors["slider"], (self.x, self.y, self.width, self.height))
-        pygame.draw.rect(window, self.colors["cursor"], (self.value_to_loc() - self.height/2, self.y, self.height, self.height))
-        self.draw_arrows(window)
-        text = self.font.render(f"{self.label}: {self.value}", 1, self.colors["text"])
-        text_loc = (self.x + (self.width-text.get_width()) // 2, self.y + self.height + 5)
-        window.blit(text, text_loc)
+    def draw(self, window, y, w, h):
+        pygame.draw.rect(window, self.colors["slider"], (0, y, w, h))
+        pygame.draw.rect(window, self.colors["cursor"], (self.value_to_loc(w, h) - h/2, y, h, h))
+        self.draw_arrows(window, y, w, h)
 
-    def loc_to_value(self):
-        val = np.interp(pygame.mouse.get_pos()[0], (self.x + self.height*1.5, self.x + self.width - self.height*1.5), self.range)
-        self.value = int(val) if self.to_int else val
+    def loc_to_value(self, w, h):
+        return np.interp(pygame.mouse.get_pos()[0], (h*1.5, w - h*1.5), self.range)
 
-    def value_to_loc(self):
-        return np.interp(self.value, self.range, (self.x + self.height*1.5, self.x + self.width - self.height*1.5))
+    def value_to_loc(self, w, h):
+        return np.interp(self.value, self.range, (h*1.5, w - h*1.5))
