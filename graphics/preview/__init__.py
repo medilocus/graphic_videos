@@ -42,6 +42,7 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene]) -> None:
         clock.tick(FPS)
         window.fill((0, 0, 0))
         events = pygame.event.get()
+        curr_frame = slider.value
         font = pygame.font.SysFont(get_font(), bottom_bar_height-5)
         text_size = font.size("Frame: " + frame_text.text + "9"*(5-len(frame_text.text)))
         frame_text.draw(window, events, width, height, text_size, font)
