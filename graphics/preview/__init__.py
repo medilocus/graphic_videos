@@ -26,10 +26,11 @@ pygame.init()
 
 FPS = 60
 
-def launch(resolution: Tuple[int], scenes: Tuple[Scene]) -> None:
+def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True) -> None:
     clock = pygame.time.Clock()
     width, height = 1600, 900
-    window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+    flags = pygame.RESIZABLE if resizable else 0
+    window = pygame.display.set_mode((width, height), flags)
     pygame.display.set_caption("Graphic Videos - Preview")
     frame_text = FrameText()
     slider = Slider(0, (0, sum([len(s.get_frames()) for s in scenes])))
@@ -53,15 +54,17 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene]) -> None:
                 pygame.quit()
                 return
 
-            elif event.type == pygame.VIDEORESIZE:
-                resized = True
-                width, height = event.size
-
-            elif event.type == pygame.ACTIVEEVENT and resized:
-                window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
-                resized = False
-
             elif event.type == pygame.K_SPACE:
                 playing = not playing
+
+            if resizable:
+                if event.type == pygame.VIDEORESIZE:
+                    resized = True
+                    width, height = event.size
+
+                elif event.type == pygame.ACTIVEEVENT and resized:
+                    window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+                    resized = False
+
 
         pygame.display.update()
