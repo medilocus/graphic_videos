@@ -1,4 +1,4 @@
-![logo](https://github.com/medilocus/graphic_videos/blob/main/images/banner.jpg)
+![logo](https://raw.githubusercontent.com/medilocus/graphic_videos/main/images/banner.jpg)
 
 # Graphic Videos
 
