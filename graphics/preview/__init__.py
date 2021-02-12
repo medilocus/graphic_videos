@@ -55,12 +55,11 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
         events = pygame.event.get()
         font = pygame.font.SysFont(get_font(), bottom_bar_height-5)
         text_size = font.size("Frame: " + frame_text.text + "9"*(5-len(frame_text.text)))
-        updated = False
         if frame_text.draw(window, events, width, height, text_size, font):
             slider.set(int(frame_text.text))
             frame_text.text = str(slider.value)
-            updated = True
-        if slider.update(window, events, width, height, width-text_size[0]-15, bottom_bar_height) or slider.dragging or playing or updated:
+            draw_frame(window, resolution, scenes, curr_frame, width, height, bottom_bar_height)
+        if slider.update(window, events, width, height, width-text_size[0]-15, bottom_bar_height) or slider.dragging or playing:
             curr_frame = slider.value
             frame_text.text = str(curr_frame)
             draw_frame(window, resolution, scenes, curr_frame, width, height, bottom_bar_height)
@@ -84,6 +83,7 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
 
                 elif event.type == pygame.ACTIVEEVENT and resized:
                     window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+                    draw_frame(window, resolution, scenes, curr_frame, width, height, bottom_bar_height)
                     resized = False
 
         pygame.display.update((0, height-bottom_bar_height, width, bottom_bar_height))
