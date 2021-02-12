@@ -105,10 +105,10 @@ class Slider:
         left = pygame.Surface((h,)*2)
         right = pygame.Surface((h,)*2)
         mx, my = pygame.mouse.get_pos()
-        colliding = 0 <= mx <= h and y <= my <= y + h
+        colliding = 5 <= mx <= h + 5 and y <= my <= y + h
         color = self.colors["highlighted_boxes"] if colliding else self.colors["boxes"]
         left.fill(color)
-        colliding = w - h <= mx <= w and y <= my <= y + h
+        colliding = w - h + 5 <= mx <= w + 5 and y <= my <= y + h
         color = self.colors["highlighted_boxes"] if colliding else self.colors["boxes"]
         right.fill(color)
         l = self.tri_padx
@@ -118,8 +118,8 @@ class Slider:
         b = h - self.tri_pady
         pygame.draw.polygon(left, self.colors["arrows"], ((r, t), (l, m), (r, b)))
         pygame.draw.polygon(right, self.colors["arrows"], ((l, t), (r, m), (l, b)))
-        window.blit(left, (0, y))
-        window.blit(right, (w - h, y))
+        window.blit(left, (5, y))
+        window.blit(right, (w - h + 5, y))
 
     def update(self, window, events, width, height, w, h):
         y = height - h
@@ -128,10 +128,10 @@ class Slider:
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if y <= my <= y + h:
-                    self.dragging = h <= mx <= w - h
-                    if 0 <= mx <= h:
+                    self.dragging = h + 5 <= mx <= w - h + 5
+                    if 5 <= mx <= h + 5:
                         self.value = max(self.value - 1, self.range[0])
-                    elif w - h <= mx <= w:
+                    elif w - h + 5 <= mx <= w + 5:
                         self.value = min(self.value + 1, self.range[1])
             if event.type == pygame.MOUSEBUTTONUP:
                 self.dragging = False
@@ -140,12 +140,12 @@ class Slider:
             self.loc_to_value(w, h)
 
     def draw(self, window, y, w, h):
-        pygame.draw.rect(window, self.colors["slider"], (0, y, w, h))
+        pygame.draw.rect(window, self.colors["slider"], (5, y, w, h))
         pygame.draw.rect(window, self.colors["cursor"], (self.value_to_loc(w, h) - h/2, y, h, h))
         self.draw_arrows(window, y, w, h)
 
     def loc_to_value(self, w, h):
-        return np.interp(pygame.mouse.get_pos()[0], (h*1.5, w - h*1.5), self.range)
+        self.value = np.interp(pygame.mouse.get_pos()[0], (h*1.5 + 5, w - h*1.5 + 5), self.range)
 
     def value_to_loc(self, w, h):
-        return np.interp(self.value, self.range, (h*1.5, w - h*1.5))
+        return np.interp(self.value, self.range, (h*1.5 + 5, w - h*1.5 + 5))
