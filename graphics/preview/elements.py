@@ -153,6 +153,9 @@ class Slider:
         pygame.draw.rect(window, self.colors["cursor"], (self.value_to_loc(w, h) - h/2, y, h, h))
         self.draw_arrows(window, y, w, h)
 
+    def set(self, val):
+        self.value = min(max(val, self.range[0]), self.range[1])
+
     def loc_to_value(self, w, h):
         self.value = int(np.interp(pygame.mouse.get_pos()[0], (h*1.5 + 5, w - h*1.5 + 5), self.range))
 
