@@ -69,8 +69,9 @@ def launch(resolution: Tuple[int], scenes: Tuple[Scene], resizable: bool = True)
                 pygame.quit()
                 return
 
-            elif event.type == pygame.K_SPACE:
-                playing = not playing
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    playing = not playing
 
             if resizable:
                 if event.type == pygame.VIDEORESIZE:
