@@ -1,4 +1,4 @@
-![logo](graphic_videos/images/banner.png)
+![logo](images/banner.png)
 
 # Graphic Videos
 
