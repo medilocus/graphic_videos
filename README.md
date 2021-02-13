@@ -8,7 +8,7 @@ Documentation can be found here:
 
 https://medilocus.github.io/graphic_videos/
 
-Latest stable version: [Version 1][latest]
+Latest stable version: [Version 1.1][latest]
 
 ## News
 
@@ -23,4 +23,4 @@ You can use it in any way you want, forever.
 You can put all videos exported online without credit, but credit is always appreciated.
 
 
-[latest]: https://github.com/medilocus/graphic_videos/releases/tag/v1.0
+[latest]: https://github.com/medilocus/graphic_videos/releases/tag/v1.1
