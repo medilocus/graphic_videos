@@ -46,7 +46,7 @@ def launch(resolution: Tuple[int], fps, scenes: Tuple[Scene], resizable: bool = 
     resized = playing = False
     bottom_bar_height = 25
     image = pygame.Surface(resolution, pygame.SRCALPHA)
-    image.fill((0, 0, 0, 0))
+    draw_current(resolution, scenes, slider.value, image)
 
     while True:
         clock.tick(fps)
