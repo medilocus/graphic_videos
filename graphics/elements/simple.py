@@ -266,10 +266,13 @@ class Text(BaseElement):
     def get_font(self, frame):
         font_family = self.font.get_value(frame)
         font_size = self.size.get_value(frame)
+
         if os.path.isfile(font_family):
             return pygame.font.Font(font_family, font_size)
         else:
-            return pygame.font.SysFont(font_family, font_size)
+            bold = self.bold.get_value(frame)
+            italic = self.italic.get_value(frame)
+            return pygame.font.SysFont(font_family, font_size, bold, italic)
 
     def get_size(self, frame: int = 0) -> Tuple[int]:
         font_family = self.font.get_value(frame)
