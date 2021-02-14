@@ -157,6 +157,9 @@ class VectorProp:
         self.length = length
         self.dtype = dtype
 
+    def __call__(self, frame: int) -> Tuple[Any]:
+        return [p(frame) for p in self.elements]
+
     def __getitem__(self, index: int) -> Property:
         return self.elements[index]
 
