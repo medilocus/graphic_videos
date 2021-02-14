@@ -22,6 +22,7 @@ import pygame
 import numpy as np
 from . import BaseElement
 from ..props import *
+from ..options import *
 import random
 pygame.init()
 
