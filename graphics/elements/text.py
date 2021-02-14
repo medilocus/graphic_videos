@@ -58,11 +58,8 @@ class TitleHoriz(BaseElement):
         self.text2.loc.keyframe((size[0]//2-size[0]//15, size[1]//1.5), frame_start+frame_len//1.5, interp="LINEAR")
         self.text2.loc.keyframe((-1*width, size[1]//1.5), frame_start+frame_len, interp="LINEAR")
 
-    def render(self, res: Tuple[int], frame: int, transp: bool = True):
-        if transp:
-            surface = pygame.Surface(res, pygame.SRCALPHA)
-        else:
-            surface = pygame.Surface(res)
+    def render(self, res: Tuple[int], frame: int):
+        surface = pygame.Surface(res, pygame.SRCALPHA)
 
         subsurf = pygame.Surface(self.size, pygame.SRCALPHA)
         subsurf.blit(self.text1.render(res, frame), (0, 0))
