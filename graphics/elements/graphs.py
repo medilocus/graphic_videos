@@ -153,7 +153,7 @@ class BarGraphHoriz(BaseElement):
         if isinstance(colors, str) and colors.lower() == "auto":
             colors = [VectorProp(4, IntProp, (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255), random.randint(1, 255))) for _ in range(len(categories))]
         else:
-            colors = [VectorProp(4, IntProp, (*colors[i], 255) if len(colors[i]) == 3 else colors[i]) for i in range(len(colors))]
+            colors = [VectorProp(4, IntProp, (*get_color(colors[i]), 255) if len(get_color(colors[i])) == 3 else get_color(colors[i])) for i in range(len(colors))]
         if not (len(categories) == len(values) == len(colors)):
             raise ValueError(f"The length of categories ({len(categories)}) must be equal to the length of values ({len(values)}) as well as the length of colors ({len(self.colors)})")
         self.colors = colors
