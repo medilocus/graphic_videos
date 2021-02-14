@@ -17,7 +17,7 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-__version__ = "1.1"
+__version__ = "1.2"
 
 from . import options
 from . import props

@@ -20,7 +20,7 @@ An API for creating graphic videos in Python.
 
 ## News
 
-Version 1.1 was recently released!
+Version 1.2 was recently released!
 
 
 [setup]: https://medilocus.github.io/graphic_videos/setup
