@@ -17,6 +17,7 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+import time
 import pygame
 from constants import *
 pygame.init()
@@ -24,9 +25,12 @@ pygame.init()
 
 def main():
     pygame.display.set_caption("Graphic Videos - GUI")
-    surface = pygame.display.set_mode((1280, 720))
+    surface = pygame.display.set_mode((1280, 720), pygame.RESIZABLE)
 
     clock = pygame.time.Clock()
+    width, height = 1280, 720
+    last_width, last_height = 1280, 720
+    resized = False
 
     while True:
         clock.tick(FPS)
@@ -36,6 +40,15 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
+
+            elif event.type == pygame.VIDEORESIZE:
+                last_width, last_height = width, height
+                width, height = event.w, event.h
+                resized = True
+
+            elif event.type == pygame.ACTIVEEVENT and resized and width != last_width and height != last_height:
+                surface = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+                resized = False
 
         surface.fill(BLACK)
 
