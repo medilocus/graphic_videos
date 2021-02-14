@@ -33,6 +33,7 @@ def cv2img2surf(img) -> pygame.Surface:
     surf = pygame.image.frombuffer(img.tostring(), img.shape[1::-1], "RGB")
     return surf
 
+
 def get_color(color) -> Tuple[int]:
     """
     Gets the color from the color palette if it is in it, otherwise returns the color it received.
