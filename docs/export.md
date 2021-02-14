@@ -13,9 +13,18 @@ All export functions have these parameters:
 
 ## Available Methods
 
-* Single Core: Exports and encodes each frame.
-* Multi Core: Exports and encodes each frame on all system cores. Uses many temporary files. MAY BE UNSTABLE.
-* FFmpeg: Exports and compresses with FFmpeg. Uses one temporary file.
+* Single Core
+    * Exports and encodes each frame.
+    * Good for all projects. Almost never fails.
+    * Slow
+* Multi Core
+    * Exports and encodes each frame on all system cores. Uses many temporary files.
+    * Fails only on scenes containing videos.
+    * Fast for projects with lots of rendering.
+* FFmpeg
+    * Exports and compresses with FFmpeg. Uses one temporary file.
+    * Uses same method as single core.
+    * Small output file size.
 
 [Back to documentation home][dochome]
 
