@@ -17,6 +17,8 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+from typing import Tuple
+from .options import *
 import pygame
 import cv2
 pygame.init()
@@ -30,3 +32,10 @@ def cv2img2surf(img) -> pygame.Surface:
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     surf = pygame.image.frombuffer(img.tostring(), img.shape[1::-1], "RGB")
     return surf
+
+def get_color(color) -> Tuple[int]:
+    """
+    Gets the color from the color palette if it is in it, otherwise returns the color it received.
+    :param color: 
+    """
+    return COLOR_PALETTE[color] if color in COLOR_PALETTE else color

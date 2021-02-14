@@ -51,6 +51,7 @@ class Rect(BaseElement):
         :param antialias: Whether to perform simple antialiasing when rendering.
         """
         super().__init__()
+        color = get_color(color)
         if len(color) == 3:
             color = (*color, 255)
         if len(border_color) == 3:
@@ -102,6 +103,7 @@ class Circle(BaseElement):
         :param antialias: Whether to perform simple antialiasing when rendering.
         """
         super().__init__()
+        color = get_color(color)
         if len(color) == 3:
             color = (*color, 255)
         if len(border_color) == 3:
@@ -151,6 +153,7 @@ class Line(BaseElement):
         :param antialias: Whether to perform simple antialiasing when rendering.
         """
         super().__init__()
+        color = get_color(color)
         if len(color) == 3:
             color = (*color, 255)
 
@@ -196,6 +199,7 @@ class Polygon(BaseElement):
         :param antialias: Whether to perform simple antialiasing when rendering.
         """
         super().__init__()
+        color = get_color(color)
         if len(color) == 3:
             color = (*color, 255)
         if len(border_color) == 3:
@@ -247,6 +251,7 @@ class Text(BaseElement):
         :param antialias: Whether to antialias rendered text.
         """
         super().__init__()
+        color = get_color(color)
         if len(color) == 3:
             color = (*color, 255)
         if font is None:
