@@ -263,9 +263,6 @@ class Text(BaseElement):
         self.italic = BoolProp(italic)
         self.antialias = BoolProp(antialias)
 
-        self.last_font_family = None
-        self.last_font = None
-
     def get_font(self, frame):
         font_family = self.font.get_value(frame)
         font_size = self.size.get_value(frame)
@@ -279,14 +276,8 @@ class Text(BaseElement):
         text_str = self.text.get_value(frame)
         size = self.size.get_value(frame)
 
-        if self.last_font_family == (font_family, size):
-            return self.last_font
-
         font = pygame.font.SysFont(font_family, size)
         text = font.render(text_str, True, (0, 0, 0))
-
-        self.last_font = font
-        self.last_font_family = (font_family, size)
 
         return text.get_size()
 
