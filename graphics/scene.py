@@ -86,6 +86,8 @@ class Scene:
         :param res: Resolution to render.
         :param frame: Frame to render.
         """
+        final_surface = pygame.Surface(res)
+
         if self.motion_blur:
             surface = pygame.Surface(res, pygame.SRCALPHA)
             mb_frames = get_mb_frames()
@@ -102,10 +104,10 @@ class Scene:
                     curr_surf.blit(mask_surf, (0, 0))
                     surface.blit(curr_surf, (0, 0))
 
-            surface.set_alpha(False)
-            return surface
+            final_surface.blit(surface, (0, 0))
 
         else:
             surface = self.render_frame(res, frame)
-            surface.set_alpha(False)
-            return surface
+            final_surface.blit(surface, (0, 0))
+
+        return final_surface
