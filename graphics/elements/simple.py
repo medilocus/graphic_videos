@@ -199,6 +199,7 @@ class Polygon(BaseElement):
         :param antialias: Whether to perform simple antialiasing when rendering.
         """
         super().__init__()
+        color = get_color(color)
         if len(color) == 3:
             color = (*color, 255)
         if len(border_color) == 3:
