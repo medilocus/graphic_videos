@@ -92,6 +92,13 @@ class Property:
         self._default_val = self.dtype(default_val)
         self._keyframes = []
 
+    def __call__(self, frame: int) -> Any:
+        """
+        Faster way to do self.get_value(frame).
+        :param frame: Frame to get value. The value will change based on the keyframes.
+        """
+        return self.get_value(frame)
+
     def keyframe(self, value: Any, frame: int, interp: str = None) -> None:
         """
         Adds a keyframe and performs value checks.
