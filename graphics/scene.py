@@ -88,9 +88,10 @@ class Scene:
         """
         if self.motion_blur:
             surface = pygame.Surface(res)
-            for offset in reversed([0.5*i for i in range(10)]):
+            mb_frames = get_mb_frames()
+            for offset in reversed([0.5*i for i in range(mb_frames)]):
                 for fac in (1, -1):
-                    color = (0, 0, 0, int(255/5*(5-offset)))
+                    color = (0, 0, 0, int(255/mb_frames*(mb_frames-offset)))
                     mask_surf = pygame.Surface(res, pygame.SRCALPHA)
                     mask_surf.fill(color)
 

@@ -29,6 +29,9 @@ def get_font():
 def get_col_palette():
     return COLOR_PALETTE
 
+def get_mb_frames():
+    return MB_FRAMES
+
 
 # Sigmoid is no longer used.
 SIGMOID_XRANGE = 3
@@ -37,5 +40,5 @@ SIGMOID_COMPENSATION = 1 + e**((1-3**0.5) * SIGMOID_XRANGE)
 PARABOLA_XMAX = 2
 
 DEFAULT_FONT = "ubuntu"
-
 COLOR_PALETTE = {}
+MB_FRAMES = 6
