@@ -17,9 +17,10 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+from typing import Tuple
+from .options import *
 import pygame
 import cv2
-from .options import *
 pygame.init()
 
 
