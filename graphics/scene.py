@@ -92,6 +92,7 @@ class Scene:
             surface = pygame.Surface(res, pygame.SRCALPHA)
             mb_frames = get_mb_frames()
             mb_step = get_mb_step()
+
             for offset in reversed([mb_step*i for i in range(mb_frames)]):
                 for fac in (1, -1):
                     curr_alpha = 255 * offset / (mb_frames*mb_step)
