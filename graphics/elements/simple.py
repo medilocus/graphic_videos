@@ -233,10 +233,12 @@ class Text(BaseElement):
     font: StringProp
     text: StringProp
     size: IntProp
+    bold: BoolProp
+    italic: BoolProp
     antialias: BoolProp
 
     def __init__(self, loc: Tuple[int] = (0, 0), color: Tuple[int] = (255, 255, 255), font: str = None,
-            text: str = "Text", size: int = 36, antialias: bool = True) -> None:
+            text: str = "Text", size: int = 36, bold: bool = False, italic: bool = False, antialias: bool = True) -> None:
         """
         Initializes text element.
         :param loc: Location of top left corner.
@@ -257,6 +259,8 @@ class Text(BaseElement):
         self.font = StringProp(font)
         self.text = StringProp(text)
         self.size = IntProp(size)
+        self.bold = BoolProp(bold)
+        self.italic = BoolProp(italic)
         self.antialias = BoolProp(antialias)
 
         self.last_font_family = None
