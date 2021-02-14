@@ -22,6 +22,7 @@ import pygame
 from ..scene import Scene
 from .elements import FrameText, Slider
 from ..options import get_font
+from time import sleep
 pygame.init()
 
 
@@ -102,6 +103,7 @@ def launch(resolution: Tuple[int], fps, scenes: Tuple[Scene], resizable: bool = 
                 elif event.type == pygame.ACTIVEEVENT and resized:
                     window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
                     resized = False
+                    sleep(0.25)
 
         if playing and slider.value == end:
             playing = False
