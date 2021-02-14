@@ -37,6 +37,7 @@ for x in range(3):
 scene.add_element(graphics.elements.simple.Line((1550, 50), (1750, 200), 2))
 scene.add_element(graphics.elements.simple.Line((1920, 200), (1700, 400), 2))
 scene.add_element(graphics.elements.simple.Circle((1674, 100), 35, (220, 160, 160)))
+scene.add_element(graphics.elements.simple.Circle((1790, 274), 35, (160, 160, 220)))
 
 pygame.image.save(scene.render((1920, 480), 0), "images/banner.png")
 pygame.image.save(scene.render((1920, 480), 0), "images/banner.jpg")
