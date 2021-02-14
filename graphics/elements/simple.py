@@ -251,6 +251,7 @@ class Text(BaseElement):
         :param antialias: Whether to antialias rendered text.
         """
         super().__init__()
+        color = get_color(color)
         if len(color) == 3:
             color = (*color, 255)
         if font is None:
