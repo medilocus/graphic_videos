@@ -2,8 +2,10 @@
 
 Options are a way to customize graphic videos.
 
-Currently graphics videos offers customization of the following:
-* 
+Currently, graphics videos offers customization of the following:
+
+* `DEFAULT_FONT`: Font the module would use if no font argument is provided. Default: `ubuntu`
+* `COLOR_PALETTE`: A dictionary of colors that the user can modify for future use. Default: `{}`
 
 
 [Back to documentation home][dochome]
