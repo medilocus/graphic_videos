@@ -67,12 +67,12 @@ class Rect(BaseElement):
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
-        loc = self.loc.get_value(frame)
-        size = self.size.get_value(frame)
-        border = self.border.get_value(frame)
-        color = self.color.get_value(frame)
-        border_color = self.border_color.get_value(frame)
-        antialias = self.antialias.get_value(frame)
+        loc = self.loc(frame)
+        size = self.size(frame)
+        border = self.border(frame)
+        color = self.color(frame)
+        border_color = self.border_color(frame)
+        antialias = self.antialias(frame)
 
         pygame.draw.rect(surface, color, (*loc, *size))
         if border > 0:
@@ -119,12 +119,12 @@ class Circle(BaseElement):
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
-        loc = self.loc.get_value(frame)
-        radius = self.radius.get_value(frame)
-        border = self.border.get_value(frame)
-        color = self.color.get_value(frame)
-        border_color = self.border_color.get_value(frame)
-        antialias = self.antialias.get_value(frame)
+        loc = self.loc(frame)
+        radius = self.radius(frame)
+        border = self.border(frame)
+        color = self.color(frame)
+        border_color = self.border_color(frame)
+        antialias = self.antialias(frame)
 
         pygame.draw.circle(surface, color, loc, radius)
         if border > 0:
@@ -166,11 +166,11 @@ class Line(BaseElement):
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
-        loc1 = self.loc1.get_value(frame)
-        loc2 = self.loc2.get_value(frame)
-        thickness = self.thickness.get_value(frame)
-        color = self.color.get_value(frame)
-        antialias = self.antialias.get_value(frame)
+        loc1 = self.loc1(frame)
+        loc2 = self.loc2(frame)
+        thickness = self.thickness(frame)
+        color = self.color(frame)
+        antialias = self.antialias(frame)
 
         pygame.draw.line(surface, color, loc1, loc2, thickness)
 
@@ -215,12 +215,12 @@ class Polygon(BaseElement):
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
-        border = self.border.get_value(frame)
-        color = self.color.get_value(frame)
-        border_color = self.border_color.get_value(frame)
-        offset = self.offset.get_value(frame)
-        antialias = self.antialias.get_value(frame)
-        verts = [(vx + offset[0], vy + offset[1]) for v in self.verts for vx, vy in v.get_value(frame)]
+        border = self.border(frame)
+        color = self.color(frame)
+        border_color = self.border_color(frame)
+        offset = self.offset(frame)
+        antialias = self.antialias(frame)
+        verts = [(vx + offset[0], vy + offset[1]) for v in self.verts for vx, vy in v(frame)]
 
         pygame.draw.polygon(surface, color, verts)
         if border > 0:
@@ -269,20 +269,20 @@ class Text(BaseElement):
         self.antialias = BoolProp(antialias)
 
     def get_font(self, frame):
-        font_family = self.font.get_value(frame)
-        font_size = self.size.get_value(frame)
+        font_family = self.font(frame)
+        font_size = self.size(frame)
 
         if os.path.isfile(font_family):
             return pygame.font.Font(font_family, font_size)
         else:
-            bold = self.bold.get_value(frame)
-            italic = self.italic.get_value(frame)
+            bold = self.bold(frame)
+            italic = self.italic(frame)
             return pygame.font.SysFont(font_family, font_size, bold, italic)
 
     def get_size(self, frame: int = 0) -> Tuple[int]:
-        font_family = self.font.get_value(frame)
-        text_str = self.text.get_value(frame)
-        size = self.size.get_value(frame)
+        font_family = self.font(frame)
+        text_str = self.text(frame)
+        size = self.size(frame)
 
         font = pygame.font.SysFont(font_family, size)
         text = font.render(text_str, True, (0, 0, 0))
@@ -292,10 +292,10 @@ class Text(BaseElement):
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
-        loc = self.loc.get_value(frame)
-        color = self.color.get_value(frame)
-        text_str = self.text.get_value(frame)
-        antialias = self.antialias.get_value(frame)
+        loc = self.loc(frame)
+        color = self.color(frame)
+        text_str = self.text(frame)
+        antialias = self.antialias(frame)
 
         font = self.get_font(frame)
         text = font.render(text_str, antialias, color)
@@ -328,7 +328,7 @@ class Image(BaseElement):
         self.last_img = None
 
     def get_image(self, frame):
-        src = self.src.get_value(frame)
+        src = self.src(frame)
         if src == self.last_src:
             return self.last_img
 
@@ -341,8 +341,8 @@ class Image(BaseElement):
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
-        loc = self.loc.get_value(frame)
-        size = self.size.get_value(frame)
+        loc = self.loc(frame)
+        size = self.size(frame)
 
         image = self.get_image(frame)
         image = pygame.transform.scale(image, size)
@@ -420,8 +420,8 @@ class Video(BaseElement):
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
-        loc = self.loc.get_value(frame)
-        size = self.size.get_value(frame)
+        loc = self.loc(frame)
+        size = self.size(frame)
         surf = self.get_surf(frame*self.speed-self.offset)
 
         surf = pygame.transform.scale(surf, size)

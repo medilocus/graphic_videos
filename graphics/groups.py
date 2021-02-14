@@ -64,14 +64,14 @@ class Group(BaseElement):
         final_surf = pygame.Surface(res, pygame.SRCALPHA)
 
         for element in self.elements:
-            if element.show.get_value(frame):
+            if element.show(frame):
                 surface.blit(element.render(res, frame), (0, 0))
         for modifier in self.modifiers:
-            if modifier.show.get_value(frame):
+            if modifier.show(frame):
                 surface = modifier.modify(surface, frame)
 
-        loc = self.loc.get_value(frame)
-        size = self.size.get_value(frame)
+        loc = self.loc(frame)
+        size = self.size(frame)
 
         surface = pygame.transform.scale(surface, size)
         final_surf.blit(surface, loc)

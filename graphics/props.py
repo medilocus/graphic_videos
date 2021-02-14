@@ -185,7 +185,7 @@ class VectorProp:
         Returs a list of the value of each prop.
         :param frame: Frame to get value. The value will change based on inserted keyframes.
         """
-        return [p.get_value(frame) for p in self.elements]
+        return [p(frame) for p in self.elements]
 
 
 class BoolProp(Property):
