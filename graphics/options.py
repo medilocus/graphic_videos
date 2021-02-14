@@ -32,6 +32,9 @@ def get_col_palette():
 def get_mb_frames():
     return MB_FRAMES
 
+def get_mb_step():
+    return MB_STEP
+
 
 # Sigmoid is no longer used.
 SIGMOID_XRANGE = 3
@@ -42,3 +45,4 @@ PARABOLA_XMAX = 2
 DEFAULT_FONT = "ubuntu"
 COLOR_PALETTE = {}
 MB_FRAMES = 6
+MB_STEP = 0.1
