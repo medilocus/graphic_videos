@@ -72,8 +72,8 @@ class Scene:
         :param frame: Frame to render.
         """
         surface = pygame.Surface(res)
-        surface.fill(self.bg_col.get_value(frame))
+        surface.fill(self.bg_col(frame))
         for element in self.elements:
-            if element.show.get_value(frame):
+            if element.show(frame):
                 surface.blit(element.render(res, frame-self.pause[0]), (0, 0))
         return surface

@@ -79,20 +79,20 @@ class BarGraphVert(BaseElement):
         surf.fill((0, 0, 0, 0))
 
         # Get current values
-        base_x, base_y = self.loc.get_value(frame)
-        width, height = self.size.get_value(frame)
-        border = self.border.get_value(frame)
-        border_color = self.border_color.get_value(frame)
-        text_color = self.text_color.get_value(frame)
+        base_x, base_y = self.loc(frame)
+        width, height = self.size(frame)
+        border = self.border(frame)
+        border_color = self.border_color(frame)
+        text_color = self.text_color(frame)
         gap = (width - 5 - len(self.categories) * 5) // len(self.categories)
 
         # Draw bars and text for each bar
         for i in range(len(self.categories)):
             # Get values for bar
-            color = self.colors[i].get_value(frame)
-            value = self.values[i].get_value(frame)
-            category = self.categories[i].get_value(frame)
-            val_h = np.interp(value, (0, max(self.values, key=lambda val: val.get_value(frame)).get_value(frame) + 1), (3, height - 100 - 5))
+            color = self.colors[i](frame)
+            value = self.values[i](frame)
+            category = self.categories[i](frame)
+            val_h = np.interp(value, (0, max(self.values, key=lambda val: val(frame))(frame) + 1), (3, height - 100 - 5))
 
             # Calculate x and y for bar
             x = 5 + gap*i + i*5 + base_x
@@ -175,20 +175,20 @@ class BarGraphHoriz(BaseElement):
         surf.fill((0, 0, 0, 0))
 
         # Get current values
-        base_x, base_y = self.loc.get_value(frame)
-        width, height = self.size.get_value(frame)
-        border = self.border.get_value(frame)
-        border_color = self.border_color.get_value(frame)
-        text_color = self.text_color.get_value(frame)
+        base_x, base_y = self.loc(frame)
+        width, height = self.size(frame)
+        border = self.border(frame)
+        border_color = self.border_color(frame)
+        text_color = self.text_color(frame)
         gap = (height - 5 - len(self.categories) * 5) // len(self.categories)
 
         # Draw bars and text for each bar
         for i in range(len(self.categories)):
             # Get values for bar
-            color = self.colors[i].get_value(frame)
-            value = self.values[i].get_value(frame)
-            category = self.categories[i].get_value(frame)
-            val_w = np.interp(value, (0, max(self.values, key=lambda val: val.get_value(frame)).get_value(frame) + 1), (3, height - 100 - 5))
+            color = self.colors[i](frame)
+            value = self.values[i](frame)
+            category = self.categories[i](frame)
+            val_w = np.interp(value, (0, max(self.values, key=lambda val: val(frame))(frame) + 1), (3, height - 100 - 5))
 
             # Calculate x and y for bar
             x = 5 + 50 + base_x

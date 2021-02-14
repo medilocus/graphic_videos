@@ -62,8 +62,8 @@ class ModFlip(Modifier):
         self.y = BoolProp(y)
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
-        x = self.x.get_value(frame)
-        y = self.y.get_value(frame)
+        x = self.x(frame)
+        y = self.y(frame)
         src = pygame.transform.flip(src, x, y)
         return src
 
@@ -99,7 +99,7 @@ class ModGaussianBlur(Modifier):
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
         surf = pygame.surfarray.pixels3d(src).swapaxes(1, 0)
-        img = Image.fromarray(surf).filter(ImageFilter.GaussianBlur(self.radius.get_value(frame)))
+        img = Image.fromarray(surf).filter(ImageFilter.GaussianBlur(self.radius(frame)))
         data = (img.tobytes(), img.size, img.mode)
         return pygame.image.fromstring(*data)
 
@@ -135,7 +135,7 @@ class ModBright(Modifier):
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
         surf = pygame.surfarray.pixels3d(src).swapaxes(1, 0)
-        img = ImageEnhance.Brightness(Image.fromarray(surf)).enhance(self.factor.get_value(frame))
+        img = ImageEnhance.Brightness(Image.fromarray(surf)).enhance(self.factor(frame))
         data = (img.tobytes(), img.size, img.mode)
         return pygame.image.fromstring(*data)
 
@@ -155,7 +155,7 @@ class ModContrast(Modifier):
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
         surf = pygame.surfarray.pixels3d(src).swapaxes(1, 0)
-        img = ImageEnhance.Contrast(Image.fromarray(surf)).enhance(self.factor.get_value(frame))
+        img = ImageEnhance.Contrast(Image.fromarray(surf)).enhance(self.factor(frame))
         data = (img.tobytes(), img.size, img.mode)
         return pygame.image.fromstring(*data)
 
@@ -175,7 +175,7 @@ class ModColorEnhance(Modifier):
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
         surf = pygame.surfarray.pixels3d(src).swapaxes(1, 0)
-        img = ImageEnhance.Color(Image.fromarray(surf)).enhance(self.factor.get_value(frame))
+        img = ImageEnhance.Color(Image.fromarray(surf)).enhance(self.factor(frame))
         data = (img.tobytes(), img.size, img.mode)
         return pygame.image.fromstring(*data)
 
@@ -195,7 +195,7 @@ class ModSharpen(Modifier):
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
         surf = pygame.surfarray.pixels3d(src).swapaxes(1, 0)
-        img = ImageEnhance.Sharpness(Image.fromarray(surf)).enhance(self.factor.get_value(frame))
+        img = ImageEnhance.Sharpness(Image.fromarray(surf)).enhance(self.factor(frame))
         data = (img.tobytes(), img.size, img.mode)
         return pygame.image.fromstring(*data)
 
