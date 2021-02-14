@@ -237,10 +237,12 @@ class Text(BaseElement):
     font: StringProp
     text: StringProp
     size: IntProp
+    bold: BoolProp
+    italic: BoolProp
     antialias: BoolProp
 
     def __init__(self, loc: Tuple[int] = (0, 0), color: Tuple[int] = (255, 255, 255), font: str = None,
-            text: str = "Text", size: int = 36, antialias: bool = True) -> None:
+            text: str = "Text", size: int = 36, bold: bool = False, italic: bool = False, antialias: bool = True) -> None:
         """
         Initializes text element.
         :param loc: Location of top left corner.
@@ -262,32 +264,28 @@ class Text(BaseElement):
         self.font = StringProp(font)
         self.text = StringProp(text)
         self.size = IntProp(size)
+        self.bold = BoolProp(bold)
+        self.italic = BoolProp(italic)
         self.antialias = BoolProp(antialias)
-
-        self.last_font_family = None
-        self.last_font = None
 
     def get_font(self, frame):
         font_family = self.font.get_value(frame)
         font_size = self.size.get_value(frame)
+
         if os.path.isfile(font_family):
             return pygame.font.Font(font_family, font_size)
         else:
-            return pygame.font.SysFont(font_family, font_size)
+            bold = self.bold.get_value(frame)
+            italic = self.italic.get_value(frame)
+            return pygame.font.SysFont(font_family, font_size, bold, italic)
 
     def get_size(self, frame: int = 0) -> Tuple[int]:
         font_family = self.font.get_value(frame)
         text_str = self.text.get_value(frame)
         size = self.size.get_value(frame)
 
-        if self.last_font_family == (font_family, size):
-            return self.last_font
-
         font = pygame.font.SysFont(font_family, size)
         text = font.render(text_str, True, (0, 0, 0))
-
-        self.last_font = font
-        self.last_font_family = (font_family, size)
 
         return text.get_size()
 

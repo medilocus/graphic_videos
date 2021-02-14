@@ -23,9 +23,11 @@ from math import e
 def get_pbola_xmax():
     return PARABOLA_XMAX
 
-
 def get_font():
     return DEFAULT_FONT
+
+def get_col_palette():
+    return COLOR_PALETTE
 
 
 # Sigmoid is no longer used.

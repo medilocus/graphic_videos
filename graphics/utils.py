@@ -39,4 +39,4 @@ def get_color(color) -> Tuple[int]:
     Gets the color from the color palette if it is in it, otherwise returns the color it received.
     :param color: 
     """
-    return COLOR_PALETTE[color] if color in COLOR_PALETTE else color
+    return get_col_palette()[color] if color in get_col_palette() else color
