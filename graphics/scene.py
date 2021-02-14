@@ -35,7 +35,7 @@ class Scene:
     bg_col: VectorProp
     motion_blur: bool
 
-    def __init__(self, start: int, end: int, step: int = 1, bg_col: Tuple[int] = (0, 0, 0),
+    def __init__(self, start: int, end: int, step: int = 1, bg_col: Tuple[int] = (0, 0, 0, 0),
             before_pause: int = 30, after_pause: int = 30, motion_blur: bool = True) -> None:
         """
         Initializes scene.
@@ -52,7 +52,7 @@ class Scene:
         self.step = step
         self.pause = (before_pause, after_pause)
         self.elements = []
-        self.bg_col = VectorProp(3, IntProp, bg_col)
+        self.bg_col = VectorProp(4, IntProp, bg_col)
         self.motion_blur = motion_blur
 
     def get_frames(self) -> List[int]:
@@ -87,19 +87,24 @@ class Scene:
         :param frame: Frame to render.
         """
         if self.motion_blur:
-            surface = pygame.Surface(res)
+            surface = pygame.Surface(res, pygame.SRCALPHA)
             mb_frames = get_mb_frames()
-            for offset in reversed([0.5*i for i in range(mb_frames)]):
+            mb_step = get_mb_step()
+            for offset in reversed([mb_step*i for i in range(mb_frames)]):
                 for fac in (1, -1):
-                    color = (0, 0, 0, int(255/mb_frames*(mb_frames-offset)))
+                    curr_alpha = 255 * offset / (mb_frames*mb_step)
+                    color = (0, 0, 0, int(curr_alpha))
                     mask_surf = pygame.Surface(res, pygame.SRCALPHA)
                     mask_surf.fill(color)
 
-                    curr_surf = self.render_frame(res, frame+fac*offset)
+                    curr_frame = frame + fac*offset
+                    curr_surf = self.render_frame(res, curr_frame)
                     curr_surf.blit(mask_surf, (0, 0))
                     surface.blit(curr_surf, (0, 0))
 
+            surface.set_alpha(False)
             return surface
+
         else:
             surface = self.render_frame(res, frame)
             surface.set_alpha(False)
