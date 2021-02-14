@@ -126,7 +126,7 @@ class Slider:
         window.blit(right, (w - h + 5, y))
 
     def update(self, window, events, width, height, w, h):
-        y = height - h
+        y = height - h - 5
         self.draw(window, y, w, h)
         mx, my = pygame.mouse.get_pos()
         updated = False

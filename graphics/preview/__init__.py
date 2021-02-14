@@ -44,7 +44,7 @@ def launch(resolution: Tuple[int], fps, scenes: Tuple[Scene], resizable: bool = 
     end = max(frames)
     slider = Slider(min(frames), (min(frames), end))
     resized = playing = False
-    bottom_bar_height = 25
+    bottom_bar_height = 30
     image = pygame.Surface(resolution, pygame.SRCALPHA)
     draw_current(resolution, scenes, slider.value, image)
 
@@ -59,13 +59,13 @@ def launch(resolution: Tuple[int], fps, scenes: Tuple[Scene], resizable: bool = 
             slider.set(int(frame_text.text))
             frame_text.text = str(slider.value)
             draw_frame()
-        if slider.update(window, events, width, height, width-text_size[0]-15, bottom_bar_height) or slider.dragging or playing:
+        if slider.update(window, events, width, height, width-text_size[0]-15, bottom_bar_height-5) or slider.dragging or playing:
             frame_text.text = str(slider.value)
             draw_frame()
             if playing:
                 slider.set(slider.value + 1)
 
-        window.blit(pygame.transform.scale(image, (width, height-bottom_bar_height)), (0, 0))
+        window.blit(pygame.transform.scale(image, (width, height-bottom_bar_height-5)), (0, 0))
 
         for event in events:
             if event.type == pygame.QUIT:
