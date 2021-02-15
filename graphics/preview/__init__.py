@@ -22,7 +22,6 @@ import pygame
 from ..scene import Scene
 from .elements import FrameText, Slider
 from ..options import get_font
-from time import sleep
 pygame.init()
 
 
@@ -36,6 +35,7 @@ def draw_current(res, scenes, frame, image):
 def launch(resolution: Tuple[int], fps, scenes: Tuple[Scene], resizable: bool = True) -> None:
     clock = pygame.time.Clock()
     width, height = 1600, 900
+    last_width, last_height = 1280, 720
     flags = pygame.RESIZABLE if resizable else 0
     window = pygame.display.set_mode((width, height), flags)
     pygame.display.set_caption("Graphic Videos - Preview")
@@ -98,12 +98,13 @@ def launch(resolution: Tuple[int], fps, scenes: Tuple[Scene], resizable: bool = 
                 if event.type == pygame.VIDEORESIZE:
                     resized = True
                     draw_frame()
+                    last_width, last_height = width, height
                     width, height = event.size
+                    resized = True
 
-                elif event.type == pygame.ACTIVEEVENT and resized:
+                elif event.type == pygame.ACTIVEEVENT and resized and width != last_width and height != last_height:
                     window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
                     resized = False
-                    sleep(0.25)
 
         if playing and slider.value == end:
             playing = False
