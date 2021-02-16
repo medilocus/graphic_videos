@@ -266,6 +266,7 @@ class Arc(BaseElement):
         :param border_color: Border color of arc.
         :param antialias: Whether to perform simple antialiasing when rendering.
         """
+        super().__init__()
 
 class Text(BaseElement):
     """Text element."""
