@@ -158,6 +158,7 @@ class Ellipse(BaseElement):
         :param color: Color (rgba, 0 to 255) of ellipse. The ALPHA will be set to 255 if no alpha is given.
         :param border: Border width (pixels) of ellipse. Set to 0 to disable border.
         :param border_color: Border color of ellipse.
+        :param antialias: Whether to perform simple antialiasing when rendering.
         """
 
 
