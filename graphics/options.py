@@ -17,8 +17,12 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+import os
 from math import e
 
+
+def get_parent():
+    return os.path.realpath(os.path.dirname(__file__))
 
 def get_pbola_xmax():
     return PARABOLA_XMAX
