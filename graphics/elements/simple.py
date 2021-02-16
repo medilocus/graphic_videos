@@ -18,11 +18,14 @@
 #
 
 import os
+import time
 from typing import Tuple
+from hashlib import sha256
 import pygame
 from pygame import gfxdraw
 import cv2
 from . import BaseElement
+from ..options import *
 from ..props import *
 from ..utils import *
 pygame.init()
@@ -573,6 +576,7 @@ class NewVideo(BaseElement):
     loc: VectorProp
     size: VectorProp
     src: str
+    length: int
 
     def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (1920, 1080), src: str = ""):
         super().__init__()
@@ -582,4 +586,11 @@ class NewVideo(BaseElement):
         self.cache()
 
     def cache(self):
-        pass
+        base_dir = os.path.join(get_parent(), ".videocache")
+        get_path = lambda: os.path.join(base_dir, sha256(str(time.time()).encode()).hexdigest()[:20])
+        path = get_path()
+        while os.path.isdir(path):
+            path = get_path()
+
+        self.cache_path = path
+        print(self.cache_path)
