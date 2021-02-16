@@ -30,6 +30,7 @@ from . import BaseElement
 from ..options import *
 from ..props import *
 from ..utils import *
+from ..printer import printer
 pygame.init()
 
 
@@ -580,18 +581,18 @@ class NewVideo(BaseElement):
     src: str
     length: int
 
-    def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (1920, 1080), src: str = ""):
+    def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (1920, 1080), src: str = "", cache_verbose: bool = True):
         super().__init__()
         self.loc = VectorProp(2, IntProp, loc)
         self.size = VectorProp(2, IntProp, size)
         self.src = src
-        self.cache()
+        self.cache(cache_verbose)
 
     def rm_cache(self):
         if self.cache_path.startswith(get_parent()):
             shutil.rmtree(self.cache_path)
 
-    def cache(self):
+    def cache(self, verbose):
         base_dir = os.path.join(get_parent(), ".videocache")
         get_path = lambda: os.path.join(base_dir, sha256(str(time.time()).encode()).hexdigest()[:20])
         path = get_path()
@@ -605,9 +606,16 @@ class NewVideo(BaseElement):
         video = cv2.VideoCapture(self.src)
         self.length = 0
         while True:
+            if verbose:
+                printer.clearline()
+                printer.write(f"[GRAPHICS] Video cache: {os.path.basename(self.src)}: Frame {self.length}")
             rval, frame = video.read()
             if not rval:
+                printer.clearline()
+                printer.write(f"[GRAPHICS] Video cache: {os.path.basename(self.src)}: Finished, {self.length} frames")
+                printer.newline()
                 break
+
             path = os.path.join(self.cache_path, f"{self.length}.jpg")
             cv2.imwrite(path, frame)
             self.length += 1
