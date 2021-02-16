@@ -152,6 +152,11 @@ class Ellipse(BaseElement):
             border: int = 0, border_color: Tuple[int] = (255, 255, 255)) -> None:
         """
         Initializes ellipse.
+        :param loc: Top left corner location (pixels) of ellipse.
+        :param size: Size (x, y) pixels of ellipse. The ellipse will be centered inside this.
+        :param color: Color (rgba, 0 to 255) of ellipse. The ALPHA will be set to 255 if no alpha is given.
+        :param border: Border width (pixels) of ellipse. Set to 0 to disable border.
+        :param border_color: Border color of ellipse.
         """
 
 
