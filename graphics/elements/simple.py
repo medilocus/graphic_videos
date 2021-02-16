@@ -255,8 +255,17 @@ class Arc(BaseElement):
     antialias: BoolProp
 
     def __init__(self, loc, size, start_angle, stop_angle, color, border, border_color, antialias) -> None:
-        pass
-
+        """
+        Initializes arc.
+        :param loc: Top left corner location (pixels) of arc.
+        :param size: Size (x, y) pixels of arc.
+        :param start_angle: Start angle of the arc in radians.
+        :param stop_angle: Stop angle of the arc in radians.
+        :param color: Color (rgba, 0 to 255) of arc. The ALPHA will be set to 255 if no alpha is given.
+        :param border: Border width (pixels) of arc. Set to 0 to disable border.
+        :param border_color: Border color of arc.
+        :param antialias: Whether to perform simple antialiasing when rendering.
+        """
 
 class Text(BaseElement):
     """Text element."""
