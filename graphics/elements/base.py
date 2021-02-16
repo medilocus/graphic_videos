@@ -59,3 +59,5 @@ class BaseElement:
             if modifier.show(frame):
                 surf = modifier.modify(surf, frame)
         return surf
+
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:...
