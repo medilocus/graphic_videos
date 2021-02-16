@@ -19,7 +19,7 @@ Version 1.2 was recently released!
 This module wouldn't be possible without:
 
 * Arjun Sahlot: [@ArjunSahlot][arjun]
-* Patrick Huang: @[HuangPatrick16777216][patrick]
+* Patrick Huang: [@HuangPatrick16777216][patrick]
 
 ## License
 
