@@ -282,7 +282,7 @@ class Arc(BaseElement):
         self.border_color = VectorProp(4, IntProp, border_color)
         self.antialias = BoolProp(antialias)
 
-    def render(self, res: Tuple[int], frame: int):
+    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         pass
 
 
