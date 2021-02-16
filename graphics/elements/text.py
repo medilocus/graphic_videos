@@ -58,7 +58,7 @@ class TitleHoriz(BaseElement):
         self.text2.loc.keyframe((size[0]//2-size[0]//15, size[1]//1.5), frame_start+frame_len//1.5, interp="LINEAR")
         self.text2.loc.keyframe((-1*width, size[1]//1.5), frame_start+frame_len, interp="LINEAR")
 
-    def render(self, res: Tuple[int], frame: int):
+    def render_raw(self, res: Tuple[int], frame: int):
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
         subsurf = pygame.Surface(self.size, pygame.SRCALPHA)

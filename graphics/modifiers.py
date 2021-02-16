@@ -37,12 +37,7 @@ class Modifier:
         """
         self.show = BoolProp(True)
 
-    def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
-        """
-        Modifies surface.
-        :param src: Sources surface.
-        :param frame: Frame.
-        """
+    def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:...
 
 
 class ModFlip(Modifier):
@@ -114,7 +109,6 @@ class ModGrayscale(Modifier):
         super().__init__()
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
-        super().__init__()
         surf = np.dstack((np.resize(pygame.surfarray.array3d(src), (*src.get_size(), 3)), np.ones(src.get_size())))
         arr = surf.dot([0.216, 0.587, 0.144, 1])[..., np.newaxis].repeat(3, 2)
         return pygame.surfarray.make_surface(arr)
