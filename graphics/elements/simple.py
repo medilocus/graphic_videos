@@ -176,7 +176,7 @@ class Ellipse(BaseElement):
         self.antialias = BoolProp(antialias)
 
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
-        pass
+        surface = pygame.Surface(res, pygame.SRCALPHA)
 
 
 class Line(BaseElement):
