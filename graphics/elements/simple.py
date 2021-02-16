@@ -166,6 +166,8 @@ class Ellipse(BaseElement):
             color = (*color, 255)
         if len(border_color) == 3:
             border_color = (*border_color, 255)
+        
+        self.loc = VectorProp(2, IntProp, loc)
 
 
 class Line(BaseElement):
