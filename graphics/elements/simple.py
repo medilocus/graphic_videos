@@ -283,7 +283,22 @@ class Arc(BaseElement):
         self.antialias = BoolProp(antialias)
 
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
-        pass
+        surface = pygame.Surface(res, pygame.SRCALPHA)
+
+        loc = self.loc(frame)
+        size = self.size(frame)
+        start_angle = self.start_angle(frame)
+        stop_angle = self.stop_angle(frame)
+        color = self.color(frame)
+        border = self.border(frame)
+        border_color = self.border_color(frame)
+        antialias = self.antialias(frame)
+
+        pygame.draw.arc(surface, color, loc+size, start_angle, stop_angle)
+        if border > 0:
+            pygame.draw.arc(surface, border_color, loc+size, start_angle, stop_angle, border)
+
+        return surface
 
 
 class Text(BaseElement):
