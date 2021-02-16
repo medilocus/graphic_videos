@@ -142,7 +142,7 @@ class Circle(BaseElement):
 class Ellipse(BaseElement):
     """Ellipse element."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
 
