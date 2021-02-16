@@ -185,6 +185,12 @@ class Ellipse(BaseElement):
         border_color = self.border_color(frame)
         antialias = self.antialias(frame)
 
+        pygame.draw.ellipse(surface, color, loc+size)
+        if border > 0:
+            pygame.draw.ellipse(surface, border_color, loc+size, border)
+
+        return surface
+
 
 class Line(BaseElement):
     """Line element."""
