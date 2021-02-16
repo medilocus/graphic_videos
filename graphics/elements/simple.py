@@ -160,6 +160,7 @@ class Ellipse(BaseElement):
         :param border_color: Border color of ellipse.
         :param antialias: Whether to perform simple antialiasing when rendering.
         """
+        super().__init__()
 
 
 class Line(BaseElement):
