@@ -14,6 +14,13 @@ Latest stable version: [Version 1.2][latest]
 
 Version 1.2 was recently released!
 
+## Credits
+
+This module wouldn't be possible without:
+
+* Arjun Sahlot: @ArjunSahlot
+* Patrick Huang: @HuangPatrick16777216
+
 ## License
 
 Graphic Videos is licensed under the GPL 3 license.
