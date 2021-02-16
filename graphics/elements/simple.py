@@ -128,7 +128,11 @@ class Circle(BaseElement):
         border_color = self.border_color(frame)
         antialias = self.antialias(frame)
 
-        pygame.draw.circle(surface, color, loc, radius)
+        if antialias:
+            gfxdraw.aacircle(surface, *loc, radius, color)
+            gfxdraw.filled_circle(surface, *loc, radius, color)
+        else:
+            pygame.draw.circle(surface, color, loc, radius)
         if border > 0:
             pygame.draw.circle(surface, border_color, loc, radius, border)
 
