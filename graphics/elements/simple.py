@@ -267,6 +267,21 @@ class Arc(BaseElement):
         :param antialias: Whether to perform simple antialiasing when rendering.
         """
         super().__init__()
+        color = get_color(color)
+        if len(color) == 3:
+            color = (*color, 255)
+        if len(border_color) == 3:
+            border_color = (*border_color, 255)
+
+        self.loc = VectorProp(2, int, loc)
+        self.size = VectorProp(2, int, size)
+        self.start_angle = FloatProp(start_angle)
+        self.stop_angle = FloatProp(stop_angle)
+        self.color = VectorProp(4, int, color)
+        self.border = IntProp(border)
+        self.border_color = VectorProp(4, int, border_color)
+        self.antialias = BoolProp(antialias)
+
 
 class Text(BaseElement):
     """Text element."""
