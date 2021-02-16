@@ -70,6 +70,8 @@ def launch(resolution: Tuple[int], fps, scenes: Tuple[Scene], resizable: bool = 
 
         for event in events:
             if event.type == pygame.QUIT:
+                pygame.quit()
+                pygame.init()
                 return
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
