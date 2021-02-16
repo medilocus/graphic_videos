@@ -142,6 +142,9 @@ class Circle(BaseElement):
 class Ellipse(BaseElement):
     """Ellipse element."""
 
+    def __init__(self):
+        pass
+
 
 class Line(BaseElement):
     """Line element."""
