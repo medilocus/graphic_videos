@@ -18,8 +18,8 @@ Version 1.2 was recently released!
 
 This module wouldn't be possible without:
 
-* Arjun Sahlot: @ArjunSahlot
-* Patrick Huang: @HuangPatrick16777216
+* Arjun Sahlot: [@ArjunSahlot][arjun]
+* Patrick Huang: @[HuangPatrick16777216][patrick]
 
 ## License
 
@@ -31,3 +31,5 @@ You can put all videos exported online without credit, but credit is always appr
 
 
 [latest]: https://github.com/medilocus/graphic_videos/releases/tag/v1.2
+[arjun]: https://github.com/ArjunSahlot
+[patrick]: https://github.com/HuangPatrick16777216
