@@ -251,6 +251,7 @@ class Arc(BaseElement):
     stop_angle: FloatProp
     color: VectorProp
     border: IntProp
+    border_color: VectorProp
 
     def __init__(self, loc, size, start_angle, stop_angle, color, border, border_color, antialias) -> None:
         pass
