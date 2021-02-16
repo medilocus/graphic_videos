@@ -179,6 +179,7 @@ class Ellipse(BaseElement):
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc = self.loc(frame)
+        size = self.size(frame)
 
 
 class Line(BaseElement):
