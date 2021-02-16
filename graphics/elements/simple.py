@@ -140,7 +140,7 @@ class Circle(BaseElement):
 
 
 class Ellipse(BaseElement):
-    pass
+    """Ellipse element."""
 
 
 class Line(BaseElement):
