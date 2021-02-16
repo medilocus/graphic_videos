@@ -142,7 +142,7 @@ class Circle(BaseElement):
 class Ellipse(BaseElement):
     """Ellipse element."""
 
-    def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (100, 200), color: Tuple[int], border: int, border_color: Tuple[int]) -> None:
+    def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (100, 200), color: Tuple[int] = (255, 255, 255), border: int, border_color: Tuple[int]) -> None:
         pass
 
 
