@@ -68,6 +68,9 @@ class Scene:
         """
         self.elements.append(element)
 
+    def extend_elements(self, elements: Tuple[BaseElement]) -> None:
+        self.elements.extend(elements)
+
     def render_frame(self, res, frame) -> pygame.Surface:
         """
         Renders single frame with no motion blur.

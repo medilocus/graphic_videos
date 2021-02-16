@@ -52,12 +52,18 @@ class Group(BaseElement):
         """
         self.elements.append(element)
 
+    def extend_elements(self, elements: Tuple[BaseElement]) -> None:
+        self.elements.extend(elements)
+
     def add_modifier(self, modifier: Modifier) -> None:
         """
         Appends modifier.
         :param modifier: Modifier to append.
         """
         self.modifiers.append(modifier)
+
+    def extend_modifiers(self, modifiers: Tuple[Modifier]) -> None:
+        self.modifiers.extend(modifiers)
 
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
