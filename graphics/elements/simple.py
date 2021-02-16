@@ -172,6 +172,7 @@ class Ellipse(BaseElement):
         self.color = VectorProp(2, IntProp, color)
         self.border = IntProp(border)
         self.border_color = VectorProp(2, IntProp, border_color)
+        self.antialias = BoolProp(antialias)
 
 
 class Line(BaseElement):
