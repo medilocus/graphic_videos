@@ -169,6 +169,7 @@ class Ellipse(BaseElement):
 
         self.loc = VectorProp(2, IntProp, loc)
         self.size = VectorProp(2, IntProp, size)
+        self.color = VectorProp(2, IntProp, color)
 
 
 class Line(BaseElement):
