@@ -72,7 +72,7 @@ class BarGraphVert(BaseElement):
         self.border = IntProp(border)
         self.border_color = VectorProp(4, IntProp, border_color)
 
-    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
         # Initialize surface
         surf = pygame.Surface(res, pygame.SRCALPHA)
         font = pygame.font.SysFont(get_font(), 20)
@@ -168,7 +168,7 @@ class BarGraphHoriz(BaseElement):
         self.border = IntProp(border)
         self.border_color = VectorProp(4, IntProp, border_color)
 
-    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
         # Initialize surface
         surf = pygame.Surface(res, pygame.SRCALPHA)
         font = pygame.font.SysFont(get_font(), 20)
