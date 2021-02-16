@@ -150,7 +150,9 @@ class Ellipse(BaseElement):
 
     def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (100, 200), color: Tuple[int] = (255, 255, 255),
             border: int = 0, border_color: Tuple[int] = (255, 255, 255)) -> None:
-        pass
+        """
+        Initializes ellipse.
+        """
 
 
 class Line(BaseElement):
