@@ -20,6 +20,7 @@
 import os
 from typing import Tuple
 import pygame
+from pygame import gfxdraw
 import cv2
 from . import BaseElement
 from ..props import *
