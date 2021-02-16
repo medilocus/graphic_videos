@@ -25,9 +25,7 @@ pygame.init()
 
 
 class BaseElement:
-    """
-    Empty element, other elements should inherit.
-    """
+    """Empty element, other elements should inherit."""
 
     show: BoolProp
     modifiers: List[Modifier]
