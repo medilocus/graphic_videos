@@ -51,6 +51,7 @@ class Rect(BaseElement):
         """
         super().__init__()
         color = get_color(color)
+        border_color = get_color(border_color)
         if len(color) == 3:
             color = (*color, 255)
         if len(border_color) == 3:
