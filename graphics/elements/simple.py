@@ -139,7 +139,7 @@ class Circle(BaseElement):
         return surface
 
 
-class Ellipse:
+class Ellipse(BaseElement):
     pass
 
 
