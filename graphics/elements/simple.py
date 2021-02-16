@@ -182,6 +182,7 @@ class Ellipse(BaseElement):
         size = self.size(frame)
         color = self.color(frame)
         border = self.border(frame)
+        border_color = self.border_color(frame)
 
 
 class Line(BaseElement):
