@@ -139,6 +139,10 @@ class Circle(BaseElement):
         return surface
 
 
+class Ellipse:
+    pass
+
+
 class Line(BaseElement):
     """Line element."""
 
