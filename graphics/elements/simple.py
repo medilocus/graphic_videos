@@ -161,6 +161,7 @@ class Ellipse(BaseElement):
         :param antialias: Whether to perform simple antialiasing when rendering.
         """
         super().__init__()
+        color = get_color(color)
 
 
 class Line(BaseElement):
