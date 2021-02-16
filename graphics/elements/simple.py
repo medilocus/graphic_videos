@@ -19,8 +19,10 @@
 
 import os
 import time
+import shutil
 from typing import Tuple
 from hashlib import sha256
+import atexit
 import pygame
 from pygame import gfxdraw
 import cv2
@@ -585,6 +587,10 @@ class NewVideo(BaseElement):
         self.src = src
         self.cache()
 
+    def rm_cache(self):
+        if self.cache_path.startswith(get_parent()):
+            shutil.rmtree(self.cache_path)
+
     def cache(self):
         base_dir = os.path.join(get_parent(), ".videocache")
         get_path = lambda: os.path.join(base_dir, sha256(str(time.time()).encode()).hexdigest()[:20])
@@ -593,4 +599,6 @@ class NewVideo(BaseElement):
             path = get_path()
 
         self.cache_path = path
+        os.makedirs(self.cache_path)
+        atexit.register(self.rm_cache)
         print(self.cache_path)
