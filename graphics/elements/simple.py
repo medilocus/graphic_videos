@@ -149,7 +149,7 @@ class Ellipse(BaseElement):
     border_color: VectorProp
 
     def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (100, 200), color: Tuple[int] = (255, 255, 255),
-            border: int = 0, border_color: Tuple[int] = (255, 255, 255), antialias) -> None:
+            border: int = 0, border_color: Tuple[int] = (255, 255, 255), antialias: bool) -> None:
         """
         Initializes ellipse.
         :param loc: Top left corner location (pixels) of ellipse.
