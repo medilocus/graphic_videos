@@ -245,7 +245,7 @@ class Polygon(BaseElement):
 class Arc(BaseElement):
     """Arc element."""
 
-    def __init__(self, rect, start_angle, stop_angle, color, border, border_color) -> None:
+    def __init__(self, rect, start_angle, stop_angle, color, border, border_color, antialias) -> None:
         pass
 
 
