@@ -26,8 +26,6 @@ from ..props import *
 from ..utils import *
 pygame.init()
 
-# todo antialiasing
-
 
 class Rect(BaseElement):
     """Rectangle element."""
@@ -74,9 +72,9 @@ class Rect(BaseElement):
         border_color = self.border_color(frame)
         antialias = self.antialias(frame)
 
-        pygame.draw.rect(surface, color, (*loc, *size))
+        pygame.draw.rect(surface, color, loc+size)
         if border > 0:
-            pygame.draw.rect(surface, border_color, (*loc, *size), border)
+            pygame.draw.rect(surface, border_color, loc+size, border)
 
         return surface
 
