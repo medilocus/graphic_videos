@@ -243,7 +243,7 @@ class Polygon(BaseElement):
 
 
 class Arc(BaseElement):
-    pass
+    """Arc element."""
 
 
 class Text(BaseElement):
