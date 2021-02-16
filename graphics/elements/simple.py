@@ -175,6 +175,9 @@ class Ellipse(BaseElement):
         self.border_color = VectorProp(2, IntProp, border_color)
         self.antialias = BoolProp(antialias)
 
+    def render(self, res, frame):
+        pass
+
 
 class Line(BaseElement):
     """Line element."""
