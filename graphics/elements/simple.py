@@ -185,7 +185,11 @@ class Ellipse(BaseElement):
         border_color = self.border_color(frame)
         antialias = self.antialias(frame)
 
-        pygame.draw.ellipse(surface, color, loc+size)
+        if antialias:
+            gfxdraw.aaellipse(surface, *loc, *size, color)
+            gfxdraw.filled_ellipse(surface, *loc, *size, color)
+        else:
+            pygame.draw.ellipse(surface, color, loc+size)
         if border > 0:
             pygame.draw.ellipse(surface, border_color, loc+size, border)
 
