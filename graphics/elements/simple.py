@@ -139,6 +139,63 @@ class Circle(BaseElement):
         return surface
 
 
+class Ellipse(BaseElement):
+    """Ellipse element."""
+
+    loc: VectorProp
+    size: VectorProp
+    color: VectorProp
+    border: IntProp
+    border_color: VectorProp
+    antialias: BoolProp
+
+    def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (100, 200), color: Tuple[int] = (255, 255, 255),
+            border: int = 0, border_color: Tuple[int] = (255, 255, 255), antialias: bool = True) -> None:
+        """
+        Initializes ellipse.
+        :param loc: Top left corner location (pixels) of ellipse.
+        :param size: Size (x, y) pixels of ellipse. The ellipse will be centered inside this.
+        :param color: Color (rgba, 0 to 255) of ellipse. The ALPHA will be set to 255 if no alpha is given.
+        :param border: Border width (pixels) of ellipse. Set to 0 to disable border.
+        :param border_color: Border color of ellipse.
+        :param antialias: Whether to perform simple antialiasing when rendering.
+        """
+        super().__init__()
+        color = get_color(color)
+        border_color = get_color(border_color)
+        if len(color) == 3:
+            color = (*color, 255)
+        if len(border_color) == 3:
+            border_color = (*border_color, 255)
+
+        self.loc = VectorProp(2, IntProp, loc)
+        self.size = VectorProp(2, IntProp, size)
+        self.color = VectorProp(2, IntProp, color)
+        self.border = IntProp(border)
+        self.border_color = VectorProp(2, IntProp, border_color)
+        self.antialias = BoolProp(antialias)
+
+    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
+        surface = pygame.Surface(res, pygame.SRCALPHA)
+
+        loc = self.loc(frame)
+        size = self.size(frame)
+        color = self.color(frame)
+        border = self.border(frame)
+        border_color = self.border_color(frame)
+        antialias = self.antialias(frame)
+
+        if antialias:
+            gfxdraw.aaellipse(surface, *loc, *size, color)
+            gfxdraw.filled_ellipse(surface, *loc, *size, color)
+        else:
+            pygame.draw.ellipse(surface, color, loc+size)
+        if border > 0:
+            pygame.draw.ellipse(surface, border_color, loc+size, border)
+
+        return surface
+
+
 class Line(BaseElement):
     """Line element."""
 
