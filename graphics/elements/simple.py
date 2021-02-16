@@ -314,8 +314,8 @@ class Arc(BaseElement):
     border_color: VectorProp
     antialias: BoolProp
 
-    def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (100, 100), start_angle: float = 1.57, stop_angle: float = 1.57,
-            color: Tuple[int] = (255, 255, 255), border: int = 0, border_color: Tuple[int] = (255, 255, 255), antialias: bool = True) -> None:
+    def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (100, 100), start_angle: float = 0, stop_angle: float = 1.57,
+            border: int = 0, color: Tuple[int] = (255, 255, 255), antialias: bool = True) -> None:
         """
         Initializes arc.
         :param loc: Top left corner location (pixels) of arc.
@@ -324,24 +324,19 @@ class Arc(BaseElement):
         :param stop_angle: Stop angle of the arc in radians.
         :param color: Color (rgba, 0 to 255) of arc. The ALPHA will be set to 255 if no alpha is given.
         :param border: Border width (pixels) of arc. Set to 0 to disable border.
-        :param border_color: Border color of arc.
         :param antialias: Whether to perform simple antialiasing when rendering.
         """
         super().__init__()
         color = get_color(color)
-        border_color = get_color(border_color)
         if len(color) == 3:
             color = (*color, 255)
-        if len(border_color) == 3:
-            border_color = (*border_color, 255)
 
         self.loc = VectorProp(2, IntProp, loc)
         self.size = VectorProp(2, IntProp, size)
         self.start_angle = FloatProp(start_angle)
         self.stop_angle = FloatProp(stop_angle)
-        self.color = VectorProp(4, IntProp, color)
         self.border = IntProp(border)
-        self.border_color = VectorProp(4, IntProp, border_color)
+        self.color = VectorProp(4, IntProp, color)
         self.antialias = BoolProp(antialias)
 
     def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
@@ -351,14 +346,11 @@ class Arc(BaseElement):
         size = self.size(frame)
         start_angle = self.start_angle(frame)
         stop_angle = self.stop_angle(frame)
-        color = self.color(frame)
         border = self.border(frame)
-        border_color = self.border_color(frame)
+        color = self.color(frame)
         antialias = self.antialias(frame)
 
-        pygame.draw.arc(surface, color, loc+size, start_angle, stop_angle)
-        if border > 0:
-            pygame.draw.arc(surface, border_color, loc+size, start_angle, stop_angle, border)
+        pygame.draw.arc(surface, color, loc+size, start_angle, stop_angle, border)
 
         return surface
 
