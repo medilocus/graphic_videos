@@ -178,7 +178,10 @@ class Line(BaseElement):
         color = self.color(frame)
         antialias = self.antialias(frame)
 
-        pygame.draw.line(surface, color, loc1, loc2, thickness)
+        if antialias:
+            gfxdraw.line(surface, *loc1, *loc2, color)
+        else:
+            pygame.draw.line(surface, color, loc1, loc2, thickness)
 
         return surface
 
