@@ -20,13 +20,12 @@
 import os
 from typing import Tuple
 import pygame
+from pygame import gfxdraw
 import cv2
 from . import BaseElement
 from ..props import *
 from ..utils import *
 pygame.init()
-
-# todo antialiasing
 
 
 class Rect(BaseElement):
@@ -74,9 +73,12 @@ class Rect(BaseElement):
         border_color = self.border_color(frame)
         antialias = self.antialias(frame)
 
-        pygame.draw.rect(surface, color, (*loc, *size))
+        if antialias:
+            surface.fill(color, loc+size)
+        else:
+            pygame.draw.rect(surface, color, loc+size)
         if border > 0:
-            pygame.draw.rect(surface, border_color, (*loc, *size), border)
+            pygame.draw.rect(surface, border_color, loc+size, border)
 
         return surface
 
@@ -126,7 +128,11 @@ class Circle(BaseElement):
         border_color = self.border_color(frame)
         antialias = self.antialias(frame)
 
-        pygame.draw.circle(surface, color, loc, radius)
+        if antialias:
+            gfxdraw.aacircle(surface, *loc, radius, color)
+            gfxdraw.filled_circle(surface, *loc, radius, color)
+        else:
+            pygame.draw.circle(surface, color, loc, radius)
         if border > 0:
             pygame.draw.circle(surface, border_color, loc, radius, border)
 
@@ -172,7 +178,10 @@ class Line(BaseElement):
         color = self.color(frame)
         antialias = self.antialias(frame)
 
-        pygame.draw.line(surface, color, loc1, loc2, thickness)
+        if antialias:
+            gfxdraw.line(surface, *loc1, *loc2, color)
+        else:
+            pygame.draw.line(surface, color, loc1, loc2, thickness)
 
         return surface
 
@@ -222,7 +231,11 @@ class Polygon(BaseElement):
         antialias = self.antialias(frame)
         verts = [(vx + offset[0], vy + offset[1]) for v in self.verts for vx, vy in v(frame)]
 
-        pygame.draw.polygon(surface, color, verts)
+        if antialias:
+            gfxdraw.aapolygon(surface, verts, color)
+            gfxdraw.filled_polygon(surface, verts, color)
+        else:
+            pygame.draw.polygon(surface, color, verts)
         if border > 0:
             pygame.draw.polygon(surface, border_color, verts, border)
 
