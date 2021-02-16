@@ -231,7 +231,11 @@ class Polygon(BaseElement):
         antialias = self.antialias(frame)
         verts = [(vx + offset[0], vy + offset[1]) for v in self.verts for vx, vy in v(frame)]
 
-        pygame.draw.polygon(surface, color, verts)
+        if antialias:
+            gfxdraw.aapolygon(surface, verts, color)
+            gfxdraw.filled_polygon(surface, verts, color)
+        else:
+            pygame.draw.polygon(surface, color, verts)
         if border > 0:
             pygame.draw.polygon(surface, border_color, verts, border)
 
