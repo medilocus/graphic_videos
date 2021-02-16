@@ -255,7 +255,7 @@ class Arc(BaseElement):
     antialias: BoolProp
 
     def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (100, 100), start_angle: float = 1.57, stop_angle: float = 1.57,
-            color: Tuple[int], border: int, border_color: Tuple[int], antialias: bool) -> None:
+            color: Tuple[int] = (255, 255, 255), border: int, border_color: Tuple[int], antialias: bool) -> None:
         """
         Initializes arc.
         :param loc: Top left corner location (pixels) of arc.
