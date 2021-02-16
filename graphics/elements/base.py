@@ -17,7 +17,7 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from typing import Tuple
+from typing import List, Tuple
 import pygame
 from ..props import *
 from ..modifiers import Modifier
@@ -30,7 +30,7 @@ class BaseElement:
     """
 
     show: BoolProp
-    modifiers: Tuple[Modifier]
+    modifiers: List[Modifier]
 
     def __init__(self) -> None:
         """
