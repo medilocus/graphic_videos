@@ -162,6 +162,8 @@ class Ellipse(BaseElement):
         """
         super().__init__()
         color = get_color(color)
+        if len(color) == 3:
+            color = (*color, 255)
 
 
 class Line(BaseElement):
