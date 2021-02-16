@@ -601,4 +601,13 @@ class NewVideo(BaseElement):
         self.cache_path = path
         os.makedirs(self.cache_path)
         atexit.register(self.rm_cache)
-        print(self.cache_path)
+
+        video = cv2.VideoCapture(self.src)
+        self.length = 0
+        while True:
+            rval, frame = video.read()
+            if not rval:
+                break
+            path = os.path.join(self.cache_path, f"{self.length}.jpg")
+            cv2.imwrite(path, frame)
+            self.length += 1
