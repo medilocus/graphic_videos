@@ -178,6 +178,8 @@ class Ellipse(BaseElement):
     def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
+        loc = self.loc(frame)
+
 
 class Line(BaseElement):
     """Line element."""
