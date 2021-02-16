@@ -242,6 +242,10 @@ class Polygon(BaseElement):
         return surface
 
 
+class Arc(BaseElement):
+    pass
+
+
 class Text(BaseElement):
     """Text element."""
 
