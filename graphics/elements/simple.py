@@ -64,7 +64,7 @@ class Rect(BaseElement):
         self.border_color = VectorProp(4, IntProp, border_color)
         self.antialias = BoolProp(antialias)
 
-    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc = self.loc(frame)
@@ -120,7 +120,7 @@ class Circle(BaseElement):
         self.border_color = VectorProp(4, IntProp, border_color)
         self.antialias = BoolProp(antialias)
 
-    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc = self.loc(frame)
@@ -177,7 +177,7 @@ class Ellipse(BaseElement):
         self.border_color = VectorProp(2, IntProp, border_color)
         self.antialias = BoolProp(antialias)
 
-    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc = self.loc(frame)
@@ -228,7 +228,7 @@ class Line(BaseElement):
         self.color = VectorProp(4, IntProp, color)
         self.antialias = BoolProp(antialias)
 
-    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc1 = self.loc1(frame)
@@ -281,7 +281,7 @@ class Polygon(BaseElement):
         self.offset = VectorProp(2, IntProp, offset)
         self.antialias = BoolProp(antialias)
 
-    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
         border = self.border(frame)
@@ -344,7 +344,7 @@ class Arc(BaseElement):
         self.border_color = VectorProp(4, IntProp, border_color)
         self.antialias = BoolProp(antialias)
 
-    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc = self.loc(frame)
@@ -423,7 +423,7 @@ class Text(BaseElement):
 
         return text.get_size()
 
-    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc = self.loc(frame)
@@ -472,7 +472,7 @@ class Image(BaseElement):
 
         return image
 
-    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc = self.loc(frame)
@@ -551,7 +551,7 @@ class Video(BaseElement):
 
         return (pygame.Surface((100, 100), pygame.SRCALPHA) if self.last_img is None else self.last_img)
 
-    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
         loc = self.loc(frame)
