@@ -183,6 +183,7 @@ class Ellipse(BaseElement):
         color = self.color(frame)
         border = self.border(frame)
         border_color = self.border_color(frame)
+        antialias = self.antialias(frame)
 
 
 class Line(BaseElement):
