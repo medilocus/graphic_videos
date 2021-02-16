@@ -242,6 +242,65 @@ class Polygon(BaseElement):
         return surface
 
 
+class Arc(BaseElement):
+    """Arc element."""
+
+    loc: VectorProp
+    size: VectorProp
+    start_angle: FloatProp
+    stop_angle: FloatProp
+    color: VectorProp
+    border: IntProp
+    border_color: VectorProp
+    antialias: BoolProp
+
+    def __init__(self, loc: Tuple[int], size: Tuple[int], start_angle: float, stop_angle: float, color: Tuple[int], border: int, border_color: Tuple[int], antialias: bool) -> None:
+        """
+        Initializes arc.
+        :param loc: Top left corner location (pixels) of arc.
+        :param size: Size (x, y) pixels of arc.
+        :param start_angle: Start angle of the arc in radians.
+        :param stop_angle: Stop angle of the arc in radians.
+        :param color: Color (rgba, 0 to 255) of arc. The ALPHA will be set to 255 if no alpha is given.
+        :param border: Border width (pixels) of arc. Set to 0 to disable border.
+        :param border_color: Border color of arc.
+        :param antialias: Whether to perform simple antialiasing when rendering.
+        """
+        super().__init__()
+        color = get_color(color)
+        if len(color) == 3:
+            color = (*color, 255)
+        if len(border_color) == 3:
+            border_color = (*border_color, 255)
+
+        self.loc = VectorProp(2, IntProp, loc)
+        self.size = VectorProp(2, IntProp, size)
+        self.start_angle = FloatProp(start_angle)
+        self.stop_angle = FloatProp(stop_angle)
+        self.color = VectorProp(4, IntProp, color)
+        self.border = IntProp(border)
+        self.border_color = VectorProp(4, IntProp, border_color)
+        self.antialias = BoolProp(antialias)
+
+    def render(self, res: Tuple[int], frame: int) -> pygame.Surface:
+        surface = pygame.Surface(res, pygame.SRCALPHA)
+
+        loc = self.loc(frame)
+        size = self.size(frame)
+        start_angle = self.start_angle(frame)
+        stop_angle = self.stop_angle(frame)
+        color = self.color(frame)
+        border = self.border(frame)
+        border_color = self.border_color(frame)
+        antialias = self.antialias(frame)
+
+        pygame.draw.arc(surface, color, loc+size, start_angle, stop_angle)
+        if border > 0:
+            pygame.draw.arc(surface, border_color, loc+size, start_angle, stop_angle, border)
+
+        return surface
+
+
 class Text(BaseElement):
     """Text element."""
 
