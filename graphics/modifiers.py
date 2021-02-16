@@ -38,14 +38,14 @@ class Modifier:
         self.show = BoolProp(True)
 
     def modify(self, src: pygame.Surface, frame: int) -> pygame.Surface:
-        alpha = pygame.surfarray.array_alpha(src)
+        #alpha = pygame.surfarray.array_alpha(src)
         non_alpha = pygame.Surface(src.get_size())
         non_alpha.blit(src, (0, 0))
-        result = self.modify_raw(non_alpha)
-        result = pygame.surfarray.array3d(result)
-        result = np.dstack(result, alpha)
-        surf = pygame.surfarray.make_surface(result)
-        return surf
+        result = self.modify_raw(non_alpha, frame)
+        #result = pygame.surfarray.array3d(result)
+        #result = np.dstack((result, alpha)).swapaxes(1, 0).tostring()
+        #surf = pygame.image.fromstring(result, src.get_size(), "RGBA")
+        return result
 
     def modify_raw(self, src: pygame.Surface, frame: int) -> pygame.Surface:...
 
