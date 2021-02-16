@@ -180,6 +180,7 @@ class Ellipse(BaseElement):
 
         loc = self.loc(frame)
         size = self.size(frame)
+        color = self.color(frame)
 
 
 class Line(BaseElement):
