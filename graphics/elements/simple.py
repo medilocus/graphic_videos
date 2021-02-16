@@ -562,3 +562,24 @@ class Video(BaseElement):
         surface.blit(surf, loc)
 
         return surface
+
+
+class NewVideo(BaseElement):
+    """
+    Improved video element.
+    todo change class name after testing
+    """
+
+    loc: VectorProp
+    size: VectorProp
+    src: str
+
+    def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (1920, 1080), src: str = ""):
+        super().__init__()
+        self.loc = VectorProp(2, IntProp, loc)
+        self.size = VectorProp(2, IntProp, size)
+        self.src = src
+        self.cache()
+
+    def cache(self):
+        pass
