@@ -273,13 +273,13 @@ class Arc(BaseElement):
         if len(border_color) == 3:
             border_color = (*border_color, 255)
 
-        self.loc = VectorProp(2, int, loc)
-        self.size = VectorProp(2, int, size)
+        self.loc = VectorProp(2, IntProp, loc)
+        self.size = VectorProp(2, IntProp, size)
         self.start_angle = FloatProp(start_angle)
         self.stop_angle = FloatProp(stop_angle)
-        self.color = VectorProp(4, int, color)
+        self.color = VectorProp(4, IntProp, color)
         self.border = IntProp(border)
-        self.border_color = VectorProp(4, int, border_color)
+        self.border_color = VectorProp(4, IntProp, border_color)
         self.antialias = BoolProp(antialias)
 
 
