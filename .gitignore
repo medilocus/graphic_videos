@@ -3,6 +3,7 @@
 
 /bin
 /graphics/.videocache
+/graphics/.mcexport
 
 /ignore
 /test*
