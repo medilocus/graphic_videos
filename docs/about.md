@@ -1,9 +1,8 @@
 # About
 
-Graphic Videos is a Python API for creating graphic videos. Visit it's GitHub [here][github].
+Graphic Videos is a Python API for creating graphic videos.
 
 It is developed by [medilocus][medilocus], a company striving for computer intelligence in spatial settings.
-Visit it's YouTube channel [here][youtube]!
 
 ## Features
 
@@ -17,5 +16,3 @@ Visit it's YouTube channel [here][youtube]!
 
 [dochome]: https://medilocus.github.io/graphic_videos/
 [medilocus]: https://github.com/medilocus
-[github]: https://github.com/medilocus/graphic_videos
-[youtube]: https://www.youtube.com/channel/UCX6LfLPwY0OEaL_r7zM-bDQ
