@@ -29,11 +29,11 @@ import pygame
 import cv2
 from .scene import Scene
 from .printer import printer
+from .utils import *
 
 
 def get_tmp_path():
-    parent = os.path.realpath(os.path.dirname(__file__))
-    get_path = lambda: os.path.join(parent, ".mcexport", sha256(str(time.time()).encode()).hexdigest()[:16])
+    get_path = lambda: os.path.join(get_parent(), ".mcexport", sha256(str(time.time()).encode()).hexdigest()[:16])
     path = get_path()
     while os.path.isdir(path):
         path = get_path()

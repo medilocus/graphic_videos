@@ -17,11 +17,16 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+import os
 from typing import Tuple
-from .options import *
 import pygame
 import cv2
+from .options import *
 pygame.init()
+
+
+def get_parent():
+    return os.path.realpath(os.path.dirname(__file__))
 
 
 def cv2img2surf(img) -> pygame.Surface:
