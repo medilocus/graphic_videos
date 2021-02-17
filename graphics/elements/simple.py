@@ -580,12 +580,17 @@ class NewVideo(BaseElement):
     size: VectorProp
     src: str
     length: int
+    speed: float
 
-    def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (1920, 1080), src: str = "", cache_verbose: bool = True):
+    def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (1920, 1080), src: str = "", speed: float = 1,
+            cache_verbose: bool = True) -> None:
         super().__init__()
+
         self.loc = VectorProp(2, IntProp, loc)
         self.size = VectorProp(2, IntProp, size)
         self.src = src
+        self.speed = speed
+
         self.cache(cache_verbose)
 
     def rm_cache(self):
@@ -616,6 +621,24 @@ class NewVideo(BaseElement):
                 printer.newline()
                 break
 
-            path = os.path.join(self.cache_path, f"{self.length}.jpg")
+            path = os.path.join(self.cache_path, f"{self.length}.png")
             cv2.imwrite(path, frame)
             self.length += 1
+
+    def get_frame(self, frame):
+        path = os.path.join(self.cache_path, f"{frame}.png")
+        surf = pygame.image.load(path)
+        return surf
+
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
+        surface = pygame.Surface(res, pygame.SRCALPHA)
+
+        loc = self.loc(frame)
+        size = self.size(frame)
+        video_frame = frame * self.speed
+
+        image = self.get_frame(video_frame)
+        image = pygame.transform.scale(image, size)
+        surface.blit(image, loc)
+
+        return surface
