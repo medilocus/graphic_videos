@@ -30,6 +30,6 @@ You can use it in any way you want, forever.
 You can put all videos exported online without credit, but credit is always appreciated.
 
 
-[latest]: https://github.com/medilocus/graphic_videos/releases/tag/v0.1.3
+[latest]: https://github.com/medilocus/graphic_videos/releases/latest
 [arjun]: https://github.com/ArjunSahlot
 [patrick]: https://github.com/HuangPatrick16777216
