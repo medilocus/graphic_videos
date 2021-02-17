@@ -1,8 +1,8 @@
 # Preview
 
-Use this tool to preview your animation before taking a long time to [export][export].
+Use this tool to preview your animation before [exporting][export].
 
-Preview is located at [`graphics/preview/`][preview]
+Launch the preview window with `graphics.preview.launch`
 
 The function launch requires the following parameters:
 
@@ -13,7 +13,7 @@ The function launch requires the following parameters:
 
 ## Example
 
-```py
+``` python
 # Import module
 import graphics
 
@@ -35,8 +35,8 @@ scene.add_element(rect)
 graphics.preview.launch((1920, 1080), 30, [scene])
 ```
 
+
 [Back to documentation home][dochome]
 
 [dochome]: https://medilocus.github.io/graphic_videos/
 [export]: https://medilocus.github.io/graphic_videos/export/
-[preview]: https://github.com/medilocus/graphic_videos/tree/main/graphics/preview/
