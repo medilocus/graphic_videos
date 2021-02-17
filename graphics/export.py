@@ -33,7 +33,7 @@ from .printer import printer
 
 def get_tmp_path():
     parent = os.path.realpath(os.path.dirname(__file__))
-    get_path = lambda: os.path.join(parent, sha256(str(time.time()).encode()).hexdigest()[:16])
+    get_path = lambda: os.path.join(parent, ".mcexport", sha256(str(time.time()).encode()).hexdigest()[:16])
     path = get_path()
     while os.path.isdir(path):
         path = get_path()
@@ -154,7 +154,6 @@ def export_mc(resolution: Tuple[int], fps: int, scenes: Tuple[Scene], out_path: 
 
             printer.newline()
             time.sleep(0.1)
-            time_start = time.time()
             for i, frame in enumerate(frames_to_render):
                 img_path = os.path.join(path, f"{frame}.png")
                 if os.path.isfile(img_path):
