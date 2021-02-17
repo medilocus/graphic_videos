@@ -73,6 +73,30 @@ class ModFlip(Modifier):
         return src
 
 
+class ModMixSolidColor(Modifier):
+    """Mixes surface with a solid color."""
+
+    color: VectorProp
+    fac: FloatProp
+
+    def __init__(self, color: Tuple[int] = (0, 0, 0, 0), fac: float = 0.5):
+        self.color = VectorProp(4, IntProp, color)
+        self.fac = FloatProp(fac)
+
+    def modify_raw(self, src: pygame.Surface, frame: int) -> pygame.Surface:
+        color = self.color(frame)
+        fac = self.fac(frame)
+        color[3] = int(fac*color[3])
+
+        surf = pygame.Surface(src.get_size())
+        color_surf = pygame.Surface(src.get_size(), pygame.SRCALPHA)
+        color_surf.fill(color)
+        surf.blit(src, (0, 0))
+        surf.blit(color_surf)
+
+        return surf
+
+
 class ModHsva(Modifier):
     """Changes surface HSVA."""
 
