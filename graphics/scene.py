@@ -36,7 +36,7 @@ class Scene:
     motion_blur: bool
 
     def __init__(self, start: int, end: int, step: int = 1, bg_col: Tuple[int] = (0, 0, 0, 0),
-            before_pause: int = 30, after_pause: int = 30, motion_blur: bool = True) -> None:
+            before_pause: int = 30, after_pause: int = 30, motion_blur: bool = False) -> None:
         """
         Initializes scene.
         :param start: Start frame of scene.
