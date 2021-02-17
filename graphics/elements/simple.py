@@ -582,9 +582,10 @@ class NewVideo(BaseElement):
     length: int
     speed: float
     offset: float
+    max_cache: int
 
     def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (1920, 1080), src: str = "", speed: float = 1,
-            offset: float = 0, cache_verbose: bool = True) -> None:
+            offset: float = 0, max_cache: int = 0, cache_verbose: bool = True) -> None:
         super().__init__()
 
         self.loc = VectorProp(2, IntProp, loc)
@@ -592,6 +593,7 @@ class NewVideo(BaseElement):
         self.src = src
         self.speed = speed
         self.offset = offset
+        self.max_cache = max_cache
 
         self.cache(cache_verbose)
 
@@ -612,7 +614,7 @@ class NewVideo(BaseElement):
 
         video = cv2.VideoCapture(self.src)
         self.length = 0
-        while True:
+        while self.max_cache == 0 or self.length < self.max_cache:
             if verbose:
                 printer.clearline()
                 printer.write(f"[GRAPHICS] Video cache: {os.path.basename(self.src)}: Frame {self.length}")
