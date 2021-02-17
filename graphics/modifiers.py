@@ -80,6 +80,7 @@ class ModMixSolidColor(Modifier):
     fac: FloatProp
 
     def __init__(self, color: Tuple[int] = (0, 0, 0, 0), fac: float = 0.5):
+        super().__init__()
         self.color = VectorProp(4, IntProp, color)
         self.fac = FloatProp(fac)
 
@@ -92,7 +93,7 @@ class ModMixSolidColor(Modifier):
         color_surf = pygame.Surface(src.get_size(), pygame.SRCALPHA)
         color_surf.fill(color)
         surf.blit(src, (0, 0))
-        surf.blit(color_surf)
+        surf.blit(color_surf, (0, 0))
 
         return surf
 
