@@ -15,12 +15,11 @@ All export functions have these parameters:
 
 * Single Core
     * Exports and encodes each frame.
-    * Good for all projects. Almost never fails.
+    * Good for all projects.
     * Slow
 * Multi Core
     * Exports and encodes each frame on all system cores. Uses many temporary files.
-    * Fails only on scenes containing videos.
-    * Fast for projects with lots of rendering.
+    * Fast
 * FFmpeg
     * Exports and compresses with FFmpeg. Uses one temporary file.
     * Uses same method as single core.
