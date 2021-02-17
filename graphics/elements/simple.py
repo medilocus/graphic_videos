@@ -18,13 +18,19 @@
 #
 
 import os
+import time
+import shutil
 from typing import Tuple
+from hashlib import sha256
+import atexit
 import pygame
 from pygame import gfxdraw
 import cv2
 from . import BaseElement
+from ..options import *
 from ..props import *
 from ..utils import *
+from ..printer import printer
 pygame.init()
 
 
@@ -552,5 +558,84 @@ class Video(BaseElement):
 
         surf = pygame.transform.scale(surf, size)
         surface.blit(surf, loc)
+
+        return surface
+
+
+class NewVideo(BaseElement):
+    """
+    Improved video element.
+    todo change class name after testing
+    """
+
+    loc: VectorProp
+    size: VectorProp
+    src: str
+    length: int
+    speed: float
+    offset: float
+    max_cache: int
+
+    def __init__(self, loc: Tuple[int] = (0, 0), size: Tuple[int] = (1920, 1080), src: str = "", speed: float = 1,
+            offset: float = 0, max_cache: int = 0, cache_verbose: bool = True) -> None:
+        super().__init__()
+
+        self.loc = VectorProp(2, IntProp, loc)
+        self.size = VectorProp(2, IntProp, size)
+        self.src = src
+        self.speed = speed
+        self.offset = offset
+        self.max_cache = max_cache
+
+        self.cache(cache_verbose)
+
+    def rm_cache(self):
+        if self.cache_path.startswith(get_parent()):
+            shutil.rmtree(self.cache_path)
+
+    def cache(self, verbose):
+        base_dir = os.path.join(get_parent(), ".videocache")
+        get_path = lambda: os.path.join(base_dir, sha256(str(time.time()).encode()).hexdigest()[:20])
+        path = get_path()
+        while os.path.isdir(path):
+            path = get_path()
+
+        self.cache_path = path
+        os.makedirs(self.cache_path)
+        atexit.register(self.rm_cache)
+
+        video = cv2.VideoCapture(self.src)
+        self.length = 0
+        while self.max_cache == 0 or self.length < self.max_cache:
+            if verbose:
+                printer.clearline()
+                printer.write(f"[GRAPHICS] Video cache: {os.path.basename(self.src)}: Frame {self.length}")
+            rval, frame = video.read()
+            if not rval:
+                break
+
+            path = os.path.join(self.cache_path, f"{self.length}.png")
+            cv2.imwrite(path, frame)
+            self.length += 1
+
+        printer.clearline()
+        printer.write(f"[GRAPHICS] Video cache: {os.path.basename(self.src)}: Finished, {self.length} frames")
+        printer.newline()
+
+    def get_frame(self, frame):
+        path = os.path.join(self.cache_path, f"{frame}.png")
+        surf = pygame.image.load(path)
+        return surf
+
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
+        surface = pygame.Surface(res, pygame.SRCALPHA)
+
+        loc = self.loc(frame)
+        size = self.size(frame)
+        video_frame = int(frame*self.speed + self.offset)
+
+        image = self.get_frame(video_frame)
+        image = pygame.transform.scale(image, size)
+        surface.blit(image, loc)
 
         return surface

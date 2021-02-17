@@ -2,6 +2,7 @@
 *.vscode
 
 /bin
+/graphics/.videocache
 
 /ignore
 /test*
