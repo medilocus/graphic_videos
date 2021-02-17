@@ -620,14 +620,15 @@ class NewVideo(BaseElement):
                 printer.write(f"[GRAPHICS] Video cache: {os.path.basename(self.src)}: Frame {self.length}")
             rval, frame = video.read()
             if not rval:
-                printer.clearline()
-                printer.write(f"[GRAPHICS] Video cache: {os.path.basename(self.src)}: Finished, {self.length} frames")
-                printer.newline()
                 break
 
             path = os.path.join(self.cache_path, f"{self.length}.png")
             cv2.imwrite(path, frame)
             self.length += 1
+
+        printer.clearline()
+        printer.write(f"[GRAPHICS] Video cache: {os.path.basename(self.src)}: Finished, {self.length} frames")
+        printer.newline()
 
     def get_frame(self, frame):
         path = os.path.join(self.cache_path, f"{frame}.png")
