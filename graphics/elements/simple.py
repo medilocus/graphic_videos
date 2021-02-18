@@ -416,7 +416,6 @@ class Arrow(BaseElement):
         color = self.color(frame)
 
         verts = self.get_verts(loc1, loc2, stem_size, head_size)
-        for x in verts: print(x)
         pygame.draw.polygon(surface, color, verts)
 
         return surface
