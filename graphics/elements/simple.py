@@ -387,8 +387,10 @@ class Arrow(BaseElement):
     @staticmethod
     def walk(point, angle, dist):
         angle = radians(angle)
+
         x_diff = dist * cos(angle)
         y_diff = dist * sin(angle)
+
         return (point[0]+x_diff, point[1]+y_diff)
 
     def get_verts(self, loc1, loc2, stem_size, head_size):
