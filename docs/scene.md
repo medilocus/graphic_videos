@@ -35,6 +35,16 @@ A scene object is stored at `graphics.Scene`
     * Parameter `frame`: Frame to render.
     * Return: `pygame.Surface`
 
+## Motion Blur
+
+You have the option of enabling motion blur in specific scenes.
+Motion blur creates simple blurring to improve frames with fast motion.
+
+The current motion blur works by rendering many frames nearby the target frame
+and combining them with a linear falloff.
+
+This slows down rendering drastically though, so it is not recommended to use motion blur.
+
 [Back to documentation home][home]
 
 [home]: https://medilocus.github.io/graphic_videos/
