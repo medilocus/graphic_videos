@@ -6,8 +6,8 @@ Flips the image along x, y, both, or none axes.
 
 ## Properties
 
-* `x`: Whether to flip along the X axis.
-* `y`: Whether to flip along the Y axis.
+* `x`: BoolProp. Whether to flip along the X axis.
+* `y`: BoolProp. Whether to flip along the Y axis.
 
 [Back to all modifiers][modifiers]
 [Back to documentation home][home]
