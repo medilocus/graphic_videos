@@ -21,6 +21,7 @@ import os
 import time
 import shutil
 from typing import Tuple
+from math import atan, cos, degrees, radians, sin, sqrt, tan
 from hashlib import sha256
 import atexit
 import pygame
@@ -357,6 +358,70 @@ class Arc(BaseElement):
         antialias = self.antialias(frame)
 
         pygame.draw.arc(surface, color, loc+size, start_angle, stop_angle, border)
+
+        return surface
+
+
+class Arrow(BaseElement):
+    """Arrow pointer element."""
+
+    loc1: VectorProp
+    loc2: VectorProp
+    stem_size: IntProp
+    head_size: IntProp
+    color: VectorProp
+
+    def __init__(self, loc1: Tuple[int] = (0, 0), loc2: Tuple[int] = (50, 50), stem_size: int = 20, head_size: int = 50,
+            color: Tuple[int] = (255, 255, 255, 255)) -> None:
+        super().__init__()
+        self.loc1 = VectorProp(2, IntProp, loc1)
+        self.loc2 = VectorProp(2, IntProp, loc2)
+        self.stem_size = IntProp(stem_size)
+        self.head_size = IntProp(head_size)
+        self.color = VectorProp(4, IntProp, color)
+
+    @staticmethod
+    def dist(loc1, loc2):
+        return sqrt((loc1[0]-loc2[0])**2 + (loc1[1]-loc2[1])**2)
+
+    @staticmethod
+    def walk(point, angle, dist):
+        angle = radians(angle)
+
+        x_diff = dist * cos(angle)
+        y_diff = dist * sin(angle)
+
+        return (point[0]+x_diff, point[1]+y_diff)
+
+    def get_verts(self, loc1, loc2, stem_size, head_size):
+        (x1, y1), (x2, y2) = loc1, loc2
+        dist = self.dist(loc1, loc2)
+        if x2 - x1 == 0:
+            angle = 90 if y2-y1 > 0 else -90
+        else:
+            angle = degrees(atan((y2-y1)/(x2-x1)))
+
+        p1 = self.walk(loc1, angle+90, stem_size//2)
+        p2 = self.walk(p1, angle, dist-head_size//2)
+        p3 = self.walk(p2, angle+90, (head_size-stem_size)//2)
+        p4 = loc2
+        p7 = self.walk(loc1, angle-90, stem_size//2)
+        p6 = self.walk(p7, angle, dist-head_size//2)
+        p5 = self.walk(p6, angle-90, (head_size-stem_size)//2)
+
+        return [p1, p2, p3, p4, p5, p6, p7]
+
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
+        surface = pygame.Surface(res, pygame.SRCALPHA)
+
+        loc1 = self.loc1(frame)
+        loc2 = self.loc2(frame)
+        stem_size = self.stem_size(frame)
+        head_size = self.head_size(frame)
+        color = self.color(frame)
+
+        verts = self.get_verts(loc1, loc2, stem_size, head_size)
+        pygame.draw.polygon(surface, color, verts)
 
         return surface
 
