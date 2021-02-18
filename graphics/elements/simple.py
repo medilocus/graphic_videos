@@ -21,7 +21,7 @@ import os
 import time
 import shutil
 from typing import Tuple
-from math import atan, cos, sin, sqrt
+from math import atan, cos, degrees, radians, sin, sqrt, tan
 from hashlib import sha256
 import atexit
 import pygame
@@ -371,7 +371,7 @@ class Arrow(BaseElement):
     head_size: IntProp
     color: VectorProp
 
-    def __init__(self, loc1: Tuple[int] = (0, 0), loc2: Tuple[int] = (50, 50), stem_size: int = 15, head_size: int = 25,
+    def __init__(self, loc1: Tuple[int] = (0, 0), loc2: Tuple[int] = (50, 50), stem_size: int = 20, head_size: int = 40,
             color: Tuple[int] = (255, 255, 255, 255)) -> None:
         super().__init__()
         self.loc1 = VectorProp(2, IntProp, loc1)
@@ -379,37 +379,6 @@ class Arrow(BaseElement):
         self.stem_size = IntProp(stem_size)
         self.head_size = IntProp(head_size)
         self.color = VectorProp(4, IntProp, color)
-
-    @staticmethod
-    def slope_dist(point, slope, dist, perpendicular=False):
-        if perpendicular:
-            slope = -1 / slope
-
-        x, y = point
-        theta = atan(slope)
-        y_diff = dist * sin(theta)
-        x_diff = dist * cos(theta)
-
-        return (x+x_diff, y+y_diff)
-
-    @staticmethod
-    def dist(p1, p2):
-        return sqrt((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2)
-
-    def get_verts(self, loc1, loc2, stem_size, head_size) -> Tuple[Tuple[int]]:
-        (x1, y1), (x2, y2) = loc1, loc2
-        slope = (y2-y1) / (x2-x1)
-        dist = self.dist(loc1, loc2)
-
-        p1 = self.slope_dist(loc1, slope, stem_size//2, True),
-        p2 = self.slope_dist(p1, slope, dist-head_size//2),
-        p3 = self.slope_dist(p2, slope, (head_size-stem_size)//2, True)
-        p4 = loc2
-        p7 = self.slope_dist(loc1, -slope, stem_size//2, True),
-        p6 = self.slope_dist(p7, -slope, dist-head_size//2),
-        p5 = self.slope_dist(p6, -slope, (head_size-stem_size)//2, True)
-
-        return [p1, p2, p3, p4, p5, p6, p7]
 
     def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
@@ -421,6 +390,7 @@ class Arrow(BaseElement):
         color = self.color(frame)
 
         verts = self.get_verts(loc1, loc2, stem_size, head_size)
+        for x in verts: print(x)
         pygame.draw.polygon(surface, color, verts)
 
         return surface
