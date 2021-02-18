@@ -379,6 +379,23 @@ class Arrow(BaseElement):
         self.head_size = IntProp(head_size)
         self.color = VectorProp(4, IntProp, color)
 
+    def get_verts(self, loc1, loc2, stem_size, head_size) -> Tuple[Tuple[int]]:
+        pass
+
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
+        surface = pygame.Surface(res, pygame.SRCALPHA)
+
+        loc1 = self.loc1(frame)
+        loc2 = self.loc2(frame)
+        stem_size = self.stem_size(frame)
+        head_size = self.head_size(frame)
+        color = self.color(frame)
+
+        verts = self.get_verts(loc1, loc2, stem_size, head_size)
+        pygame.draw.polygon(surface, color, verts)
+
+        return surface
+
 
 class Text(BaseElement):
     """Text element."""
