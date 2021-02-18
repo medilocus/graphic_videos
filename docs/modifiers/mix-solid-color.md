@@ -1,6 +1,6 @@
 # Mix Solid Color
 
-`graphics.modifiers.MixSolidColor`
+`graphics.modifiers.ModMixSolidColor`
 
 Mixes a surface with a solid color.
 
