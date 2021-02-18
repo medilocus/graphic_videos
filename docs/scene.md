@@ -24,6 +24,16 @@ A scene object is stored at `graphics.Scene`
     * Adds a list of elements to the internal list.
     * Parameter `elements`: List of elements to append.
     * Return: `None`
+* `Scene.render_frame(res, frame)`
+    * Renders raw frame.
+    * Parameter `res`: Output resolution.
+    * Parameter `frame`: Frame to render.
+    * Return: `pygame.Surface`
+* `Scene.render(res, frame)`
+    * Renders post-processed frames. Applies effects like motion blur.
+    * Parameter `res`: Output resolution.
+    * Parameter `frame`: Frame to render.
+    * Return: `pygame.Surface`
 
 [Back to documentation home][home]
 
