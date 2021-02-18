@@ -21,6 +21,7 @@ import os
 import time
 import shutil
 from typing import Tuple
+from math import atan, cos, sin
 from hashlib import sha256
 import atexit
 import pygame
@@ -379,8 +380,23 @@ class Arrow(BaseElement):
         self.head_size = IntProp(head_size)
         self.color = VectorProp(4, IntProp, color)
 
+    @staticmethod
+    def slope_dist(point, slope, dist, perpendicular=False):
+        if perpendicular:
+            slope = -1 / slope
+
+        x, y = point
+        theta = atan(slope)
+        y_diff = dist * sin(theta)
+        x_diff = dist * cos(theta)
+
+        return (x+x_diff, y+y_diff)
+
     def get_verts(self, loc1, loc2, stem_size, head_size) -> Tuple[Tuple[int]]:
-        pass
+        (x1, y1), (x2, y2) = loc1, loc2
+        slope = (y2-y1) / (x2-x1)
+        verts = []
+        verts.append()
 
     def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
