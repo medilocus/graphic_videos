@@ -15,6 +15,15 @@ A scene object is stored at `graphics.Scene`
     * Parameter `before_pause=30`: Number of black frames before content starts.
     * Parameter `after_pause=30`: Number of black frames after content ends.
     * Parameter `motion_blur=False`: Whether to use Motion Blur. See below for more info.
+    * Return: `None`
+* `Scene.add_element(element)`
+    * Appends an element to the internal list.
+    * Parameter `element`: Element to append.
+    * Return: `None`
+* `Scene.extend_elements(elements)`
+    * Adds a list of elements to the internal list.
+    * Parameter `elements`: List of elements to append.
+    * Return: `None`
 
 [Back to documentation home][home]
 
