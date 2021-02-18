@@ -23,8 +23,32 @@ To write your own modifiers, please look at [Extending Graphic Videos][extending
     * Parameter `frame`: Frame to modify. This changes property values.
     * Return: `pygame.Surface`
 
+## Pre-written Modifiers
+
+Examples include Blur, Flip, and Brighten.
+
+* Flip
+* MixSolidColor
+* GaussianBlur
+* Grayscale
+* Bright
+* Contrast
+* ColorEnhance
+* Sharpen
+* Invert
+
 [Back to documentation home][home]
 
 [home]: https://medilocus.github.io/graphic_videos/
 [props]: https://medilocus.github.io/graphic_videos/props
 [extending]: https://medilocus.github.io/graphic_videos/extending
+
+[flip]: https://medilocus.github.io/graphic_videos/modifiers/flip
+[mix-solid-color]: https://medilocus.github.io/graphic_videos/modifiers/mix-solid-color
+[gaussian-blur]: https://medilocus.github.io/graphic_videos/modifiers/gaussian-blur
+[grayscale]: https://medilocus.github.io/graphic_videos/modifiers/grayscale
+[bright]: https://medilocus.github.io/graphic_videos/modifiers/bright
+[contrast]: https://medilocus.github.io/graphic_videos/modifiers/contrast
+[color-enhance]: https://medilocus.github.io/graphic_videos/modifiers/color-enhance
+[sharpen]: https://medilocus.github.io/graphic_videos/modifiers/sharpen
+[invert]: https://medilocus.github.io/graphic_videos/modifiers/invert
