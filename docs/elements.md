@@ -13,7 +13,7 @@ To learn how to create your custom elements, see [Extending Graphic Videos][exte
 
 * `BaseElement.__init__()`
     * BaseElement initialize. Other elements should have their own `__init__` and call `super().__init__()`
-* `BaseElement.add_element(modifier)`
+* `BaseElement.add_modifier(modifier)`
     * Appends a modifier to the internal list.
     * Parameter `modifier`: Modifier to append.
     * Return: `None`
