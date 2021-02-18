@@ -371,7 +371,7 @@ class Arrow(BaseElement):
     head_size: IntProp
     color: VectorProp
 
-    def __init__(self, loc1: Tuple[int] = (0, 0), loc2: Tuple[int] = (50, 50), stem_size: int = 20, head_size: int = 40,
+    def __init__(self, loc1: Tuple[int] = (0, 0), loc2: Tuple[int] = (50, 50), stem_size: int = 20, head_size: int = 50,
             color: Tuple[int] = (255, 255, 255, 255)) -> None:
         super().__init__()
         self.loc1 = VectorProp(2, IntProp, loc1)
