@@ -12,6 +12,15 @@ The base property class, located at `graphics.props.Property`,
 contains the internal interpolation code of all properties.
 Other props, like BoolProp and IntProp extend off of this class.
 
+## Common Properties
+
+These properties are used commonly in elements.
+
+* BoolProp: Boolean property.
+* IntProp: Integer property.
+* FloatProp: Floating point property.
+* StringProp: String property.
+
 [Back to documentation home][home]
 
 [home]: https://medilocus.github.io/graphic_videos/
