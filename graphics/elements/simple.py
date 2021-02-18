@@ -204,53 +204,6 @@ class Ellipse(BaseElement):
         return surface
 
 
-class Line(BaseElement):
-    """Line element."""
-
-    loc1: VectorProp
-    loc2: VectorProp
-    thickness: IntProp
-    color: VectorProp
-    antialias: BoolProp
-
-    def __init__(self, loc1: Tuple[int] = (0, 0), loc2: Tuple[int] = (50, 50), thickness: int = 1,
-            color: Tuple[int] = (255, 255, 255), antialias: bool = True) -> None:
-        """
-        Initializes line.
-        :param loc1: Location (x, y) of the first point.
-        :param loc2: Location (x, y) of the second point.
-        :param thickness: Thickness (pixels) of line.
-        :param color: Color (RGB) of line.
-        :param antialias: Whether to perform simple antialiasing when rendering.
-        """
-        super().__init__()
-        color = get_color(color)
-        if len(color) == 3:
-            color = (*color, 255)
-
-        self.loc1 = VectorProp(2, IntProp, loc1)
-        self.loc2 = VectorProp(2, IntProp, loc2)
-        self.thickness = IntProp(thickness)
-        self.color = VectorProp(4, IntProp, color)
-        self.antialias = BoolProp(antialias)
-
-    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
-        surface = pygame.Surface(res, pygame.SRCALPHA)
-
-        loc1 = self.loc1(frame)
-        loc2 = self.loc2(frame)
-        thickness = self.thickness(frame)
-        color = self.color(frame)
-        antialias = self.antialias(frame)
-
-        if antialias:
-            gfxdraw.line(surface, *loc1, *loc2, color)
-        else:
-            pygame.draw.line(surface, color, loc1, loc2, thickness)
-
-        return surface
-
-
 class Polygon(BaseElement):
     """Polygon element."""
 
@@ -304,6 +257,53 @@ class Polygon(BaseElement):
             pygame.draw.polygon(surface, color, verts)
         if border > 0:
             pygame.draw.polygon(surface, border_color, verts, border)
+
+        return surface
+
+
+class Line(BaseElement):
+    """Line element."""
+
+    loc1: VectorProp
+    loc2: VectorProp
+    thickness: IntProp
+    color: VectorProp
+    antialias: BoolProp
+
+    def __init__(self, loc1: Tuple[int] = (0, 0), loc2: Tuple[int] = (50, 50), thickness: int = 1,
+            color: Tuple[int] = (255, 255, 255), antialias: bool = True) -> None:
+        """
+        Initializes line.
+        :param loc1: Location (x, y) of the first point.
+        :param loc2: Location (x, y) of the second point.
+        :param thickness: Thickness (pixels) of line.
+        :param color: Color (RGB) of line.
+        :param antialias: Whether to perform simple antialiasing when rendering.
+        """
+        super().__init__()
+        color = get_color(color)
+        if len(color) == 3:
+            color = (*color, 255)
+
+        self.loc1 = VectorProp(2, IntProp, loc1)
+        self.loc2 = VectorProp(2, IntProp, loc2)
+        self.thickness = IntProp(thickness)
+        self.color = VectorProp(4, IntProp, color)
+        self.antialias = BoolProp(antialias)
+
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
+        surface = pygame.Surface(res, pygame.SRCALPHA)
+
+        loc1 = self.loc1(frame)
+        loc2 = self.loc2(frame)
+        thickness = self.thickness(frame)
+        color = self.color(frame)
+        antialias = self.antialias(frame)
+
+        if antialias:
+            gfxdraw.line(surface, *loc1, *loc2, color)
+        else:
+            pygame.draw.line(surface, color, loc1, loc2, thickness)
 
         return surface
 
