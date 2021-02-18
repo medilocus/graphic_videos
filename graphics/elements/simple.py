@@ -380,6 +380,21 @@ class Arrow(BaseElement):
         self.head_size = IntProp(head_size)
         self.color = VectorProp(4, IntProp, color)
 
+    @staticmethod
+    def dist(loc1, loc2):
+        return sqrt((loc1[0]-loc2[0])**2 + (loc1[1]-loc2[1])**2)
+
+    @staticmethod
+    def walk(point, angle, dist):
+        x_diff = dist * cos(angle)
+        y_diff = dist * sin(angle)
+        return (point[0]+x_diff, point[1]+y_diff)
+
+    def get_verts(self, loc1, loc2, stem_size, head_size):
+        (x1, y1), (x2, y2) = loc1, loc2
+        dist = self.dist(loc1, loc2)
+        angle = atan((y2-y1)/(x2-x1))
+
     def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
