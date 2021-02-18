@@ -361,6 +361,25 @@ class Arc(BaseElement):
         return surface
 
 
+class Arrow(BaseElement):
+    """Arrow pointer element."""
+
+    loc1: VectorProp
+    loc2: VectorProp
+    stem_size: IntProp
+    head_size: IntProp
+    color: VectorProp
+
+    def __init__(self, loc1: Tuple[int] = (0, 0), loc2: Tuple[int] = (50, 50), stem_size: int = 15, head_size: int = 25,
+            color: Tuple[int] = (255, 255, 255, 255)) -> None:
+        super().__init__()
+        self.loc1 = VectorProp(2, IntProp, loc1)
+        self.loc2 = VectorProp(2, IntProp, loc2)
+        self.stem_size = IntProp(stem_size)
+        self.head_size = IntProp(head_size)
+        self.color = VectorProp(4, IntProp, color)
+
+
 class Text(BaseElement):
     """Text element."""
 
