@@ -19,6 +19,17 @@ To learn how to create your custom elements, see [Extending Graphic Videos][exte
     * Adds a list of modifiers to the internal list.
     * Parameter `modifiers`: List of modifiers to append.
     * Return: `None`
+* `BaseElement.render(res, frame)`
+    * Renders element and applies all modifiers.
+    * Parameter `res`: Output resolution.
+    * Parameter `frame`: Frame to render.
+    * Return: `pygame.Surface`
+* `BaseElement.render_raw(res, frame)`
+    * Placeholder method, other elements should define their own.
+    * Renders without any modifiers.
+    * Parameter `res`: Output resolution.
+    * Parameter `frame`: Frame to render.
+    * Return: `pygame.Surface`
 
 [Back to documentation home][home]
 
