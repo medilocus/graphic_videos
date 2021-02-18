@@ -386,6 +386,7 @@ class Arrow(BaseElement):
 
     @staticmethod
     def walk(point, angle, dist):
+        angle = radians(angle)
         x_diff = dist * cos(angle)
         y_diff = dist * sin(angle)
         return (point[0]+x_diff, point[1]+y_diff)
@@ -393,7 +394,17 @@ class Arrow(BaseElement):
     def get_verts(self, loc1, loc2, stem_size, head_size):
         (x1, y1), (x2, y2) = loc1, loc2
         dist = self.dist(loc1, loc2)
-        angle = atan((y2-y1)/(x2-x1))
+        angle = degrees(atan((y2-y1)/(x2-x1)))
+
+        p1 = self.walk(loc1, angle+90, stem_size//2)
+        p2 = self.walk(p1, angle, dist-head_size//2)
+        p3 = self.walk(p2, angle+90, (head_size-stem_size)//2)
+        p4 = loc2
+        p7 = self.walk(loc1, angle-90, stem_size//2)
+        p6 = self.walk(p7, angle, dist-head_size//2)
+        p5 = self.walk(p6, angle-90, (head_size-stem_size)//2)
+
+        return [p1, p2, p3, p4, p5, p6, p7]
 
     def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
