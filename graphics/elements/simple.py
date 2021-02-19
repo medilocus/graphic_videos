@@ -367,17 +367,17 @@ class Arrow(BaseElement):
 
     loc1: VectorProp
     loc2: VectorProp
-    stem_size: IntProp
-    head_size: IntProp
+    stem_width: IntProp
+    head_width: IntProp
     color: VectorProp
 
-    def __init__(self, loc1: Tuple[int] = (0, 0), loc2: Tuple[int] = (50, 50), stem_size: int = 20, head_size: int = 50,
+    def __init__(self, loc1: Tuple[int] = (0, 0), loc2: Tuple[int] = (50, 50), stem_width: int = 20, head_width: int = 50,
             color: Tuple[int] = (255, 255, 255, 255)) -> None:
         super().__init__()
         self.loc1 = VectorProp(2, IntProp, loc1)
         self.loc2 = VectorProp(2, IntProp, loc2)
-        self.stem_size = IntProp(stem_size)
-        self.head_size = IntProp(head_size)
+        self.stem_width = IntProp(stem_width)
+        self.head_width = IntProp(head_width)
         self.color = VectorProp(4, IntProp, color)
 
     @staticmethod
@@ -394,7 +394,7 @@ class Arrow(BaseElement):
         return (point[0]+x_diff, point[1]+y_diff)
 
     @staticmethod
-    def get_verts(loc1, loc2, stem_size, head_size):
+    def get_verts(loc1, loc2, stem_width, head_width):
         (x1, y1), (x2, y2) = loc1, loc2
         dist = Arrow.dist(loc1, loc2)
         if (d := x2 - x1) == 0:
@@ -402,13 +402,13 @@ class Arrow(BaseElement):
         else:
             angle = degrees(atan((y2-y1)/d))
 
-        p1 = Arrow.walk(loc1, angle+90, stem_size//2)
-        p2 = Arrow.walk(p1, angle, dist-head_size//2)
-        p3 = Arrow.walk(p2, angle+90, (head_size-stem_size)//2)
+        p1 = Arrow.walk(loc1, angle+90, stem_width//2)
+        p2 = Arrow.walk(p1, angle, dist-head_width//2)
+        p3 = Arrow.walk(p2, angle+90, (head_width-stem_width)//2)
         p4 = loc2
-        p7 = Arrow.walk(loc1, angle-90, stem_size//2)
-        p6 = Arrow.walk(p7, angle, dist-head_size//2)
-        p5 = Arrow.walk(p6, angle-90, (head_size-stem_size)//2)
+        p7 = Arrow.walk(loc1, angle-90, stem_width//2)
+        p6 = Arrow.walk(p7, angle, dist-head_width//2)
+        p5 = Arrow.walk(p6, angle-90, (head_width-stem_width)//2)
 
         return [p1, p2, p3, p4, p5, p6, p7]
 
@@ -417,11 +417,11 @@ class Arrow(BaseElement):
 
         loc1 = self.loc1(frame)
         loc2 = self.loc2(frame)
-        stem_size = self.stem_size(frame)
-        head_size = self.head_size(frame)
+        stem_width = self.stem_width(frame)
+        head_width = self.head_width(frame)
         color = self.color(frame)
 
-        verts = Arrow.get_verts(loc1, loc2, stem_size, head_size)
+        verts = Arrow.get_verts(loc1, loc2, stem_width, head_width)
         pygame.draw.polygon(surface, color, verts)
 
         return surface
