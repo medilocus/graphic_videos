@@ -91,8 +91,8 @@ class CaptionLeft(BaseElement):
     auto_show: bool
 
     def __init__(self, frame_start: int, frame_len: int, transition_len: int, loc: Tuple[int], circle_radius: int = 35,
-            rect_width: int = 50, rect_height: int = 200, color_circle: Tuple[int] = (30, 40, 120, 255),
-            color_rect: Tuple[int] = (180, 50, 15, 255), auto_show: bool = True) -> None:
+            rect_width: int = 50, rect_height: int = 200, color_circle: Tuple[int] = (50, 70, 160, 255),
+            color_rect: Tuple[int] = (200, 70, 20, 255), auto_show: bool = True) -> None:
         super().__init__()
         self.frame_start = frame_start
         self.frame_len = frame_len
