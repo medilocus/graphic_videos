@@ -374,6 +374,15 @@ class Arrow(BaseElement):
 
     def __init__(self, loc1: Tuple[int] = (0, 0), loc2: Tuple[int] = (50, 50), stem_width: int = 20, head_width: int = 50,
             head_length: int = 25, color: Tuple[int] = (255, 255, 255, 255)) -> None:
+        """
+        Initializes arrow.
+        :param loc1: The origin of the arrow.
+        :param loc2: The end point of the arrow (where the arrow is pointing).
+        :param stem_width: The width of the base of the arrow.
+        :param head_width: The width of the top of the arrow.
+        :param head_length: The length of the top of the arrow.
+        :param color: Color (rgba, 0 to 255) of arc. The ALPHA will be set to 255 if no alpha is given.
+        """
         super().__init__()
         self.loc1 = VectorProp(2, IntProp, loc1)
         self.loc2 = VectorProp(2, IntProp, loc2)
