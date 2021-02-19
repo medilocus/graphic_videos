@@ -2,7 +2,7 @@
 
 Graphic Videos is a Python API for exporting graphic videos.
 
-The latest version is [Version 0.1.3][latest]
+The latest version is [Version 0.1.4][latest]
 
 To contribute, please fork and make a pull request.
 

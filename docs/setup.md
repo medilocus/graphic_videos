@@ -8,7 +8,7 @@ but all releases contain a pip installable wheel file.
 To download the wheel file, go to the [latest release][latest],
 and download the file ending in `.whl`.
 
-The file will likely be named `graphic_videos-0.1.3-py3-none-any.whl`.
+The file will likely be named `graphic_videos-0.1.4-py3-none-any.whl`.
 Version numbers may vary.
 
 Next, open a terminal or command prompt in the location of the download.
@@ -20,7 +20,7 @@ Locations for common operating systems:
 
 Once there, type this command and press enter:
 
-`pip install graphic_videos-0.1.3-py3-none-any.whl`
+`pip install graphic_videos-0.1.4-py3-none-any.whl`
 
 ## Portable Directory
 

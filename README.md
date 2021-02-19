@@ -8,11 +8,11 @@ Documentation can be found here:
 
 https://medilocus.github.io/graphic_videos/
 
-Latest stable version: [Version 0.1.3][latest]
+Latest stable version: [Version 0.1.4][latest]
 
 ## News
 
-Version 0.1.3 was recently released!
+Version 0.1.4 was recently released!
 
 ## Credits
 

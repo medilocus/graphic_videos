@@ -17,7 +17,7 @@ An API for creating graphic videos in Python.
 
 ## News
 
-Version 0.1.3 was recently released!
+Version 0.1.4 was recently released!
 
 [about]: https://medilocus.github.io/graphic_videos/about
 [setup]: https://medilocus.github.io/graphic_videos/setup
