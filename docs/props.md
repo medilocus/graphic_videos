@@ -1,17 +1,38 @@
-# Keyframes
+# Properties
 
-Keyframes are used to add change in elements.
+Properties are animatable attributes,
+which can be used to change the appearance of elements over time.
 
-## Properties
+For example, a Circle has a radius and location attribute.
+Those define it's radius and center, and can be changed over time.
 
-In the `graphics` module, many types of animatable properties are defined as classes.
-Examples include `BoolProp` for boolean, `IntProp` for integer, `FloatProp` for floating point numbers, and `StringProp` for strings.
+The way Graphic Videos implements properties is quite complicated,
+so please take the time to read this whole page.
 
-Each instance of a property has its own keyframes.
+## Base Property
 
-## How Keyframes Work
+The base property class, located at `graphics.props.Property`,
+contains the internal interpolation code of all properties.
+Other props, like BoolProp and IntProp extend off of this class.
 
-Here is a code block showing the process of adding keyframes.
+## Common Properties
+
+These properties are used commonly in elements.
+
+* BoolProp: Boolean property.
+* IntProp: Integer property.
+* FloatProp: Floating point property.
+* StringProp: String property.
+
+## Keyframes
+
+Keyframes are used to animate properties. Each keyframe contains three values:
+
+* Frame: The frame which the keyframe represents.
+* Value: The value of the property at the frame.
+* Interpolation: The way to transition from this keyframe to the next.
+
+Here is an example:
 
 ``` python
 import graphics
@@ -96,7 +117,6 @@ To control the type of interpolation, pass it as an argument while keyframing:
 my_prop.keyframe(0, 0, "LINEAR")
 ```
 
+[Back to documentation home][home]
 
-[Back to documentation home][dochome]
-
-[dochome]: https://medilocus.github.io/graphic_videos/
+[home]: https://medilocus.github.io/graphic_videos/

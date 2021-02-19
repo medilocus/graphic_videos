@@ -1,18 +1,12 @@
 # About
 
-Graphic Videos is a Python API for creating graphic videos.
+Graphic Videos is a Python API for exporting graphic videos.
 
-It is developed by [medilocus][medilocus], a company striving for computer intelligence in spatial settings.
+The latest version is [Version 0.1.3][latest]
 
-## Features
+To contribute, please fork and make a pull request.
 
-* Exporting mp4 videos
-* Adding and moving shapes and text using built-in keyframes
-* Pre-written elements including rectangles, circles, and text
-* Custom fonts (.ttf)
+[Back to documentation home][home]
 
-
-[Back to documentation home][dochome]
-
-[dochome]: https://medilocus.github.io/graphic_videos/
-[medilocus]: https://github.com/medilocus
+[home]: https://medilocus.github.io/graphic_videos/
+[latest]: https://github.com/medilocus/graphic_videos/releases/latest

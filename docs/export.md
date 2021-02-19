@@ -1,30 +1,57 @@
 # Export
 
-Functions that take in your scenes and output a video.
+Exporting is creating the final video from your scenes.
 
-All export functions have these parameters:
+You could write a program yourself to render each frame in a scene and compile a video,
+but Graphic Videos has a few built in functions to do that.
 
-* `resolution`: Output resolution.
-* `fps`: Output fps.
-* `scenes`: List of scenes to export in order.
-* `out_path`: Output path. Must be .mp4 file.
-* `verbose`: Whether to print out info while exporting.
-* `notify`: Whether to notify user after finished exporting via system notification.
+# Single Core Export
 
-## Available Methods
+`graphics.export.export_sc`
 
-* Single Core
-    * Exports and encodes each frame.
-    * Good for all projects.
-    * Slow
-* Multi Core
-    * Exports and encodes each frame on all system cores. Uses many temporary files.
-    * Fast
-* FFmpeg
-    * Exports and compresses with FFmpeg. Uses one temporary file.
-    * Uses same method as single core.
-    * Small output file size.
+This function uses one CPU core to render and encode each frame, one at a time.
 
-[Back to documentation home][dochome]
+It is extremely reliable, and fits for almost any situation.
 
-[dochome]: https://medilocus.github.io/graphic_videos/
+* Parameter `resolution`: (x, y) resolution of final video.
+* Parameter `fps`: FPS (frames per second) of video.
+* Parameter `scenes`: List of scenes to export in order.
+* Parameter `path`: Output path of video. Must end with `.mp4`
+* Parameter `verbose`: Whether to display progress via stdout while exporting.
+* Parameter `notify`: Whether to send a notification after finished.
+
+# Multi Core Export
+
+`graphics.export.export_mc`
+
+This function uses all of your CPU cores to render and save them as images to a temporary directory.
+Then, it uses one core to encode all the images and removes them.
+If, at any time during the export, a `KeyboardInterrupt` is raised, the program will quit and remove all temporary files.
+
+It is very fast, but uses a lot of disk space during export.
+
+* Parameter `resolution`: (x, y) resolution of final video.
+* Parameter `fps`: FPS (frames per second) of video.
+* Parameter `scenes`: List of scenes to export in order.
+* Parameter `path`: Output path of video. Must end with `.mp4`
+* Parameter `verbose`: Whether to display progress via stdout while exporting.
+* Parameter `notify`: Whether to send a notification after finished.
+
+# FFmpeg Export
+
+`graphics.export.export_sc`
+
+This function exports in the exact same way as Single Core, but uses FFmpeg to compress the video after it is exported.
+
+Uses one temporary video file, and has a small output size.
+
+* Parameter `resolution`: (x, y) resolution of final video.
+* Parameter `fps`: FPS (frames per second) of video.
+* Parameter `scenes`: List of scenes to export in order.
+* Parameter `path`: Output path of video. Must end with `.mp4`
+* Parameter `verbose`: Whether to display progress via stdout while exporting.
+* Parameter `notify`: Whether to send a notification after finished.
+
+[Back to documentation home][home]
+
+[home]: https://medilocus.github.io/graphic_videos/

@@ -1,50 +1,46 @@
 # Setup
 
-This page contains instructions on how to set up your files to use Graphic Videos.
+## Pip Package
 
-## Python Modules
+Graphic Videos is not published on PyPI (the official python package index),
+but all releases contain a pip installable wheel file.
 
-The required modules for Graphics are:
+To download the wheel file, go to the [latest release][latest],
+and download the file ending in `.whl`.
 
-* pygame
-* opencv-python
-* numpy
-* pillow
+The file will likely be named `graphic_videos-0.1.3-py3-none-any.whl`.
+Version numbers may vary.
 
-Install these with the command `pip install <package>` or use the file `requirements.txt`, and do `pip install -r requirements.txt`
+Next, open a terminal or command prompt in the location of the download.
 
-## Download Module
+Locations for common operating systems:
 
-First, you need to download the pre-written Graphic Videos module.
+* Linux: `~/Downloads`
+* Windows: `C:\Users\username\Downloads`
 
-You have two options:
+Once there, type this command and press enter:
 
-* Download the latest release from the [releases page][releases].
-* Download the latest commit from the [main branch][mainbranch].
+`pip install graphic_videos-0.1.3-py3-none-any.whl`
 
-Take the folder named `graphics` and delete everything else.
+## Portable Directory
 
-## File Structure
+You may also choose to install Graphic Videos as a portable folder,
+which you can copy and paste anywhere.
 
-Setup your files in this format:
+Every release contains a zip file named `graphics.zip` with the source code of Graphic Videos.
+
+Download the file named `graphics.zip` in the [latest release][latest].
+Extract it to get the folder.
+
+Next, for every project involving Graphic Videos, set up your folders like this:
 
 ```
-graphics      # The folder that was downloaded
-filename.py   # Python file which will be run
+project_folder
+|__ graphics    # folder downloaded from release
+|__ main.py     # file that will be run to export the video
 ```
 
-## Pip Wheel File
+[Back to documentation home][home]
 
-If you want to install Graphic Videos as a pip module, use the wheel file on the [latest release][latest].
-
-Download the file ending in `.whl`, and install with `pip install graphic_videos-<version>-py3-none-any.whl`
-
-Make sure the file name matches the downloaded file.
-
-
-[Back to documentation home][dochome]
-
-[dochome]: https://medilocus.github.io/graphic_videos/
-[releases]: https://github.com/medilocus/graphic_videos/releases
-[mainbranch]: https://github.com/medilocus/graphic_videos/archive/main.zip
+[home]: https://medilocus.github.io/graphic_videos/
 [latest]: https://github.com/medilocus/graphic_videos/releases/latest
