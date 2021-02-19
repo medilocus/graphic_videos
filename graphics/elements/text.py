@@ -87,12 +87,16 @@ class CaptionLeft(BaseElement):
 
     circle: Circle
     rect: Polygon
+    text: Text
 
     auto_show: bool
+    str_text: str
+    font: str
 
-    def __init__(self, frame_start: int, frame_len: int, transition_len: int, loc: Tuple[int], circle_radius: int = 35,
-            rect_width: int = 50, rect_height: int = 200, color_circle: Tuple[int] = (50, 70, 160, 255),
-            color_rect: Tuple[int] = (200, 70, 20, 255), auto_show: bool = True) -> None:
+    def __init__(self, frame_start: int, frame_len: int, transition_len: int, loc: Tuple[int], text: str,
+            font: str = None, circle_radius: int = 35, rect_width: int = 50, rect_height: int = 200,
+            color_circle: Tuple[int] = (50, 70, 160, 255), color_rect: Tuple[int] = (200, 70, 20, 255),
+            auto_show: bool = True) -> None:
         super().__init__()
         self.frame_start = frame_start
         self.frame_len = frame_len
@@ -107,6 +111,8 @@ class CaptionLeft(BaseElement):
         self.color_rect = color_rect
 
         self.auto_show = auto_show
+        self.str_text = text
+        self.font = font
 
         self.animate()
 
@@ -116,6 +122,8 @@ class CaptionLeft(BaseElement):
         self.circle.radius.keyframe(self.circle_radius, self.frame_start+self.transition_len)
         self.circle.radius.keyframe(self.circle_radius, self.frame_start+self.frame_len-self.transition_len)
         self.circle.radius.keyframe(0, self.frame_start+self.frame_len)
+
+        self.text = Text(font=self.font, text=self.str_text, size=self.rect_height-10)
 
         if self.auto_show:
             self.show.keyframe(False, self.frame_start-1)
