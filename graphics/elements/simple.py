@@ -379,6 +379,7 @@ class Arrow(BaseElement):
         self.loc2 = VectorProp(2, IntProp, loc2)
         self.stem_width = IntProp(stem_width)
         self.head_width = IntProp(head_width)
+        self.head_length = IntProp(head_length)
         self.color = VectorProp(4, IntProp, color)
 
     @staticmethod
