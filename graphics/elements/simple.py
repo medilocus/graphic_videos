@@ -408,10 +408,10 @@ class Arrow(BaseElement):
     def get_verts(loc1, loc2, stem_width, head_width, head_length):
         (x1, y1), (x2, y2) = loc1, loc2
         dist = Arrow.dist(loc1, loc2)
-        if (d := x2 - x1) == 0:
+        if (dx := x2 - x1) == 0:
             angle = 90 if y2-y1 > 0 else -90
         else:
-            angle = degrees(atan((y2-y1)/d))
+            angle = degrees(atan((y2-y1)/dx))
 
         p1 = Arrow.walk(loc1, angle+90, stem_width//2)
         p2 = Arrow.walk(p1, angle, dist-head_length)
