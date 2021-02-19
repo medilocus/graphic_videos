@@ -405,7 +405,7 @@ class Arrow(BaseElement):
         return (point[0]+x_diff, point[1]+y_diff)
 
     @staticmethod
-    def get_verts(loc1, loc2, stem_width, head_width):
+    def get_verts(loc1, loc2, stem_width, head_width, head_length):
         (x1, y1), (x2, y2) = loc1, loc2
         dist = Arrow.dist(loc1, loc2)
         if (d := x2 - x1) == 0:
@@ -414,11 +414,11 @@ class Arrow(BaseElement):
             angle = degrees(atan((y2-y1)/d))
 
         p1 = Arrow.walk(loc1, angle+90, stem_width//2)
-        p2 = Arrow.walk(p1, angle, dist-head_width//2)
+        p2 = Arrow.walk(p1, angle, dist-head_length)
         p3 = Arrow.walk(p2, angle+90, (head_width-stem_width)//2)
         p4 = loc2
         p7 = Arrow.walk(loc1, angle-90, stem_width//2)
-        p6 = Arrow.walk(p7, angle, dist-head_width//2)
+        p6 = Arrow.walk(p7, angle, dist-head_length)
         p5 = Arrow.walk(p6, angle-90, (head_width-stem_width)//2)
 
         return [p1, p2, p3, p4, p5, p6, p7]
@@ -430,9 +430,10 @@ class Arrow(BaseElement):
         loc2 = self.loc2(frame)
         stem_width = self.stem_width(frame)
         head_width = self.head_width(frame)
+        head_length = self.head_length(frame)
         color = self.color(frame)
 
-        verts = Arrow.get_verts(loc1, loc2, stem_width, head_width)
+        verts = Arrow.get_verts(loc1, loc2, stem_width, head_width, head_length)
         pygame.draw.polygon(surface, color, verts)
 
         return surface
