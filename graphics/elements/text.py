@@ -82,8 +82,8 @@ class CaptionLeft(BaseElement):
     rect_width: int
     rect_height: int
 
-    color_circle: VectorProp
-    color_rect: VectorProp
+    color_circle: Tuple[int]
+    color_rect: Tuple[int]
 
     circle: Circle
     rect: Polygon
@@ -103,10 +103,12 @@ class CaptionLeft(BaseElement):
         self.rect_width = rect_width
         self.rect_height = rect_height
 
-        self.color_circle = VectorProp(4, IntProp, color_circle)
-        self.color_rect = VectorProp(4, IntProp, color_rect)
+        self.color_circle = color_circle
+        self.color_rect = color_rect
 
         self.auto_show = auto_show
+
+        self.animate()
 
     def animate(self):
         self.circle = Circle(self.loc, color=self.color_circle)
@@ -122,5 +124,5 @@ class CaptionLeft(BaseElement):
 
     def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
-        surface.blit(self.circle.render(res, frame))
+        surface.blit(self.circle.render(res, frame), (0, 0))
         return surface
