@@ -412,6 +412,8 @@ class Arrow(BaseElement):
             angle = 90 if y2-y1 > 0 else -90
         else:
             angle = degrees(atan((y2-y1)/dx))
+            if angle < 0:
+                angle += 180
 
         p1 = Arrow.walk(loc1, angle+90, stem_width//2)
         p2 = Arrow.walk(p1, angle, dist-head_length)
