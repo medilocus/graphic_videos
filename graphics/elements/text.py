@@ -19,9 +19,10 @@
 
 from typing import Tuple
 import pygame
-from ..options import *
 from .base import BaseElement
 from .simple import Text
+from ..options import *
+from ..props import *
 pygame.init()
 
 
@@ -67,3 +68,35 @@ class TitleHoriz(BaseElement):
 
         surface.blit(subsurf, self.loc)
         return surface
+
+
+class CaptionLeft(BaseElement):
+    """Small caption fit to be displayed on the left."""
+
+    frame_start: int
+    frame_len: int
+    transition_len: int
+
+    loc: Tuple[int]
+    circle_radius: int
+    rect_width: int
+    rect_height: int
+
+    color_circle: VectorProp
+    color_rect: VectorProp
+
+    def __init__(self, frame_start: int, frame_len: int, transition_len: int, loc: Tuple[int], circle_radius: int = 35,
+            rect_width: int = 50, rect_height: int = 200, color_circle: Tuple[int] = (30, 40, 120, 255),
+            color_rect: Tuple[int] = (180, 50, 15, 255)) -> None:
+        super().__init__()
+        self.frame_start = frame_start
+        self.frame_len = frame_len
+        self.transition_len = transition_len
+
+        self.loc = loc
+        self.circle_radius = circle_radius
+        self.rect_width = rect_width
+        self.rect_height = rect_height
+
+        self.color_circle = VectorProp(4, IntProp, color_circle)
+        self.color_rect = VectorProp(4, IntProp, color_rect)
