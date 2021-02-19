@@ -20,7 +20,7 @@
 from typing import Tuple
 import pygame
 from .base import BaseElement
-from .simple import Text
+from .simple import Circle, Text
 from ..options import *
 from ..props import *
 pygame.init()
@@ -31,8 +31,8 @@ class TitleHoriz(BaseElement):
 
     loc: Tuple[int]
     size: Tuple[int]
-    text1: Text
-    text2: Text
+    text1: BaseElement
+    text2: BaseElement
 
     def __init__(self, frame_start: int, frame_len: int = 120, loc: Tuple[int] = (0, 0), size: Tuple[int] = (1920, 1080),
             font: str = None, font_size_1: int = 36, font_size_2: int = 36, text1: str = "Text 1", text2: str = "Text 2",
@@ -85,6 +85,11 @@ class CaptionLeft(BaseElement):
     color_circle: VectorProp
     color_rect: VectorProp
 
+    circle: BaseElement
+    rect: BaseElement
+
+    auto_show: bool
+
     def __init__(self, frame_start: int, frame_len: int, transition_len: int, loc: Tuple[int], circle_radius: int = 35,
             rect_width: int = 50, rect_height: int = 200, color_circle: Tuple[int] = (30, 40, 120, 255),
             color_rect: Tuple[int] = (180, 50, 15, 255), auto_show: bool = True) -> None:
@@ -101,8 +106,19 @@ class CaptionLeft(BaseElement):
         self.color_circle = VectorProp(4, IntProp, color_circle)
         self.color_rect = VectorProp(4, IntProp, color_rect)
 
-        if auto_show:
-            self.show.keyframe(False, frame_start-1)
-            self.show.keyframe(True, frame_start)
-            self.show.keyframe(True, frame_start+frame_len+2*transition_len)
-            self.show.keyframe(False, frame_start+frame_len+2*transition_len+1)
+        self.auto_show = auto_show
+
+    def animate(self):
+        self.circle = Circle(self.loc, color=self.color_circle)
+        self.circle.radius.keyframe(0, self.frame_start)
+        self.circle.radius.keyframe(self.circle_radius, self.frame_start+self.transition_len)
+        self.circle.radius.keyframe(self.circle_radius, self.frame_start+self.frame_len-self.transition_len)
+        self.circle.radius.keyframe(0, self.frame_start+self.frame_len)
+
+        if self.auto_show:
+            self.show.keyframe(False, self.frame_start-1)
+            self.show.keyframe(True, self.frame_start)
+            self.show.keyframe(False, self.frame_start+self.frame_len+2*self.transition_len+1)
+
+    def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
+        pass
