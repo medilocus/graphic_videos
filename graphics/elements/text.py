@@ -87,7 +87,7 @@ class CaptionLeft(BaseElement):
 
     def __init__(self, frame_start: int, frame_len: int, transition_len: int, loc: Tuple[int], circle_radius: int = 35,
             rect_width: int = 50, rect_height: int = 200, color_circle: Tuple[int] = (30, 40, 120, 255),
-            color_rect: Tuple[int] = (180, 50, 15, 255)) -> None:
+            color_rect: Tuple[int] = (180, 50, 15, 255), auto_show: bool = True) -> None:
         super().__init__()
         self.frame_start = frame_start
         self.frame_len = frame_len
@@ -100,3 +100,9 @@ class CaptionLeft(BaseElement):
 
         self.color_circle = VectorProp(4, IntProp, color_circle)
         self.color_rect = VectorProp(4, IntProp, color_rect)
+
+        if auto_show:
+            self.show.keyframe(False, frame_start-1)
+            self.show.keyframe(True, frame_start)
+            self.show.keyframe(True, frame_start+frame_len+2*transition_len)
+            self.show.keyframe(False, frame_start+frame_len+2*transition_len+1)
