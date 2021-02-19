@@ -20,7 +20,7 @@
 from typing import Tuple
 import pygame
 from .base import BaseElement
-from .simple import Circle, Text
+from .simple import Circle, Polygon, Text
 from ..options import *
 from ..props import *
 pygame.init()
@@ -31,8 +31,8 @@ class TitleHoriz(BaseElement):
 
     loc: Tuple[int]
     size: Tuple[int]
-    text1: BaseElement
-    text2: BaseElement
+    text1: Text
+    text2: Text
 
     def __init__(self, frame_start: int, frame_len: int = 120, loc: Tuple[int] = (0, 0), size: Tuple[int] = (1920, 1080),
             font: str = None, font_size_1: int = 36, font_size_2: int = 36, text1: str = "Text 1", text2: str = "Text 2",
@@ -85,8 +85,8 @@ class CaptionLeft(BaseElement):
     color_circle: VectorProp
     color_rect: VectorProp
 
-    circle: BaseElement
-    rect: BaseElement
+    circle: Circle
+    rect: Polygon
 
     auto_show: bool
 
@@ -121,4 +121,6 @@ class CaptionLeft(BaseElement):
             self.show.keyframe(False, self.frame_start+self.frame_len+2*self.transition_len+1)
 
     def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
-        pass
+        surface = pygame.Surface(res, pygame.SRCALPHA)
+        surface.blit(self.circle.render(res, frame))
+        return surface
