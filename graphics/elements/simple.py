@@ -391,6 +391,10 @@ class Arrow(BaseElement):
         self.head_length = IntProp(head_length)
         self.color = VectorProp(4, IntProp, color)
 
+    @classmethod
+    def from_vector(cls):
+        return cls()
+
     @staticmethod
     def dist(loc1, loc2):
         return sqrt((loc1[0]-loc2[0])**2 + (loc1[1]-loc2[1])**2)
