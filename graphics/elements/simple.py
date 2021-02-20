@@ -393,7 +393,7 @@ class Arrow(BaseElement):
 
     @classmethod
     def from_vector(cls, origin: Tuple[int] = (0, 0), angle: float = 0, magnitude: float = 100, stem_width: int = 20,
-            head_width: int = 25, head_length: int = 25, color: Tuple[int] = (255, 255, 255)):
+            head_width: int = 50, head_length: int = 25, color: Tuple[int] = (255, 255, 255, 255)):
         """
         Initializes arrow from vector.
         :param origin: The origin of the arrow.
