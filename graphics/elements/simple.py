@@ -392,7 +392,7 @@ class Arrow(BaseElement):
         self.color = VectorProp(4, IntProp, color)
 
     @classmethod
-    def from_vector(cls, origin):
+    def from_vector(cls, origin, angle):
         return cls()
 
     @staticmethod
