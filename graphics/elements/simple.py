@@ -404,7 +404,11 @@ class Arrow(BaseElement):
         :param head_length: The length of the top of the arrow.
         :param color: Color (rgba, 0 to 255) of arrow. The ALPHA will be set to 255 if no alpha is given.
         """
-        return cls()
+        loc1 = origin
+        x_off = cos(radians(angle)) * magnitude
+        y_off = sin(radians(angle)) * magnitude
+        loc2 = (loc1[0] + x_off, loc1[1] + y_off)
+        return cls(loc1, loc2, stem_width, head_width, head_length, color)
 
     @staticmethod
     def dist(loc1, loc2):
