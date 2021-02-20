@@ -376,12 +376,12 @@ class Arrow(BaseElement):
             head_length: int = 25, color: Tuple[int] = (255, 255, 255, 255)) -> None:
         """
         Initializes arrow.
-        :param loc1: The origin of the arrow.
-        :param loc2: The end point of the arrow (where the arrow is pointing).
-        :param stem_width: The width of the base of the arrow.
-        :param head_width: The width of the top of the arrow.
-        :param head_length: The length of the top of the arrow.
-        :param color: Color (rgba, 0 to 255) of arc. The ALPHA will be set to 255 if no alpha is given.
+        :param loc1: The origin of arrow.
+        :param loc2: The end point of arrow (where arrow is pointing).
+        :param stem_width: The width of the base of arrow.
+        :param head_width: The width of the top of arrow.
+        :param head_length: The length of the top of arrow.
+        :param color: Color (rgba, 0 to 255) of arrow. The ALPHA will be set to 255 if no alpha is given.
         """
         super().__init__()
         self.loc1 = VectorProp(2, IntProp, loc1)
@@ -394,6 +394,16 @@ class Arrow(BaseElement):
     @classmethod
     def from_vector(cls, origin: Tuple[int] = (0, 0), angle: float = 0, magnitude: float = 100, stem_width: int = 20,
             head_width: int = 25, head_length: int = 25, color: Tuple[int] = (255, 255, 255)):
+        """
+        Initializes arrow from vector.
+        :param origin: The origin of the arrow.
+        :param angle: The direction the arrow is pointing to (degrees).
+        :param magnitude: The distance of the arrow.
+        :param stem_width: The width of the base of the arrow.
+        :param head_width: The width of the top of the arrow.
+        :param head_length: The length of the top of the arrow.
+        :param color: Color (rgba, 0 to 255) of arrow. The ALPHA will be set to 255 if no alpha is given.
+        """
         return cls()
 
     @staticmethod
