@@ -393,7 +393,7 @@ class Arrow(BaseElement):
 
     @classmethod
     def from_vector(cls, origin: Tuple[int], angle: float, magnitude: float, stem_width: int,
-            head_width: int, head_length: int, color: Tuple[int]):
+            head_width: int, head_length: int, color: Tuple[int] = (255, 255, 255)):
         return cls()
 
     @staticmethod
