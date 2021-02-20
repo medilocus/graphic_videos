@@ -405,8 +405,8 @@ class Arrow(BaseElement):
         :param color: Color (rgba, 0 to 255) of arrow. The ALPHA will be set to 255 if no alpha is given.
         """
         loc1 = origin
-        x_off = cos(radians(angle)) * magnitude
-        y_off = sin(radians(angle)) * magnitude
+        x_off = cos(radians(-angle)) * magnitude
+        y_off = sin(radians(-angle)) * magnitude
         loc2 = (loc1[0] + x_off, loc1[1] + y_off)
         return cls(loc1, loc2, stem_width, head_width, head_length, color)
 
