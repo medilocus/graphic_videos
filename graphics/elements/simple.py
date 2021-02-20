@@ -292,6 +292,23 @@ class Line(BaseElement):
         self.color = VectorProp(4, IntProp, color)
         self.antialias = BoolProp(antialias)
 
+    @classmethod
+    def from_vector(cls, origin: Tuple[int] = (0, 0), angle: float = 0, magnitude: float = 100,
+            thickness: int = 1, color: Tuple[int] = (255, 255, 255, 255)):
+        """
+        Initializes line from vector.
+        :param origin: The origin of line.
+        :param angle: The direction line is pointing to (degrees).
+        :param magnitude: The distance of line.
+        :param thickness: The thickness of line.
+        :param color: Color (rgba, 0 to 255) of line. The ALPHA will be set to 255 if no alpha is given.
+        """
+        loc1 = origin
+        x_off = cos(radians(-angle)) * magnitude
+        y_off = sin(radians(-angle)) * magnitude
+        loc2 = (loc1[0] + x_off, loc1[1] + y_off)
+        return cls(loc1, loc2, thickness, color)
+
     def render_raw(self, res: Tuple[int], frame: int) -> pygame.Surface:
         surface = pygame.Surface(res, pygame.SRCALPHA)
 
@@ -396,12 +413,12 @@ class Arrow(BaseElement):
             head_width: int = 50, head_length: int = 25, color: Tuple[int] = (255, 255, 255, 255)):
         """
         Initializes arrow from vector.
-        :param origin: The origin of the arrow.
-        :param angle: The direction the arrow is pointing to (degrees).
-        :param magnitude: The distance of the arrow.
-        :param stem_width: The width of the base of the arrow.
-        :param head_width: The width of the top of the arrow.
-        :param head_length: The length of the top of the arrow.
+        :param origin: The origin of arrow.
+        :param angle: The direction arrow is pointing to (degrees).
+        :param magnitude: The distance of arrow.
+        :param stem_width: The width of the base of arrow.
+        :param head_width: The width of the top of arrow.
+        :param head_length: The length of the top of arrow.
         :param color: Color (rgba, 0 to 255) of arrow. The ALPHA will be set to 255 if no alpha is given.
         """
         loc1 = origin
