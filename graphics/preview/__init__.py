@@ -97,7 +97,6 @@ def launch(resolution: Tuple[int], fps, scenes: Tuple[Scene], resizable: bool = 
 
             if resizable:
                 if event.type == pygame.VIDEORESIZE:
-                    resized = True
                     draw_frame()
                     last_width, last_height = width, height
                     width, height = event.size
