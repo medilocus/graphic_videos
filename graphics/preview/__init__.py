@@ -35,7 +35,7 @@ def draw_current(res, scenes, frame, image):
 def launch(resolution: Tuple[int], fps, scenes: Tuple[Scene], resizable: bool = True) -> None:
     clock = pygame.time.Clock()
     width, height = 1600, 900
-    last_width, last_height = 1280, 720
+    last_width, last_height = width, height
     flags = pygame.RESIZABLE if resizable else 0
     window = pygame.display.set_mode((width, height), flags)
     pygame.display.set_caption("Graphic Videos - Preview")
